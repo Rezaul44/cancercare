@@ -1,0 +1,30 @@
+Admin panel routes (base: http://127.0.0.1:8000, matching the dev server from your earlier error trace):
+
+Purpose	URL
+Login				http://127.0.0.1:8000/admin/login
+Dashboard (after login)		http://127.0.0.1:8000/admin
+Doctor applications — list	http://127.0.0.1:8000/admin/doctor-applications
+Doctor applications — view one	http://127.0.0.1:8000/admin/doctor-applications/{id}
+Logout	POST 			http://127.0.0.1:8000/admin/logout (triggered from the panel's UI, not a page you visit directly)
+
+Log in with :
+-----------------------
+super_admin@example.com / password 
+(or verification_officer@example.com / password) 
+
+from the seeder I ran earlier.
+
+How to find routes yourself going forward:
+
+
+php artisan route:list                    # every route in the app
+php artisan route:list --path=admin       # filter by URL prefix
+php artisan route:list --name=filament    # filter by route name
+php artisan route:list --path=doctor      # filter by keyword anywhere in the URL
+
+This reads directly from the app's actual route definitions (including Filament's auto-generated panel routes), so it's always accurate — more reliable than guessing from file names.
+
+
+2.2 ডাক্তারের আবেদন ফর্ম
+
+route: GET/POST /for-doctors

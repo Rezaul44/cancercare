@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(robocopy \"d:\\\\xampp-windows-x64-8.2.4-0\\\\htdocs\\\\cancercare_tmp\" \"d:\\\\xampp-windows-x64-8.2.4-0\\\\htdocs\\\\cancercare\" /E /MOVE /NFL /NDL /NJH)",
+      "Bash(php artisan *)",
+      "Bash(which mysql *)",
+      "Read(//d/xampp-windows-x64-8.2.4-0/mysql/bin/**)",
+      "Bash(\"D:\\\\xampp-windows-x64-8.2.4-0\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"SELECT VERSION\\(\\);\")",
+      "Bash(\"D:\\\\xampp-windows-x64-8.2.4-0\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"CREATE DATABASE IF NOT EXISTS cancercare_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; SHOW CREATE DATABASE cancercare_db;\")",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(node -e ' *)",
+      "Bash(composer dump-autoload *)",
+      "Bash(\"D:\\\\xampp-windows-x64-8.2.4-0\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"CREATE DATABASE IF NOT EXISTS cancercare_db_testing CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
+      "Bash(\"D:\\\\xampp-windows-x64-8.2.4-0\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME='cancercare_db_testing';\")",
+      "Bash(php -l tests/Feature/DoctorDomainTest.php)",
+      "Bash(php -l database/seeders/DoctorDemoSeeder.php)",
+      "Bash(awk '{ if \\(length\\($0\\) > 2000\\) print NR\": [long line, len=\"length\\($0\\)\"]\" }' onboarding.html)"
+    ]
+  }
+}

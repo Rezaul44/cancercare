@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --pink-800: #A80B4C;
+    --pink-700: #C90154;
+    --pink-600: #DE0159;
+    --pink-500: #F20162;
+    --pink-200: #FFC2D8;
+    --pink-100: #FFE1EC;
+    --pink-50: #FFF4F8;
+    --slate-900: #141719;
+    --slate-700: #333B41;
+    --slate-500: #5A656D;
+    --slate-300: #A8B1B7;
+    --teal-700: #0B6E5C;
+    --teal-500: #12A085;
+    --teal-100: #DCF2ED;
+    --teal-50: #F0FAF7;
+    --gold: #C98A1E;
+    --gold-soft: #FDF4E3;
+    --gold-line: #F0DFBC;
+    --blue-700: #1C5E9E;
+    --blue-100: #E3EEF9;
+    --purple-700: #5B4FB5;
+    --purple-100: #EFEEFC;
+    --red-700: #A32D2D;
+    --red-100: #FBE3E3;
+    --white: #FFFFFF;
+    --off: #FCFCFB;
+    --mist: #F7F7F5;
+    --line: #E8E8E4;
+    --line-soft: #F1F1EE;
+    --ink: #141719;
+    --ink-60: #5A656D;
+    --ink-40: #8E979D;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', 'Hind Siliguri', -apple-system, sans-serif;
+    color: #141719;
+    -webkit-font-smoothing: antialiased;
+}
+
+.bn {
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+}
+
+@layer utilities {
+    .font-bn {
+        font-family: theme('fontFamily.bn');
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}

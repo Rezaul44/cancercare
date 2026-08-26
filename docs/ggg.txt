@@ -1,0 +1,2 @@
+insert some dummy data for those migration tables
+"এই Phase-এর জন্য টেস্ট লেখো এবং চালাও।"

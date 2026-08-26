@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin
+Disallow: /admin/
+Disallow: /field
+Disallow: /field/
+Disallow: /ajax/
+Disallow: /private-document
+
+Sitemap: http://localhost:8000/sitemap.xml
