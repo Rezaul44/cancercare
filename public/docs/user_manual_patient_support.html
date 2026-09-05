@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্যবহারকারী নির্দেশিকা — রোগীর সহায়তা মডিউল | Cancer Care Bangladesh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --slate: #475569;
+            --muted: #64748B;
+            --mist: #F8FAFC;
+            --line: #E2E8F0;
+            --teal: #0D9488;
+            --rose: #E11D48;
+            --gold: #D97706;
+            --gold-bg: #FEF3C7;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--ink);
+            background-color: var(--mist);
+            line-height: 1.75;
+            padding-bottom: 60px;
+        }
+        .header-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .header-container {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-badge {
+            background: #0F172A;
+            color: #fff;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #0F172A;
+            color: #fff;
+            border-color: #0F172A;
+        }
+        .btn-primary:hover { background: #334155; }
+        .btn-secondary {
+            background: #fff;
+            color: var(--ink);
+        }
+        .btn-secondary:hover { background: var(--mist); border-color: #CBD5E1; }
+
+        .container {
+            max-width: 960px;
+            margin: 32px auto 0;
+            padding: 0 20px;
+        }
+        .doc-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 40px 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        h1, h2, h3, h4 { color: var(--ink); font-weight: 700; }
+        h1 { font-size: 28px; margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+        .meta-sub { color: var(--muted); font-size: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+        h2 { font-size: 21px; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+        h3 { font-size: 17px; margin: 20px 0 10px; }
+        p, li { font-size: 15px; color: var(--slate); margin-bottom: 12px; }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+        
+        .alert {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            border: 1px solid transparent;
+        }
+        .alert-danger { background: #FFF1F2; border-color: #FECDD3; color: #9F1239; }
+        .alert-warning { background: var(--gold-bg); border-color: #FDE68A; color: #92400E; }
+        .alert-info { background: #F0FDFA; border-color: #CCFBF1; color: #115E59; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            text-align: left;
+        }
+        th {
+            background: #F8FAFC;
+            font-weight: 600;
+            color: var(--ink);
+        }
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #F1F5F9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #0F172A;
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .header-bar { display: none; }
+            .doc-card { border: none; box-shadow: none; padding: 0; }
+            .container { max-width: 100%; margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <div class="header-container">
+            <div class="logo-title">
+                <span class="logo-badge">CCB DOCS</span>
+                <span style="font-weight: 600; font-size: 15px;">রোগীর সহায়তা মডিউল ব্যবহারকারী নির্দেশিকা</span>
+            </div>
+            <div class="btn-group">
+                <a href="USER_MANUAL_PATIENT_SUPPORT.md" download class="btn btn-secondary">
+                    <i class="ti ti-file-download"></i> Markdown ডাউনলোড
+                </a>
+                <button onclick="window.print()" class="btn btn-primary">
+                    <i class="ti ti-printer"></i> PDF / প্রিন্ট করুন
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="doc-card">
+            <h1>Cancer Care Bangladesh (CCB)</h1>
+            <div class="meta-sub">
+                <b>রোগীর সহায়তা মডিউল — পূর্ণাঙ্গ ব্যবহারকারী নির্দেশিকা (User Manual)</b> | সংস্করণ: Phase 5 (5.1 — 5.4)
+            </div>
+
+            <h2><i class="ti ti-shield-check"></i> ১. মডিউলের মূলনীতি ও কঠোর নিয়মাবলি</h2>
+            <div class="alert alert-danger">
+                <strong>⚠️ ১ নম্বর মূলনীতি: কোনো অর্থ সংগ্রহ নয় (Zero Donation Holding)</strong><br>
+                CCB কোনো ফান্ডরাইজিং বা ক্রাউডফান্ডিং প্ল্যাটফর্ম নয়। CCB কোনো অনুদান নিজের ব্যাংক/বিকাশ অ্যাকাউন্টে জমা নেয় না বা অর্থ বিতরণ করে না। প্ল্যাটফর্মে কোনো <code>amount_raised</code>, <code>donation_count</code> বা <code>progress_percent</code> কখনো ব্যবহৃত বা প্রদর্শিত হবে না।
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>🛡️ শিশু সুরক্ষা নীতি (Child Protection Policy)</strong><br>
+                ১৮ বছরের কম বয়সী (<code>age < 18</code>) যেকোনো রোগীর ক্ষেত্রে সিস্টেমে ছবির ডিসপ্লে বাধ্যতামূলকভাবে নিষ্ক্রিয় (<code>show_photo = false</code>) থাকবে। পাবলিক পেজে ছবির বদলে নামের আদ্যক্ষরের অবতার (Avatar) প্রদর্শিত হবে।
+            </div>
+
+            <h2><i class="ti ti-user-cog"></i> ২. অ্যাডমিন ও স্টাফ ওয়ার্কফ্লো</h2>
+            
+            <h3>২.১ নতুন রোগীর কেস তৈরি</h3>
+            <ol>
+                <li>অ্যাডমিন প্যানেলে লগইন করে বাম মেনু থেকে <b>"রোগীর কেস" (Patient Cases)</b>-এ যান।</li>
+                <li>উপরে ডানে <b>"নতুন কেস তৈরি" (Create)</b> বাটনে ক্লিক করুন।</li>
+                <li>ফর্মটিতে ৬টি ট্যাবে তথ্য পূরণ করুন: রোগীর তথ্য, লিখিত সম্মতিপত্র, ৪ ধাপের যাচাই, প্রাপকের একাউন্ট, খরচের হিসাব এবং পাবলিক নথি।</li>
+                <li>সংরক্ষণ করলে স্বয়ংক্রিয়ভাবে <code>CCB-২০২৬-০০০১</code> ফরম্যাটে ইউনিক কেস কোড তৈরি হবে।</li>
+            </ol>
+
+            <h3>২.২ ৪-ধাপের যাচাই ওয়ার্কফ্লো</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ধাপের নাম</th>
+                        <th>কী যাচাই করা হয়?</th>
+                        <th>দায়িত্বপ্রাপ্ত স্টাফ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>১. হাসপাতালের কাগজপত্র (<code>documents</code>)</b></td>
+                        <td>বায়োপসি রিপোর্ট, হিস্টোপ্যাথলজি, প্রেসক্রিপশন ও বিলের মূল কপি।</td>
+                        <td>ভেরিফিকেশন টিম</td>
+                    </tr>
+                    <tr>
+                        <td><b>২. চিকিৎসক নিশ্চিতকরণ (<code>hospital_confirm</code>)</b></td>
+                        <td>চিকিৎসকের সিল ও স্বাক্ষর, চিকিৎসা পরিকল্পনা ও প্রাক্কলন সত্যতা।</td>
+                        <td>ভেরিফিকেশন টিম</td>
+                    </tr>
+                    <tr>
+                        <td><b>৩. পরিচয় যাচাই (<code>identity</code>)</b></td>
+                        <td>জাতীয় পরিচয়পত্র (NID) এবং বিকাশ/ব্যাংক হিসাবের নামের মিল।</td>
+                        <td>সাপোর্ট এজেন্ট</td>
+                    </tr>
+                    <tr>
+                        <td><b>৪. সরাসরি সাক্ষাৎ ও সম্মতি (<code>field_meeting</code>)</b></td>
+                        <td>হাসপাতালে বা বাসায় পরিবারের সাথে সরাসরি দেখা এবং সম্মতিপত্রে স্বাক্ষর।</td>
+                        <td>ফিল্ড এজেন্ট</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>২.৩ কেস প্রকাশনা ও অনুমোদন (Publishing Case)</h3>
+            <p>কেস প্রকাশের শর্তাবলি:</p>
+            <ul>
+                <li>৪টি ধাপেই <code>status = 'done'</code> থাকতে হবে।</li>
+                <li><code>consent_form_path</code> আপলোড থাকতে হবে।</li>
+                <li>অন্তত ১টি মোবাইল ব্যাংকিং বা ব্যাংক অ্যাকাউন্টে <code>name_verified = true</code> থাকতে হবে।</li>
+                <li>শুধুমাত্র সুপার অ্যাডমিন বা অথরাইজড পারমিশনপ্রাপ্ত স্টাফ <b>"প্রকাশ করুন" (Publish)</b> বাটনে ক্লিক করে অনুমোদন দিতে পারবেন। প্রকাশের পর কেসটি পরবর্তী ৩০ দিনের জন্য সক্রিয় থাকবে।</li>
+            </ul>
+
+            <h3>২.৪ মেয়াদ ব্যবস্থাপনা ও নবায়ন (Duration Renewal Action)</h3>
+            <ul>
+                <li><b>"আর কত দিন" কলাম:</b> প্রতিটি কেসের অবশিষ্ট সময় দেখায়। মেয়াদ ৫ দিন বা কম হলে লাল রঙের সতর্কতা (<code>danger</code>) দেখায়।</li>
+                <li><b>"মেয়াদ বাড়াও" অ্যাকশন:</b> কেসের ৩০ দিন পার হওয়ার আগে বা পরে নতুন চিকিৎসার অগ্রগতি বা নোট যুক্ত করলে কেসের মেয়াদ আরও <b>৩০ দিন বৃদ্ধি</b> পায় এবং মেয়াদোত্তীর্ণ কেস পুনরায় সক্রিয় হয়।</li>
+            </ul>
+
+            <h2><i class="ti ti-world"></i> ৩. পাবলিক পোর্টাল ব্যবহার নির্দেশিকা</h2>
+            
+            <h3>৩.১ রোগীদের তালিকা ও ফিল্টারিং (<code>/patients</code>)</h3>
+            <ul>
+                <li><b>CCB-র ভূমিকা ব্যানার:</b> CCB যা করে এবং যা করে না তার পরিষ্কার ২ কলামের তুলনা।</li>
+                <li><b>প্রতারণা সতর্কতা:</b> CCB কখনো নিজের অ্যাকাউন্টে অনুদান চায় না।</li>
+                <li><b>সর্টিং বাটন:</b> সাম্প্রতিক যাচাই, সবচেয়ে জরুরি, প্রয়োজন বেশি ও প্রয়োজন কম।</li>
+            </ul>
+
+            <h3>৩.২ রোগীর বিস্তারিত প্রোফাইল ও পেবক্স (<code>/patients/{case_code}</code>)</h3>
+            <ul>
+                <li><b>রোগীর গল্প ও টাইমলাইন:</b> ৪টি যাচাই ধাপের তারিখসহ সম্পূর্ণ ইতিহাস।</li>
+                <li><b>আইটেমভিত্তিক খরচের হিসাব:</b> হাসপাতালের প্রাক্কলন তালিকা।</li>
+                <li><b>সরাসরি সাহায্য পাঠান (Sticky Paybox):</b> রোগীর নিজস্ব বিকাশ, নগদ ও ব্যাংক অ্যাকাউন্টের বিবরণ এবং ১-ক্লিক নম্বর কপি বাটন।</li>
+                <li><b>হেল্পলাইনে জানানোর বাটন:</b> অনুদান পাঠানোর পর হেল্পলাইনে (০৯৬১১-৭৭৭৮৮৮) জানানোর সুবিধা।</li>
+            </ul>
+
+            <h3>৩.৩ সহায়তার আবেদন নির্দেশিকা (<code>/apply-for-support</code>)</h3>
+            <ul>
+                <li>এটি কোনো সাধারণ আবেদন ফর্ম নয়।</li>
+                <li>আবেদনের যোগ্যতা (৬টি চেকলিস্ট), প্রয়োজনীয় কাগজপত্র এবং ৫-ধাপের প্রক্রিয়া বিস্তারিত তুলে ধরা হয়েছে।</li>
+            </ul>
+
+            <h2><i class="ti ti-clock"></i> ৪. স্বয়ংক্রিয় ব্যাকগ্রাউন্ড জব ও শিডিউলার</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ক্রন জব (Job Name)</th>
+                        <th>সময় (Daily)</th>
+                        <th>দায়িত্ব</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ExpirePatientCases</code></td>
+                        <td>রাত ০১:০০ টা</td>
+                        <td>মেয়াদ অতিক্রম করা কেসগুলোকে স্বয়ংক্রিয়ভাবে 'expired' করে দেয়।</td>
+                    </tr>
+                    <tr>
+                        <td><code>NotifyCaseExpiring</code></td>
+                        <td>সকাল ০৯:০০ টা</td>
+                        <td>মেয়াদ ৫ দিন বা কম বাকি থাকা কেসগুলোর জন্য স্টাফদের Filament নোটিফিকেশন পাঠায়।</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2><i class="ti ti-lock"></i> ৫. নিরাপত্তা ও প্রতারণা প্রতিরোধ চেকলিস্ট</h2>
+            <ul>
+                <li><b>অনুদানকারী:</b> শুধুমাত্র রোগীর বিস্তারিত পেজে থাকা ভেরিফায়েড নম্বরে সরাসরি সাহায্য পাঠান।</li>
+                <li><b>স্টাফ:</b> NID এবং একাউন্টের নাম হুবহু না মিললে অনুমোদন দেবেন না। ১৮ বছরের নিচের রোগীর ছবি কোনো অবস্থাতেই পাবলিক করবেন না।</li>
+            </ul>
+
+            <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px;">
+                Cancer Care Bangladesh — একটি স্বচ্ছ, নিরপেক্ষ ও অলাভজনক মানবিক উদ্যোগ।
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

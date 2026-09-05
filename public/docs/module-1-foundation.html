@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মডিউল ১: প্ল্যাটফর্ম ভিত্তি, স্টোরেজ ও নিরাপত্তা ওয়ার্কফ্লো | CCB Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --slate: #334155;
+            --muted: #64748B;
+            --mist: #F8FAFC;
+            --off: #F1F5F9;
+            --line: #E2E8F0;
+            --teal: #0D9488;
+            --teal-soft: #F0FDFA;
+            --rose: #E11D48;
+            --rose-soft: #FFF1F2;
+            --gold: #D97706;
+            --gold-soft: #FEF3C7;
+            --sidebar-width: 280px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--ink);
+            background-color: #fff;
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--line);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+        .brand-badge { background: #0F172A; color: #fff; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 6px; }
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - 64px);
+            position: fixed;
+            top: 64px; left: 0;
+            background: #FAFBFC;
+            border-right: 1px solid var(--line);
+            overflow-y: auto;
+            padding: 24px 16px;
+            z-index: 90;
+        }
+        .nav-group-title {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--muted); margin: 18px 0 8px 10px;
+        }
+        .nav-link {
+            display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+            border-radius: 8px; color: var(--slate); text-decoration: none;
+            font-size: 13.5px; font-weight: 500; margin-bottom: 2px; transition: all 0.15s;
+        }
+        .nav-link:hover { background: var(--line); color: var(--ink); }
+        .nav-link.active { background: #0F172A; color: #ffffff; font-weight: 600; }
+        .content-wrapper {
+            margin-left: var(--sidebar-width);
+            margin-top: 64px;
+            flex: 1;
+            padding: 40px 60px 80px;
+            max-width: 1060px;
+        }
+        .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .breadcrumb a { color: var(--teal); text-decoration: none; }
+        h1.main-title { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--ink); margin-bottom: 8px; }
+        .lead-text { font-size: 16px; color: var(--muted); margin-bottom: 30px; }
+        h2.section-heading { font-size: 22px; font-weight: 700; color: var(--ink); margin: 36px 0 16px; display: flex; align-items: center; gap: 8px; }
+        h3.sub-heading { font-size: 17px; font-weight: 600; color: var(--ink); margin: 24px 0 10px; }
+        p, li { font-size: 15px; color: var(--slate); margin-bottom: 12px; }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+        .step-box {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 24px;
+            margin: 20px 0;
+            background: #fff;
+            position: relative;
+        }
+        .step-number {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%;
+            background: #0F172A; color: #fff; font-weight: 700; font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .callout {
+            border-radius: 12px; padding: 16px 20px; margin: 18px 0;
+            font-size: 14.5px; border-left: 4px solid transparent; background: var(--mist);
+        }
+        .callout-info { background: var(--teal-soft); border-left-color: var(--teal); color: #115E59; }
+        .callout-danger { background: var(--rose-soft); border-left-color: var(--rose); color: #9F1239; }
+        .callout-warning { background: var(--gold-soft); border-left-color: var(--gold); color: #92400E; }
+        table {
+            width: 100%; border-collapse: collapse; margin: 20px 0;
+            font-size: 14px; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);
+        }
+        th, td { padding: 12px 16px; border: 1px solid var(--line); text-align: left; }
+        th { background: #F8FAFC; font-weight: 600; color: var(--ink); }
+        code {
+            font-family: 'JetBrains Mono', monospace; background: #F1F5F9;
+            padding: 2px 6px; border-radius: 5px; font-size: 13px; color: #0F172A; border: 1px solid #E2E8F0;
+        }
+        .nav-footer-buttons {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
+        }
+        .btn {
+            font-family: 'Hind Siliguri', sans-serif; font-size: 13.5px; font-weight: 600;
+            padding: 8px 18px; border-radius: 8px; border: 1px solid var(--line);
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; transition: all 0.2s;
+        }
+        .btn-primary { background: #0F172A; color: #fff; border-color: #0F172A; }
+        .btn-primary:hover { background: #334155; }
+        .btn-secondary { background: #fff; color: var(--slate); }
+        .btn-secondary:hover { background: var(--mist); border-color: #CBD5E1; }
+        @media print {
+            .top-nav, .sidebar, .nav-footer-buttons { display: none !important; }
+            .content-wrapper { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+        }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .content-wrapper { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <a href="index.html" class="brand">
+            <span class="brand-badge">CCB DOCS</span>
+            <span style="font-weight: 700; font-size: 15px;">Cancer Care Bangladesh — ডকুমেন্টেশন</span>
+        </a>
+        <div style="display: flex; gap: 10px;">
+            <a href="index.html" class="btn btn-secondary"><i class="ti ti-home"></i> হোম</a>
+            <button onclick="window.print()" class="btn btn-primary"><i class="ti ti-printer"></i> প্রিন্ট / PDF</button>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <div class="nav-group-title">মডিউল সূচিপত্র</div>
+        <a href="index.html" class="nav-link"><i class="ti ti-layout-grid"></i> মাস্টার ওভারভিউ</a>
+        <a href="module-1-foundation.html" class="nav-link active"><i class="ti ti-shield-lock"></i> মডিউল ১: প্ল্যাটফর্ম ভিত্তি ও RBAC</a>
+        <a href="module-2-doctors.html" class="nav-link"><i class="ti ti-stethoscope"></i> মডিউল ২: ডাক্তার ডিরেক্টরি ও ম্যাচিং</a>
+        <a href="module-3-hospitals.html" class="nav-link"><i class="ti ti-building-hospital"></i> মডিউল ৩: হাসপাতাল ও প্রস্তুতি সূচক</a>
+        <a href="module-4-guide-and-cost.html" class="nav-link"><i class="ti ti-calculator"></i> মডিউল ৪: গাইড ও খরচের হিসাব</a>
+        <a href="module-5-patient-support.html" class="nav-link"><i class="ti ti-heart-handshake"></i> মডিউল ৫: রোগীর সহায়তা ও মেয়াদ</a>
+
+        <div class="nav-group-title">অ্যাডমিন ও টেকনিক্যাল গাইড</div>
+        <a href="admin-and-developer-manual.html" class="nav-link"><i class="ti ti-terminal-2"></i> অ্যাডমিন ও ডেভেলপার ম্যানুয়াল</a>
+    </aside>
+
+    <main class="content-wrapper">
+        <div class="breadcrumb">
+            <a href="index.html">ডকুমেন্টেশন</a> <span>/</span> <span>মডিউল ১</span>
+        </div>
+
+        <h1 class="main-title">মডিউল ১: প্ল্যাটফর্ম ভিত্তি, ডুয়েল স্টোরেজ ও নিরাপত্তা ওয়ার্কফ্লো</h1>
+        <p class="lead-text">Cancer Care Bangladesh (CCB) প্ল্যাটফর্মের নিরাপত্তা ব্যবস্থা, ফাইল স্টোরেজ আর্কিটেকচার এবং ৯টি অ্যাডমিন রোলের পারমিশন ব্যবহারের সম্পূর্ণ গাইড।</p>
+
+        <h2 class="section-heading"><i class="ti ti-lock"></i> ১. নিরাপত্তা ও ডুয়েল স্টোরেজ ওয়ার্কফ্লো</h2>
+        <p>প্ল্যাটফর্মে রোগীর সংবেদনশীল তথ্য ও মেডিকেল রিপোর্টের সর্বোচ্চ গোপনীয়তা রক্ষার জন্য দুইটি পৃথক স্টোরেজ ডিস্ক ব্যবহৃত হয়:</p>
+
+        <div class="step-box">
+            <div class="step-number">১</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">পাবলিক স্টোরেজ ডিস্ক (<code>s3_public</code>)</h3>
+            <p><strong>কোন ফাইলগুলো থাকে:</strong> ডাক্তারদের প্রোফাইল ছবি, হাসপাতালের কভার ছবি, ক্যান্সার আইকন ইত্যাদি।</p>
+            <p><strong>ব্যবহারের নিয়ম:</strong> যেকোনো সাধারণ ব্যবহারকারী বা ব্রাউজার সরাসরি এই ফাইলের ইউআরএল দেখতে ও ডাউনলোড করতে পারে। কোনো গোপনীয়তার ঝুঁকি নেই।</p>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">২</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">প্রাইভেট ও সিকিউর স্টোরেজ ডিস্ক (<code>s3_private</code>)</h3>
+            <p><strong>কোন ফাইলগুলো থাকে:</strong> রোগীর জাতীয় পরিচয়পত্র (NID), ডাক্তারের BMDC রেজিস্ট্রেশন সনদ, রোগীর লিখিত সম্মতিপত্র (Consent Form), বায়োপসি ও টেস্ট রিপোর্ট।</p>
+            <p><strong>নিরাপত্তা নিয়ম:</strong> এই ফাইলের কোনো ডিরেক্ট পাবলিক লিঙ্ক নেই। শুধুমাত্র লগইনকৃত অনুমোদিত স্টাফরা সাময়িক মেয়াদের <code>Signed URL</code>-এর মাধ্যমে দেখতে পারেন।</p>
+        </div>
+
+        <h2 class="section-heading"><i class="ti ti-users"></i> ২. ৯টি প্রশাসনিক রোলের দায়িত্ব ও পারমিশন ওয়ার্কফ্লো</h2>
+        <p>সিস্টেমে বিভিন্ন পর্যায়ের কর্মীদের তাদের সুনির্দিষ্ট কাজের সীমানা অনুযায়ী এক্সেস দেওয়া হয়েছে:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>রোল (Role)</th>
+                    <th>অনুমোদিত দায়িত্বসমূহ</th>
+                    <th>যে কাজগুলো করতে পারবে না</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>super_admin</code></td>
+                    <td>প্ল্যাটফর্মের সম্পূর্ণ নিয়ন্ত্রণ, নতুন কর্মী নিয়োগ, সকল কেস ও ডাক্তার সরাসরি প্রকাশনা।</td>
+                    <td>কোনো বাধা নেই (সম্পূর্ণ অধিকার)।</td>
+                </tr>
+                <tr>
+                    <td><code>verification_officer</code></td>
+                    <td>ডাক্তারের BMDC ও রোগীর ৪টি যাচাই ধাপ (হাসপাতাল, ডাক্তার, এনআইডি, মাঠ সাক্ষাৎ) সম্পন্ন করা।</td>
+                    <td>সিস্টেম সেটিংস ও ডাটাবেজ ডিলিট করতে পারবে না।</td>
+                </tr>
+                <tr>
+                    <td><code>medical_reviewer</code></td>
+                    <td>ক্যান্সার গাইড ও চিকিৎসার তথ্যের ডাক্তারি যথার্থতা নিশ্চিত করা।</td>
+                    <td>রোগীর আর্থিক তথ্য পরিবর্তন করতে পারবে না।</td>
+                </tr>
+                <tr>
+                    <td><code>content_editor</code></td>
+                    <td>ক্যান্সার গাইড, প্রশ্নাবলি (FAQ) ও ব্লগ কন্টেন্ট এন্ট্রি করা।</td>
+                    <td>রোগীর ভেরিফিকেশন পরিবর্তন করতে পারবে না।</td>
+                </tr>
+                <tr>
+                    <td><code>hospital_manager</code></td>
+                    <td>হাসপাতালের সুযোগ-সুবিধা, বেড ও প্রযুক্তিগত তথ্য হালনাগাদ করা।</td>
+                    <td>রোগী প্রকাশনা অনুমোদন করতে পারবে না।</td>
+                </tr>
+                <tr>
+                    <td><code>support_agent</code></td>
+                    <td>হেল্পলাইনে আসা রোগীদের প্রাথমিক তথ্য ও একাউন্ট এন্ট্রি করা।</td>
+                    <td>কেস পাবলিশ করতে পারবে না (শুধুমাত্র ড্রাফট তৈরি)।</td>
+                </tr>
+                <tr>
+                    <td><code>field_agent</code></td>
+                    <td>রোগীর বাড়ি বা হাসপাতালে সরেজমিনে গিয়ে পরিবারের সাথে সরাসরি সাক্ষাৎ ও সম্মতিপত্র সংগ্রহ।</td>
+                    <td>কেস অনুমোদন বা প্রকাশ করতে পারবে না।</td>
+                </tr>
+                <tr>
+                    <td><code>finance</code></td>
+                    <td>খরচের হিসাবের অ্যালগরিদম ও পরিসংখ্যান পর্যবেক্ষণ।</td>
+                    <td>মেডিকেল কন্টেন্ট সম্পাদনা করতে পারবে না।</td>
+                </tr>
+                <tr>
+                    <td><code>doctor</code></td>
+                    <td>নিজস্ব চেম্বার শিডিউল, ফি ও অভিজ্ঞতা আপডেট।</td>
+                    <td>অন্য ডাক্তারের তথ্য পরিবর্তন করতে পারবে না।</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="nav-footer-buttons">
+            <a href="index.html" class="btn btn-secondary"><i class="ti ti-arrow-left"></i> মাস্টার হোম</a>
+            <a href="module-2-doctors.html" class="btn btn-primary">মডিউল ২: ডাক্তার ডিরেক্টরি <i class="ti ti-arrow-right"></i></a>
+        </div>
+    </main>
+
+</body>
+</html>

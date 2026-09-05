@@ -29,10 +29,10 @@
         </a>
 
         <div class="flex gap-0.5">
-            <a href="{{ route('doctors.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('doctors.index') || request()->routeIs('doctors.show') ? 'bg-mist text-ink font-semibold' : '' }}">ডাক্তার</a>
-            <a href="{{ route('doctors.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink">হাসপাতাল</a>
-            <a href="{{ route('doctors.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink">খরচের হিসাব</a>
-            <a href="{{ route('doctors.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink">রোগীদের সহায়তা</a>
+            <a href="{{ route('doctors.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('doctors.*') && !request()->routeIs('doctors.apply') ? 'bg-mist text-ink font-semibold' : '' }}">ডাক্তার</a>
+            <a href="{{ route('hospitals.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('hospitals.*') ? 'bg-mist text-ink font-semibold' : '' }}">হাসপাতাল</a>
+            <a href="{{ route('cost-estimator.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('cost-estimator.*') ? 'bg-mist text-ink font-semibold' : '' }}">খরচের হিসাব</a>
+            <a href="{{ route('patients.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('patients.*') ? 'bg-mist text-ink font-semibold' : '' }}">রোগীদের সহায়তা</a>
             <a href="{{ route('guides.index') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('guides.*') ? 'bg-mist text-ink font-semibold' : '' }}">ক্যান্সার গাইড</a>
             <a href="{{ route('doctors.apply') }}" class="font-bn text-sm text-slate-500 px-3.5 py-2.5 rounded-lg cursor-pointer font-medium hover:bg-mist hover:text-ink {{ request()->routeIs('doctors.apply') ? 'bg-mist text-ink font-semibold' : '' }}">ডাক্তারদের জন্য</a>
         </div>

@@ -48,6 +48,8 @@ class Chamber extends Model
         return $this->belongsTo(District::class);
     }
 
-    // hospital_id কলাম আছে (schema doc অনুযায়ী), কিন্তু hospitals টেবিল/Hospital মডেল এখনো
-    // নেই (ধারা ৫, ভবিষ্যতের কাজ) — তাই hospital() relation এখানে যোগ করা হলো না।
+    public function hospital(): BelongsTo
+    {
+        return $this->belongsTo(Hospital::class);
+    }
 }

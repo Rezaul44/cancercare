@@ -15,7 +15,24 @@
       "Bash(\"D:\\\\xampp-windows-x64-8.2.4-0\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME='cancercare_db_testing';\")",
       "Bash(php -l tests/Feature/DoctorDomainTest.php)",
       "Bash(php -l database/seeders/DoctorDemoSeeder.php)",
-      "Bash(awk '{ if \\(length\\($0\\) > 2000\\) print NR\": [long line, len=\"length\\($0\\)\"]\" }' onboarding.html)"
+      "Bash(awk '{ if \\(length\\($0\\) > 2000\\) print NR\": [long line, len=\"length\\($0\\)\"]\" }' onboarding.html)",
+      "Bash(php artisan tinker '--execute= *)",
+      "Read(//tmp/**)",
+      "Bash(pkill -f \"artisan serve\")",
+      "Bash(php -l app/Http/Controllers/SecondOpinionController.php)",
+      "Bash(APP_DEBUG=true php artisan tinker '--execute= *)",
+      "Bash(php -l tests/Feature/SecondOpinionAndDoctorPortalTest.php)",
+      "Bash(cd d:/xampp-windows-x64-8.2.4-0/htdocs/cancercare && git status --short | grep -v \"^ M docs/CLAUDE.md\" | wc -l *)",
+      "Bash(php -l app/Models/PatientCase.php)",
+      "Bash(php -l app/Http/Controllers/PatientCaseController.php)",
+      "Bash(php -l app/Services/SearchService.php)",
+      "Bash(php -l app/Models/SearchLog.php)",
+      "Bash(php -l app/Http/Controllers/SearchController.php)",
+      "Bash(php -l routes/web.php)",
+      "Bash(php -l resources/views/pages/search.blade.php)"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
     ]
   }
 }

@@ -66,4 +66,14 @@ class CancerType extends Model
     {
         return $this->hasOne(Guide::class);
     }
+
+    public function costBaseRates(): HasMany
+    {
+        return $this->hasMany(CostBaseRate::class);
+    }
+
+    public function patientCases(): HasMany
+    {
+        return $this->hasMany(PatientCase::class);
+    }
 }

@@ -11,6 +11,8 @@ use App\Models\DoctorTimeline;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 class DoctorApplicationService
@@ -119,7 +121,8 @@ class DoctorApplicationService
                 'current_position_bn' => $doctorData['current_position'],
                 'gender' => $doctorData['gender'],
                 'status' => DoctorStatus::PendingApproval,
-                'doctor_approved_at' => now(),
+                // doctor_approved_at ইচ্ছাকৃতভাবে null থাকে — এটা staff-এর BMDC যাচাই নয়,
+                // ডাক্তার নিজে পোর্টালে লগইন করে সম্মতি দিলে তবেই সেট হবে (docs/CLAUDE.md নীতি ৪)।
             ]);
 
             foreach ($application->timeline as $index => $step) {
@@ -172,8 +175,30 @@ class DoctorApplicationService
                 ->withProperties(['doctor_id' => $doctor->id])
                 ->log('doctor_application.approved');
 
+            $this->provisionDoctorAccount($doctor, $application);
+
             return $doctor;
         });
+    }
+
+    /**
+     * ডাক্তার পোর্টালে (/doctor/*) লগইনের জন্য User অ্যাকাউন্ট তৈরি/লিঙ্ক করে এবং
+     * পাসওয়ার্ড সেট করার জন্য একটি reset-link পাঠায় (MAIL_MAILER=log হলে dev-এ log-এ যায়)।
+     */
+    private function provisionDoctorAccount(Doctor $doctor, DoctorApplication $application): void
+    {
+        $user = User::firstOrCreate(
+            ['email' => $application->email],
+            ['name' => $application->full_name, 'password' => Hash::make(Str::password(40))]
+        );
+
+        if (! $user->hasRole('doctor')) {
+            $user->assignRole('doctor');
+        }
+
+        $doctor->update(['user_id' => $user->id]);
+
+        Password::sendResetLink(['email' => $user->email]);
     }
 
     public function reject(DoctorApplication $application, string $reason, User $reviewer): DoctorApplication

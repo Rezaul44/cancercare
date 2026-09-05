@@ -115,7 +115,7 @@
             </a>
 
             {{-- Hospital Comparison --}}
-            <a href="{{ route('doctors.index') }}" class="border border-line rounded-2xl p-6 bg-white flex flex-col transition hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(20,23,25,0.08)] hover:-translate-y-1 group text-left">
+            <a href="{{ route('hospitals.index') }}" class="border border-line rounded-2xl p-6 bg-white flex flex-col transition hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(20,23,25,0.08)] hover:-translate-y-1 group text-left">
                 <div class="w-[46px] h-[46px] rounded-[13px] bg-teal-100 text-teal-700 flex items-center justify-center mb-4">
                     <i class="ti ti-building-hospital text-2xl"></i>
                 </div>
@@ -130,7 +130,7 @@
             </a>
 
             {{-- Cost Estimator --}}
-            <a href="{{ route('guides.index') }}" class="border border-line rounded-2xl p-6 bg-white flex flex-col transition hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(20,23,25,0.08)] hover:-translate-y-1 group text-left">
+            <a href="{{ route('cost-estimator.index') }}" class="border border-line rounded-2xl p-6 bg-white flex flex-col transition hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(20,23,25,0.08)] hover:-translate-y-1 group text-left">
                 <div class="w-[46px] h-[46px] rounded-[13px] bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
                     <i class="ti ti-calculator text-2xl"></i>
                 </div>
@@ -145,7 +145,7 @@
             </a>
 
             {{-- Patient Support --}}
-            <a href="{{ route('doctors.index') }}" class="border border-line rounded-2xl p-6 bg-white flex flex-col transition hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(20,23,25,0.08)] hover:-translate-y-1 group text-left">
+            <a href="{{ route('patients.index') }}" class="border border-line rounded-2xl p-6 bg-white flex flex-col transition hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(20,23,25,0.08)] hover:-translate-y-1 group text-left">
                 <div class="w-[46px] h-[46px] rounded-[13px] bg-pink-100 text-pink-700 flex items-center justify-center mb-4">
                     <i class="ti ti-heart-handshake text-2xl"></i>
                 </div>
@@ -261,7 +261,7 @@
                     </div>
                 </div>
 
-                <a href="{{ route('doctors.index') }}" class="font-bn text-sm px-6 py-3 rounded-lg font-semibold bg-pink-600 text-white hover:bg-pink-700 transition self-start inline-flex items-center gap-2">
+                <a href="{{ route('patients.index') }}" class="font-bn text-sm px-6 py-3 rounded-lg font-semibold bg-pink-600 text-white hover:bg-pink-700 transition self-start inline-flex items-center gap-2">
                     <span>যাঁরা অপেক্ষা করছেন, দেখুন</span>
                 </a>
             </div>
@@ -378,7 +378,7 @@
             </div>
 
             <div class="ml-auto flex gap-3 shrink-0">
-                <a href="{{ route('doctors.index') }}" class="font-bn text-[14.5px] px-6 py-3.5 rounded-[10px] font-semibold bg-pink-600 text-white hover:bg-pink-700 transition shadow-sm inline-flex items-center gap-2">
+                <a href="{{ route('patients.apply') }}" class="font-bn text-[14.5px] px-6 py-3.5 rounded-[10px] font-semibold bg-pink-600 text-white hover:bg-pink-700 transition shadow-sm inline-flex items-center gap-2">
                     <span>কীভাবে আবেদন করবেন</span>
                 </a>
             </div>

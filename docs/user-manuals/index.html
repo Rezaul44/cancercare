@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCB সিস্টেম ম্যানুয়াল</title>
+<style>
+  :root {
+    --bg: #F7F7F5;
+    --surface: #FFFFFF;
+    --surface-2: #FBFBFA;
+    --ink: #141719;
+    --text-2: #5A656D;
+    --text-3: #8E979D;
+    --line: #E8E8E4;
+    --line-soft: #F1F1EE;
+    --accent: #DE0159;
+    --accent-soft: #FFE1EC;
+    --accent-ink: #A80B4C;
+    --positive: #0B6E5C;
+    --positive-soft: #DCF2ED;
+    --warn: #C98A1E;
+    --warn-soft: #FDF4E3;
+    --warn-line: #F0DFBC;
+    --code-bg: #F1F1EE;
+    --code-ink: #333B41;
+    --shadow: 0 1px 2px rgba(20,23,25,.04), 0 8px 24px rgba(20,23,25,.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181B;
+      --surface: #1D2023;
+      --surface-2: #202327;
+      --ink: #F2F1EE;
+      --text-2: #A8B1B7;
+      --text-3: #7C868C;
+      --line: #2C3034;
+      --line-soft: #26292D;
+      --accent: #FF4D8D;
+      --accent-soft: rgba(255,77,141,.14);
+      --accent-ink: #FFB6D2;
+      --positive: #2BC79E;
+      --positive-soft: rgba(43,199,158,.14);
+      --warn: #E3A63E;
+      --warn-soft: rgba(227,166,62,.14);
+      --warn-line: rgba(227,166,62,.3);
+      --code-bg: #232629;
+      --code-ink: #D8DCDE;
+      --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #16181B;
+    --surface: #1D2023;
+    --surface-2: #202327;
+    --ink: #F2F1EE;
+    --text-2: #A8B1B7;
+    --text-3: #7C868C;
+    --line: #2C3034;
+    --line-soft: #26292D;
+    --accent: #FF4D8D;
+    --accent-soft: rgba(255,77,141,.14);
+    --accent-ink: #FFB6D2;
+    --positive: #2BC79E;
+    --positive-soft: rgba(43,199,158,.14);
+    --warn: #E3A63E;
+    --warn-soft: rgba(227,166,62,.14);
+    --warn-line: rgba(227,166,62,.3);
+    --code-bg: #232629;
+    --code-ink: #D8DCDE;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', Georgia, serif;
+    text-wrap: balance;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  code, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; }
+  a { color: inherit; }
+  ::selection { background: var(--accent-soft); color: var(--accent-ink); }
+
+  /* ---------- App shell ---------- */
+  .app {
+    display: grid;
+    grid-template-columns: 292px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 22px 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 4px 10px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand-mark {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(155deg, var(--accent), var(--accent-ink));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-title { font-family: 'Fraunces', serif; font-size: 15.5px; font-weight: 600; line-height: 1.25; }
+  .brand-sub { font-size: 11px; color: var(--text-3); letter-spacing: .02em; }
+
+  .nav-group { display: flex; flex-direction: column; gap: 2px; }
+  .nav-group-label {
+    font-size: 10.5px; font-weight: 600; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: .1em;
+    padding: 0 10px 7px;
+  }
+  .nav-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8.5px 10px;
+    border-radius: 9px;
+    font-size: 13.5px;
+    color: var(--text-2);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .12s ease, color .12s ease;
+  }
+  .nav-link:hover { background: var(--line-soft); color: var(--ink); }
+  .nav-link.active { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+  .nav-ic {
+    width: 20px; height: 20px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: .85;
+  }
+  .nav-ic svg { width: 16px; height: 16px; }
+  .nav-link.active .nav-ic { opacity: 1; }
+
+  .sidebar-foot {
+    margin-top: auto;
+    padding: 12px 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 11.5px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  /* mobile nav toggle */
+  .nav-toggle {
+    display: none;
+    position: fixed; top: 14px; left: 14px; z-index: 40;
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+    align-items: center; justify-content: center;
+    color: var(--ink); cursor: pointer;
+  }
+  .scrim { display: none; }
+
+  /* ---------- Main content ---------- */
+  .main { min-width: 0; }
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 40px;
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 12.5px; color: var(--text-3);
+  }
+  .topbar b { color: var(--text-2); font-weight: 600; }
+
+  .content { max-width: 760px; margin: 0 auto; padding: 48px 40px 120px; }
+  .page { display: none; }
+  .page.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: .1em;
+    margin-bottom: 10px;
+  }
+  .page h1 { font-size: 32px; line-height: 1.2; margin-bottom: 10px; }
+  .page > .lede { font-size: 16px; color: var(--text-2); max-width: 62ch; margin-bottom: 8px; }
+
+  .page h2 {
+    font-size: 21px; margin: 46px 0 14px;
+    padding-top: 4px;
+  }
+  .page h2:first-of-type { margin-top: 34px; }
+  .page h3 { font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 700; margin: 26px 0 10px; color: var(--ink); }
+  .page p { margin: 0 0 14px; color: var(--ink); max-width: 66ch; }
+  .page p.muted { color: var(--text-2); }
+  .page ul, .page ol { margin: 0 0 16px; padding-left: 22px; max-width: 64ch; }
+  .page li { margin-bottom: 6px; }
+  .page strong { font-weight: 700; }
+
+  code {
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 2px 6px; border-radius: 5px; font-size: .89em;
+  }
+  pre {
+    background: var(--code-bg); color: var(--code-ink);
+    padding: 16px 18px; border-radius: 12px; overflow-x: auto;
+    font-size: 13px; line-height: 1.65; margin: 0 0 18px;
+    border: 1px solid var(--line);
+  }
+  pre code { background: none; padding: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 0 0 22px; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 480px; }
+  thead th {
+    text-align: left; font-family: 'Inter', sans-serif; font-weight: 600;
+    font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-3);
+    background: var(--surface-2); padding: 11px 16px; border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: top; color: var(--ink); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .callout {
+    display: flex; gap: 12px;
+    padding: 16px 18px; border-radius: 12px;
+    margin: 0 0 20px; font-size: 14px;
+    border: 1px solid var(--warn-line);
+    background: var(--warn-soft); color: var(--ink);
+  }
+  .callout.positive { border-color: color-mix(in srgb, var(--positive) 35%, var(--line)); background: var(--positive-soft); }
+  .callout-ic { flex-shrink: 0; width: 20px; height: 20px; color: var(--warn); margin-top: 1px; }
+  .callout.positive .callout-ic { color: var(--positive); }
+  .callout p { margin: 0; max-width: none; }
+  .callout p + p { margin-top: 8px; }
+
+  /* workflow step-flow */
+  .flow { display: flex; flex-direction: column; margin: 0 0 22px; }
+  .flow-step {
+    position: relative;
+    padding: 13px 18px 13px 46px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 13.8px;
+    margin-bottom: 6px;
+  }
+  .flow-step:last-child { margin-bottom: 0; }
+  .flow-step::before {
+    content: '';
+    position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .flow-step.sub {
+    margin-left: 18px; margin-top: -2px; margin-bottom: 8px;
+    background: transparent; border-style: dashed;
+    color: var(--text-2); font-size: 13px;
+  }
+  .flow-step.sub::before { background: var(--text-3); width: 6px; height: 6px; }
+  .flow-arrow {
+    align-self: center;
+    color: var(--text-3);
+    font-size: 15px;
+    margin: 2px 0;
+    line-height: 1;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    background: var(--line-soft); color: var(--text-2);
+  }
+  .badge.pink { background: var(--accent-soft); color: var(--accent-ink); }
+  .badge.teal { background: var(--positive-soft); color: var(--positive); }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 18px; }
+
+  .quick-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    margin: 22px 0 28px;
+  }
+  .quick-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px 18px; cursor: pointer; text-decoration: none; color: inherit;
+    transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+  }
+  .quick-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
+  .quick-card b { display: block; font-family: 'Fraunces', serif; font-size: 15.5px; font-weight: 600; margin-bottom: 4px; }
+  .quick-card span { font-size: 12.5px; color: var(--text-2); }
+
+  .module-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin: 8px 0 30px;
+  }
+  .module-tile {
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 14px 15px; border-radius: 12px;
+    background: var(--surface); border: 1px solid var(--line);
+    text-decoration: none; color: inherit; cursor: pointer;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .module-tile:hover { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); background: var(--surface-2); }
+  .module-tile .num { font-size: 11px; color: var(--text-3); font-weight: 700; }
+  .module-tile .name { font-size: 13.5px; font-weight: 600; }
+
+  .foot-nav {
+    display: flex; justify-content: space-between; gap: 16px;
+    margin-top: 54px; padding-top: 22px; border-top: 1px solid var(--line);
+  }
+  .foot-nav a {
+    text-decoration: none; font-size: 13px; color: var(--text-2);
+    display: flex; flex-direction: column; gap: 3px; max-width: 46%;
+  }
+  .foot-nav a:last-child { text-align: right; align-items: flex-end; }
+  .foot-nav .dir { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); }
+  .foot-nav a:hover .dir { color: var(--accent); }
+  .foot-nav .lbl { font-weight: 600; color: var(--ink); font-family: 'Fraunces', serif; font-size: 14.5px; }
+
+  @media (max-width: 880px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar {
+      position: fixed; inset: 0 30% 0 0; z-index: 50;
+      transform: translateX(-105%);
+      transition: transform .22s ease;
+      box-shadow: var(--shadow);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .nav-toggle { display: flex; }
+    .scrim.open {
+      display: block; position: fixed; inset: 0; z-index: 45;
+      background: rgba(20,23,25,.35);
+    }
+    .topbar { padding: 14px 20px 14px 62px; }
+    .content { padding: 40px 20px 100px; }
+    .quick-grid, .module-grid { grid-template-columns: 1fr 1fr; }
+    .page h1 { font-size: 26px; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+
+  <button class="nav-toggle" id="navToggle" aria-label="মেনু খুলুন">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="scrim" id="scrim"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <div class="brand-text">
+        <div class="brand-title">CCB ম্যানুয়াল</div>
+        <div class="brand-sub">CancerCare Bangladesh</div>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <div class="nav-group-label">শুরু করুন</div>
+      <a class="nav-link" data-page="home"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg></span>শুরুর পাতা</a>
+      <a class="nav-link" data-page="overview"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v5l3 2"/></svg></span>সিস্টেম পরিচিতি</a>
+      <a class="nav-link" data-page="roles"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><circle cx="17" cy="7" r="2.4"/><path d="M15 13.2c2.7.5 4.6 2.4 4.6 4.8"/></svg></span>রোল ও অনুমতি</a>
+    </nav>
+
+    <nav class="nav-group">
+      <div class="nav-group-label">মূল মডিউল</div>
+      <a class="nav-link" data-page="doctor"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2v4a3 3 0 0 0 6 0V2"/><path d="M6 9v3a6 6 0 0 0 12 0V9"/><circle cx="12" cy="20" r="2"/><path d="M12 18v-3"/></svg></span>ডাক্তার</a>
+      <a class="nav-link" data-page="hospital"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/><path d="M12 7v4M10 9h4"/></svg></span>হাসপাতাল</a>
+      <a class="nav-link" data-page="guide"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>ক্যান্সার গাইড</a>
+      <a class="nav-link" data-page="cost"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01"/></svg></span>খরচের হিসাব</a>
+      <a class="nav-link" data-page="patient"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 8.6c0 5.1-8.8 10.4-8.8 10.4S3.2 13.7 3.2 8.6a4.6 4.6 0 0 1 8.8-1.9 4.6 4.6 0 0 1 8.8 1.9Z"/></svg></span>রোগীর সহায়তা</a>
+      <a class="nav-link" data-page="second-opinion"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></span>দ্বিতীয় মতামত</a>
+      <a class="nav-link" data-page="rating"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6Z"/></svg></span>ডাক্তার রেটিং</a>
+      <a class="nav-link" data-page="helpline"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 8a4 4 0 0 1 4 4M15 4a8 8 0 0 1 8 8"/><path d="M4.6 4.6a1.5 1.5 0 0 1 2.1 0l2 2a1.5 1.5 0 0 1 0 2.1l-1 1a12 12 0 0 0 6.6 6.6l1-1a1.5 1.5 0 0 1 2.1 0l2 2a1.5 1.5 0 0 1 0 2.1l-1.4 1.4c-.6.6-1.5.8-2.3.6C9.3 19.7 4.3 14.7 2.7 8.3c-.2-.8 0-1.7.6-2.3Z"/></svg></span>হেল্পলাইন</a>
+      <a class="nav-link" data-page="search"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>সার্চ</a>
+    </nav>
+
+    <nav class="nav-group">
+      <div class="nav-group-label">রেফারেন্স</div>
+      <a class="nav-link" data-page="jobs"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>স্বয়ংক্রিয় কাজ</a>
+      <a class="nav-link" data-page="tech"><span class="nav-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg></span>টেকনিক্যাল</a>
+    </nav>
+
+    <div class="sidebar-foot">Phase ৮.১ পর্যন্ত হালনাগাদ — সার্চ মডিউল পর্যন্ত সব কভার করে।</div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar"><span id="crumb">শুরুর পাতা</span></div>
+    <div class="content" id="content">
+
+      <!-- HOME -->
+      <section class="page active" id="page-home">
+        <div class="eyebrow">CCB ইউজার ম্যানুয়াল</div>
+        <h1>পুরো সিস্টেম, এক জায়গায় বোঝা যাবে এভাবে</h1>
+        <p class="lede">CancerCare Bangladesh প্ল্যাটফর্মের প্রতিটি মডিউল কীভাবে কাজ করে, কনটেন্ট কোথা থেকে আসে, কে কী করবে, আর সিস্টেম নিজে থেকে কী করে — এই ম্যানুয়াল সবকিছুর জবাব দেয়।</p>
+
+        <h2>আপনি কে? সেই অনুযায়ী শুরু করুন</h2>
+        <div class="quick-grid">
+          <a class="quick-card" data-page="roles"><b>নতুন স্টাফ</b><span>অ্যাডমিন প্যানেলে প্রথমবার — রোল ও অনুমতি দিয়ে শুরু করুন</span></a>
+          <a class="quick-card" data-page="doctor"><b>ডাক্তার</b><span>নিজের পোর্টাল ও দ্বিতীয় মতামতের উত্তর দেওয়া বুঝতে</span></a>
+          <a class="quick-card" data-page="rating"><b>মাঠকর্মী</b><span>/field পোর্টালে রেটিং সংগ্রহের ফর্ম বুঝতে</span></a>
+          <a class="quick-card" data-page="tech"><b>ডেভেলপার / DevOps</b><span>সেটআপ, ডিপ্লয়মেন্ট, ট্রাবলশুটিং</span></a>
+        </div>
+
+        <h2>সবগুলো মডিউল</h2>
+        <div class="module-grid">
+          <a class="module-tile" data-page="doctor"><span class="num">০১</span><span class="name">ডাক্তার</span></a>
+          <a class="module-tile" data-page="hospital"><span class="num">০২</span><span class="name">হাসপাতাল</span></a>
+          <a class="module-tile" data-page="guide"><span class="num">০৩</span><span class="name">ক্যান্সার গাইড</span></a>
+          <a class="module-tile" data-page="cost"><span class="num">০৪</span><span class="name">খরচের হিসাব</span></a>
+          <a class="module-tile" data-page="patient"><span class="num">০৫</span><span class="name">রোগীর সহায়তা</span></a>
+          <a class="module-tile" data-page="second-opinion"><span class="num">০৬</span><span class="name">দ্বিতীয় মতামত</span></a>
+          <a class="module-tile" data-page="rating"><span class="num">০৭</span><span class="name">ডাক্তার রেটিং</span></a>
+          <a class="module-tile" data-page="helpline"><span class="num">০৮</span><span class="name">হেল্পলাইন</span></a>
+          <a class="module-tile" data-page="search"><span class="num">০৯</span><span class="name">সার্চ</span></a>
+        </div>
+
+        <div class="callout">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          <p>এই ম্যানুয়াল প্রথম থেকে শেষ পর্যন্ত একবারে পড়ার জন্য নয় — বাম পাশের মেনু থেকে যেটা দরকার সেটাতে সরাসরি চলে যান।</p>
+        </div>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section class="page" id="page-overview">
+        <div class="eyebrow">০১ · পরিচিতি</div>
+        <h1>সিস্টেম পরিচিতি ও আর্কিটেকচার</h1>
+        <p class="lede">CCB আসলে কী, আর এর ৪টা অংশ কীভাবে একসাথে কাজ করে।</p>
+
+        <h2>CCB আসলে কী</h2>
+        <p>বাংলাদেশে ক্যান্সার চিকিৎসার তথ্যকে স্বচ্ছ ও দালালমুক্ত করার একটা অলাভজনক প্ল্যাটফর্ম। এটি রোগী ও পরিবারকে চারটি প্রশ্নের উত্তর দেয়: কোন ডাক্তার দেখাব? কোথায় চিকিৎসা হয়? কত খরচ লাগবে? টাকা না থাকলে কী করব? — এবং সাথে দুটো বাড়তি সেবা: টাকা দিয়ে বিশেষজ্ঞের <strong>দ্বিতীয় মতামত</strong> নেওয়া, আর ফোনে <strong>হেল্পলাইনে</strong> সরাসরি কথা বলা।</p>
+
+        <h2>সিস্টেমের ৪টা অংশ</h2>
+        <p>একটাই Laravel অ্যাপ্লিকেশন, কিন্তু ব্যবহারকারীর ধরন অনুযায়ী ৪টা আলাদা প্রবেশপথ — প্রতিটির নিজস্ব লগইন:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>অংশ</th><th>URL</th><th>কারা ব্যবহার করে</th><th>লগইন লাগে?</th></tr></thead>
+            <tbody>
+              <tr><td>পাবলিক সাইট</td><td><code>/</code></td><td>সবাই — রোগী, পরিবার, দর্শক</td><td>না</td></tr>
+              <tr><td>অ্যাডমিন প্যানেল</td><td><code>/admin</code></td><td>CCB-র ৮ ধরনের স্টাফ</td><td>হ্যাঁ</td></tr>
+              <tr><td>ডাক্তার পোর্টাল</td><td><code>/doctor</code></td><td>তালিকাভুক্ত ডাক্তাররা নিজে</td><td>হ্যাঁ (আলাদা)</td></tr>
+              <tr><td>মাঠকর্মী পোর্টাল</td><td><code>/field</code></td><td>field_agent রোলের স্টাফ</td><td>হ্যাঁ (আলাদা)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          <p>তিনটেই একই ইউজার-পাসওয়ার্ড সিস্টেম ব্যবহার করে, কিন্তু একটার ইউজার আরেকটাতে ঢুকতে পারে না — একজন ডাক্তার <code>/admin</code>-এ ঢুকতে পারবেন না, এমনকি লগইন করা থাকলেও।</p>
+        </div>
+
+        <h2>কনটেন্ট কোথা থেকে আসে — সংক্ষেপে</h2>
+        <div class="flow">
+          <div class="flow-step">CCB স্টাফ নিজে লেখে — যেমন ক্যান্সার গাইড, হাসপাতালের তথ্য, খরচের রেট। সরাসরি অ্যাডমিন প্যানেলে টাইপ করা হয়।</div>
+          <div class="flow-step">বাইরের মানুষ জমা দেয়, স্টাফ যাচাই করে — যেমন ডাক্তারের আবেদন, রোগীর কেস, দ্বিতীয় মতামতের অনুরোধ। প্রথমে খসড়া/pending অবস্থায় থাকে, যাচাই শেষে publish হয়।</div>
+          <div class="flow-step">সিস্টেম নিজে হিসাব করে — যেমন ডাক্তার র‍্যাঙ্কিং, রেটিং-এর গড়, খরচের হিসাব। কেউ হাতে লেখে না।</div>
+        </div>
+        <p><strong>নীতি:</strong> যাচাই ছাড়া কিছুই পাবলিশ হয় না। প্রতিটি মডিউলের নিজস্ব যাচাই-ধাপ আছে।</p>
+
+        <h2>অ্যাডমিন প্যানেলে প্রথমবার ঢোকা</h2>
+        <p>URL: <code>/admin</code>। সুপার অ্যাডমিনের ইমেইল/পাসওয়ার্ড <code>.env</code> ফাইলে সেট থাকে। বাকি স্টাফদের অ্যাকাউন্ট এখনো অ্যাডমিন প্যানেল থেকে সরাসরি তৈরি করার পাতা নেই — সুপার অ্যাডমিনকে ডেভেলপারের সাহায্যে নতুন স্টাফ তৈরি করতে হয় (দেখুন <a data-page="roles">রোল ও অনুমতি</a>)।</p>
+
+        <h2>অ্যাডমিন প্যানেলের মেনু যেভাবে সাজানো</h2>
+        <ul>
+          <li><strong>কোনো গ্রুপ ছাড়া, উপরের দিকে</strong> — ডাক্তার আবেদন, ডাক্তার রেটিং, হেল্পলাইন</li>
+          <li><strong>হাসপাতাল ও খরচ</strong> — হাসপাতাল তালিকা, চিকিৎসা ভিত্তি হার, খরচ গুণক, আনুষঙ্গিক খরচ হার, ধাপভিত্তিক খরচ টেমপ্লেট</li>
+          <li><strong>কন্টেন্ট ও চিকিৎসা গাইড</strong> — ক্যান্সার গাইড</li>
+          <li><strong>রোগীর সহায়তা ও অনুদান</strong> — রোগী কেস যাচাই</li>
+        </ul>
+        <p class="muted">লগইন করলে শুধু আপনার রোলের অনুমতি-থাকা রিসোর্সগুলোই সাইডবারে দেখা যাবে — বাকিগুলো সম্পূর্ণ অদৃশ্য।</p>
+
+        <div class="foot-nav">
+          <span></span>
+          <a data-page="roles"><span class="dir">পরবর্তী</span><span class="lbl">রোল ও অনুমতি →</span></a>
+        </div>
+      </section>
+
+      <!-- ROLES -->
+      <section class="page" id="page-roles">
+        <div class="eyebrow">০২ · রেফারেন্স</div>
+        <h1>ব্যবহারকারীর রোল ও অনুমতি</h1>
+        <p class="lede">৯টা স্টাফ রোল, প্লাস ডাক্তার ও সাধারণ দর্শক। এই তালিকা কোডে <code>RolePermissionSeeder.php</code>-এ লেখা — একমাত্র জায়গা যেখান থেকে অনুমতি বদলাতে হবে।</p>
+
+        <h2>এক নজরে — কে কী করে</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>রোল</th><th>মূল কাজ</th><th>মডিউল</th></tr></thead>
+            <tbody>
+              <tr><td>super_admin</td><td>সব কিছুর সম্পূর্ণ অ্যাক্সেস</td><td>সবগুলো</td></tr>
+              <tr><td>verification_officer</td><td>ডাক্তার আবেদন, রোগীর কেস, রেটিং — সব যাচাই ও প্রকাশ</td><td>ডাক্তার, রোগীর সহায়তা, রেটিং</td></tr>
+              <tr><td>content_editor</td><td>ক্যান্সার গাইড লেখা ও সম্পাদনা</td><td>গাইড</td></tr>
+              <tr><td>medical_reviewer</td><td>গাইডের চিকিৎসা-তথ্য অনুমোদন</td><td>গাইড, খরচ (শুধু দেখা)</td></tr>
+              <tr><td>hospital_manager</td><td>হাসপাতালের তথ্য হালনাগাদ</td><td>হাসপাতাল</td></tr>
+              <tr><td>support_agent</td><td>হেল্পলাইন কল লগ, নতুন রোগীর কেস তৈরি</td><td>হেল্পলাইন, রোগীর সহায়তা</td></tr>
+              <tr><td>field_agent</td><td>মাঠে গিয়ে রেটিং সংগ্রহ, রোগীর কেসের তথ্য জমা</td><td>রেটিং (নিজস্ব /field পোর্টাল)</td></tr>
+              <tr><td>finance</td><td>পেমেন্ট ও দ্বিতীয় মতামতের হিসাব দেখা</td><td>দ্বিতীয় মতামত/পেমেন্ট</td></tr>
+              <tr><td>doctor</td><td>নিজের ফি/সময়সূচি, দ্বিতীয় মতামতের উত্তর</td><td>নিজস্ব /doctor পোর্টাল</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>বিস্তারিত অনুমতির তালিকা</h2>
+        <p class="muted"><code>super_admin</code> সব ২৭টা অনুমতিই পায় — নিচে আলাদাভাবে দেখানো হয়নি।</p>
+
+        <h3>verification_officer</h3>
+        <div class="pill-row">
+          <span class="badge">doctor_applications.view</span><span class="badge">doctor_applications.manage</span><span class="badge">doctors.view</span><span class="badge">doctors.manage</span><span class="badge">doctors.publish</span><span class="badge">ratings.view</span><span class="badge">ratings.verify</span><span class="badge">hospitals.view</span><span class="badge">cases.view</span><span class="badge">cases.manage</span><span class="badge">cases.verify</span><span class="badge">cases.publish</span><span class="badge">second_opinions.view</span><span class="badge">helpline.view</span><span class="badge">activity_logs.view_own</span>
+        </div>
+
+        <h3>content_editor</h3>
+        <div class="pill-row"><span class="badge">doctors.view</span><span class="badge">guides.view</span><span class="badge">guides.manage</span><span class="badge">cost_rates.view</span></div>
+
+        <h3>medical_reviewer</h3>
+        <div class="pill-row"><span class="badge">guides.view</span><span class="badge">guides.medical_approve</span><span class="badge">cost_rates.view</span></div>
+
+        <h3>field_agent</h3>
+        <div class="pill-row"><span class="badge">doctors.view</span><span class="badge">ratings.collect</span><span class="badge">hospitals.view</span><span class="badge">cases.view</span><span class="badge">cases.create</span><span class="badge">helpline.view</span></div>
+
+        <h3>hospital_manager</h3>
+        <div class="pill-row"><span class="badge">hospitals.view</span><span class="badge">hospitals.manage</span></div>
+
+        <h3>support_agent</h3>
+        <div class="pill-row"><span class="badge">doctor_applications.view</span><span class="badge">doctors.view</span><span class="badge">hospitals.view</span><span class="badge">guides.view</span><span class="badge">cases.view</span><span class="badge">cases.create</span><span class="badge">second_opinions.view</span><span class="badge">helpline.view</span><span class="badge">helpline.manage</span></div>
+
+        <h3>finance</h3>
+        <div class="pill-row"><span class="badge">second_opinions.view</span><span class="badge">payments.manage</span><span class="badge">activity_logs.view_own</span></div>
+
+        <h3>doctor</h3>
+        <div class="pill-row"><span class="badge pink">doctors.view_own</span><span class="badge pink">doctors.approve_own</span><span class="badge pink">second_opinions.respond_own</span><span class="badge pink">payments.view_own</span></div>
+        <p class="muted">এই রোলটাই ডাক্তারদের <code>/doctor</code> পোর্টালে ঢোকার অনুমতি দেয় — Filament <code>/admin</code>-এ না।</p>
+
+        <h2>⚠️ যা কোনো রোলকে দেওয়া হয়নি</h2>
+        <div class="callout">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          <div>
+            <p><strong>guides.publish</strong> — কোনো রোল নেই, তাই গাইড শুধু super_admin প্রকাশ করতে পারেন।</p>
+            <p><strong>cost_rates.manage</strong> — কোনো রোল নেই, তাই খরচের হার শুধু super_admin বদলাতে পারেন (finance-এরও এই অনুমতি নেই)।</p>
+            <p><strong>settings.manage, users.manage, activity_logs.view</strong>, এবং সরাসরি <strong>doctors.manage</strong> (verification_officer ছাড়া) — এগুলোও কোনো নির্দিষ্ট রোলে বরাদ্দ নেই, শুধু super_admin-এর কাছে।</p>
+            <p>এগুলো ইচ্ছাকৃত ডিজাইন — সবচেয়ে ঝুঁকিপূর্ণ কাজগুলোয় নির্দিষ্টভাবে super_admin-এর অনুমোদন লাগে।</p>
+          </div>
+        </div>
+
+        <h2>নতুন স্টাফের অ্যাকাউন্ট কীভাবে খুলবেন</h2>
+        <p>অ্যাডমিন প্যানেলে এখনো "ইউজার তৈরি করুন" পাতা নেই। ডেভেলপারকে বলুন:</p>
+        <pre><code>php artisan tinker
+&gt;&gt;&gt; $user = App\Models\User::create(['name' =&gt; 'নাম', 'email' =&gt; 'email@example.com', 'password' =&gt; bcrypt('পাসওয়ার্ড')]);
+&gt;&gt;&gt; $user-&gt;assignRole('verification_officer'); // যে রোল দরকার</code></pre>
+
+        <p>ডাক্তারের <code>/doctor</code> পোর্টালের লগইন <strong>স্বয়ংক্রিয়ভাবে</strong> তৈরি হয় — বিস্তারিত <a data-page="doctor">ডাক্তার মডিউলে</a>।</p>
+
+        <div class="foot-nav">
+          <a data-page="overview"><span class="dir">পূর্ববর্তী</span><span class="lbl">← সিস্টেম পরিচিতি</span></a>
+          <a data-page="doctor"><span class="dir">পরবর্তী</span><span class="lbl">ডাক্তার মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- DOCTOR -->
+      <section class="page" id="page-doctor">
+        <div class="eyebrow">মডিউল ০১</div>
+        <h1>ডাক্তার মডিউল</h1>
+        <p class="lede">CCB-তে ডাক্তার তালিকাভুক্ত হওয়ার একমাত্র পথ হলো নিজে আবেদন করা এবং CCB-র যাচাই পার হওয়া। কোনো ডাক্তার টাকা দিয়ে তালিকায় উপরে উঠতে পারেন না — এটা প্ল্যাটফর্মের সবচেয়ে কড়া নীতি।</p>
+
+        <h2>পুরো ওয়ার্কফ্লো</h2>
+        <div class="flow">
+          <div class="flow-step">ডাক্তার আবেদন করেন — <code>/for-doctors</code></div>
+          <div class="flow-step">verification_officer BMDC ও ডিগ্রি যাচাই করেন — বাটন: "যাচাই সম্পন্ন"</div>
+          <div class="flow-step">verification_officer অনুমোদন দেন — বাটন: "অনুমোদন" → Doctor প্রোফাইল তৈরি হয় (pending_approval)</div>
+          <div class="flow-step sub">স্বয়ংক্রিয়ভাবে একটা লগইন অ্যাকাউন্ট তৈরি হয়, পাসওয়ার্ড-সেট করার ইমেইল যায়</div>
+          <div class="flow-step">ডাক্তার নিজে /doctor পোর্টালে ঢুকে প্রোফাইলে "সম্মতি" দেন (doctor_approved_at সেট হয়)</div>
+          <div class="flow-step sub">এর মধ্যে CCB স্টাফ ফোনে কথা বলে বাকি প্রোফাইল (সেবা, দর্শন, ভিডিও) সাজিয়ে দেন</div>
+          <div class="flow-step">status = published হলে ডাক্তার পাবলিক ডিরেক্টরিতে (/doctors) দেখা যান</div>
+        </div>
+
+        <h2>ধাপ ১ — আবেদন জমা (পাবলিক)</h2>
+        <p><strong>URL:</strong> <code>/for-doctors</code> — ৪ ধাপের ফর্ম: পরিচয় ও যোগাযোগ → যোগ্যতা ও পেশাগত জীবন → বিশেষত্ব ও চেম্বার → ঘোষণা ও সম্মতি। আপলোড হওয়া ছবি ও সনদ <strong>প্রাইভেট ডিস্কে</strong> সংরক্ষিত হয় — সরাসরি লিংক দিয়ে কেউ দেখতে পারবে না। জমা হলে status = <code>submitted</code> হয়ে ধন্যবাদ পাতা দেখায়।</p>
+
+        <h2>ধাপ ২ — যাচাই ও অনুমোদন (অ্যাডমিন প্যানেল)</h2>
+        <p><strong>কে করবে:</strong> <span class="badge pink">super_admin</span> <span class="badge pink">verification_officer</span> — এই দুই রোল ছাড়া কেউ মেনুই দেখবে না।</p>
+        <p><strong>কোথায়:</strong> সাইডবার → (কোনো গ্রুপ ছাড়া) <strong>"ডাক্তার আবেদন"</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>বাটন</th><th>কী করে</th></tr></thead>
+            <tbody>
+              <tr><td>"যাচাই সম্পন্ন"</td><td>চেকলিস্ট: BMDC নম্বর যাচাই, ডিগ্রি সনদ যাচাই + ঐচ্ছিক নোট। ⚠️ এটা কোনো সরকারি BMDC ডাটাবেজের সাথে স্বয়ংক্রিয় সংযোগ নয় — স্টাফকে নিজে দেখে সত্যতা যাচাই করতে হয়।</td></tr>
+              <tr><td>"অনুমোদন"</td><td>শুধু যাচাই সম্পন্ন হলে সক্রিয়। লিঙ্গ, অভিজ্ঞতা, বর্তমান পদ, চেম্বারের তথ্য দিতে হয়। অনুমোদন দিলেই <code>doctors</code> টেবিলে প্রোফাইল তৈরি ও লগইন অ্যাকাউন্ট স্বয়ংক্রিয়ভাবে তৈরি হয়।</td></tr>
+              <tr><td>"বাতিল"</td><td>কারণ লিখে আবেদন প্রত্যাখ্যান।</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">প্রতিটি অ্যাকশন <code>activity_log</code>-এ কে কখন কী করলেন তার রেকর্ড রাখে।</p>
+
+        <div class="callout">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          <p>অনুমোদনের পর ডাক্তারের চেম্বার/ফি/সময়সূচি অ্যাডমিন প্যানেল থেকে <strong>সরাসরি সম্পাদনার কোনো পাতা নেই</strong> (কোনো <code>DoctorResource</code> বানানো হয়নি)। এই বদল এখন শুধু ডাক্তার নিজে <code>/doctor</code> পোর্টাল থেকে করতে পারেন। ডাক্তারের সেবা/দর্শন/ছবি/ভিডিও — CCB স্টাফ লেখেন, কিন্তু এখনো কোনো Filament রিসোর্স দিয়ে নয় (ভবিষ্যতের কাজ)।</p>
+        </div>
+
+        <h2>ডাক্তারের অ্যাকাউন্ট কীভাবে তৈরি হয়</h2>
+        <ol>
+          <li>আবেদনের ইমেইল দিয়ে একটা User রেকর্ড খোঁজা হয় (না থাকলে তৈরি হয়) এবং তাকে doctor রোল দেওয়া হয়।</li>
+          <li>নতুন Doctor প্রোফাইলের সাথে এই User-কে লিংক করা হয়।</li>
+          <li>Laravel-এর স্ট্যান্ডার্ড পাসওয়ার্ড-রিসেট লিংক ডাক্তারের ইমেইলে পাঠানো হয় (dev environment-এ mail <code>log</code> ড্রাইভারে যায়, বাস্তব সার্ভারে SMTP কনফিগার করতে হবে)।</li>
+          <li>ডাক্তার লিংকে ক্লিক করে পাসওয়ার্ড সেট করেন, তারপর <code>/doctor/login</code>-এ ঢোকেন।</li>
+        </ol>
+
+        <h2>ডাক্তারের নিজস্ব পোর্টাল (/doctor)</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>পাতা</th><th>কাজ</th></tr></thead>
+            <tbody>
+              <tr><td>ড্যাশবোর্ড</td><td>অপেক্ষমাণ দ্বিতীয় মতামতের সংখ্যা, নিজের অনুমোদনের অবস্থা</td></tr>
+              <tr><td>প্রোফাইল</td><td>শুধু চেম্বারের ফি/সময়সূচি, দ্বিতীয় মতামতের ফি, WhatsApp ফি বদলানো যায়। "প্রোফাইল অনুমোদন করুন" বাটনে doctor_approved_at সেট হয়।</td></tr>
+              <tr><td>দ্বিতীয় মতামত</td><td>নিজের কাছে আসা অনুরোধ দেখা ও উত্তর দেওয়া</td></tr>
+              <tr><td>পে-আউট</td><td>নিজের আয়ের হিসাব দেখা (শুধু দেখা)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">ডাক্তার যা এডিট করতে পারেন না: নিজের সেবার তালিকা, চিকিৎসা-দর্শন, রোগীর-সংখ্যা — ইচ্ছাকৃতভাবে নাগালের বাইরে, যাতে সব প্রোফাইলে তথ্যের মান এক রকম থাকে।</p>
+
+        <h2>প্রকাশ হওয়ার পূর্বশর্ত</h2>
+        <p>দুটো শর্ত লাগে: <strong>bmdc_verified_at</strong> পূরণ (স্টাফের যাচাই) + <strong>doctor_approved_at</strong> পূরণ (ডাক্তারের নিজের সম্মতি)। একটা বাদ থাকলে প্রকাশ আটকে যাবে।</p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <ul>
+          <li><strong>/doctors</strong> — ডিরেক্টরি: বিশেষত্ব/জেলা/ক্যান্সারের ধরন দিয়ে ফিল্টার, প্রতিটি কার্ডে কেন এই ডাক্তার এসেছেন তার কারণ</li>
+          <li><strong>/doctors/{slug}</strong> — প্রোফাইল: BMDC-ব্যাজ, চেম্বার, ম্যাচ ইঞ্জিন, রেটিং (থাকলে), দ্বিতীয় মতামতের বাটন</li>
+        </ul>
+        <div class="callout positive">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 13 4 4L19 7"/></svg>
+          <p><strong>র‍্যাঙ্কিং নীতি:</strong> স্কোর শুধু বিশেষত্বের মিল, জেলার দূরত্ব, যাচাইকৃত রেটিং ও অ্যাপয়েন্টমেন্ট সহজলভ্যতা দিয়ে হয়। ভিডিও, হাসপাতালের নাম, টাকা-পয়সা — কোনোটাই স্কোরে ঢোকে না।</p>
+        </div>
+
+        <div class="foot-nav">
+          <a data-page="roles"><span class="dir">পূর্ববর্তী</span><span class="lbl">← রোল ও অনুমতি</span></a>
+          <a data-page="hospital"><span class="dir">পরবর্তী</span><span class="lbl">হাসপাতাল মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- HOSPITAL -->
+      <section class="page" id="page-hospital">
+        <div class="eyebrow">মডিউল ০২</div>
+        <h1>হাসপাতাল মডিউল</h1>
+        <p class="lede">হাসপাতালের তথ্য সম্পূর্ণ CCB স্টাফ নিজে লিখে — কোনো হাসপাতাল নিজে আবেদন করে না, নিজের প্রোফাইল সম্পাদনাও করতে পারে না। ডাক্তার মডিউলের মতো কোনো "বাইরের আবেদন → যাচাই" ধাপ এখানে নেই।</p>
+
+        <h2>কে ম্যানেজ করে</h2>
+        <p><strong>রোল:</strong> <span class="badge pink">hospital_manager</span> (মূল দায়িত্বশীল), <span class="badge pink">super_admin</span>। <span class="badge">verification_officer</span> <span class="badge">field_agent</span> <span class="badge">support_agent</span> শুধু দেখতে পারেন।</p>
+        <p><strong>কোথায়:</strong> সাইডবার → "হাসপাতাল ও খরচ" গ্রুপ → <strong>"হাসপাতাল তালিকা"</strong></p>
+
+        <h2>একটা হাসপাতালের ভেতরে ৮টা ট্যাব</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ট্যাব</th><th>কী লেখা হয়</th><th>হেডার অ্যাকশন</th></tr></thead>
+            <tbody>
+              <tr><td>সক্ষমতা ম্যাট্রিক্স</td><td>১১টি ক্যাপাবিলিটির (ICU, লিনিয়াক, কেমো ডে-কেয়ার...) উপলব্ধ/সীমিত/নেই, মেশিন/বেড সংখ্যা, নোট</td><td>"সব ১১টি সক্ষমতা যোগ/সিঙ্ক করুন"</td></tr>
+              <tr><td>অপেক্ষার সময়</td><td>প্রথম দেখা, বায়োপসি রিপোর্ট, কেমো শুরু ইত্যাদির অপেক্ষা (সংক্ষিপ্ত/মাঝারি/দীর্ঘ)</td><td>"নতুন অপেক্ষার সময় যোগ"</td></tr>
+              <tr><td>খরচ</td><td>এই হাসপাতালের সেবাভিত্তিক খরচের রেঞ্জ</td><td>"নতুন খরচ তথ্য যোগ"</td></tr>
+              <tr><td>প্রস্তুতির তথ্য</td><td>রক্তব্যাংক, ওষুধ সরবরাহ, সহযোগীর নিয়ম — সতর্কতা/ইতিবাচক ব্যাজসহ</td><td>"নতুন প্রস্তুতি তথ্য যোগ"</td></tr>
+              <tr><td>ব্যবহারিক তথ্য</td><td>বাইরের জেলা থেকে এলে কী লাগবে</td><td>"নতুন ব্যবহারিক তথ্য যোগ"</td></tr>
+              <tr><td>ভিডিও</td><td>হাসপাতাল পরিচিতি/দিকনির্দেশনা ভিডিও</td><td>"নতুন ভিডিও যোগ"</td></tr>
+              <tr><td>ডাক্তার</td><td>এই হাসপাতালে বসেন এমন ডাক্তার যুক্ত করা</td><td>"ডাক্তার যুক্ত করুন"</td></tr>
+              <tr><td>অভিজ্ঞতা সারাংশ</td><td>রোগীর অভিজ্ঞতা জরিপের ফলাফল — শুধু দেখার জন্য</td><td>"স্কোর পুনর্গণনা করুন"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>রোগীর অভিজ্ঞতা — স্টার রেটিং নয়</h2>
+        <p>হাসপাতালে কোনো "স্টার রেটিং" দেখানো হয় না — কাঠামোবদ্ধ প্রশ্নের হ্যাঁ/না উত্তরের শতাংশ (যেমন "সময়মতো সিরিয়াল পেয়েছেন?" ৭৮% হ্যাঁ)। <strong>৩০টির কম উত্তর জমা না পড়লে এই শতাংশ প্রকাশিত হয় না।</strong></p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <ul>
+          <li><strong>/hospitals</strong> — সরকারি/বেসরকারি, বিভাগ, জেলা-দূরত্ব, ২৪ ঘণ্টা জরুরি সেবা দিয়ে ফিল্টার; প্রতিটি কার্ডে কী আছে ও কী নেই — দুটোই</li>
+          <li><strong>/hospitals/{slug}</strong> — সক্ষমতার গ্রিড, পরিচিতি ভিডিও, অপেক্ষার সময়, খরচের তুলনা, প্রস্তুতি, রোগীর অভিজ্ঞতা, এখানে বসা ডাক্তার</li>
+        </ul>
+
+        <div class="foot-nav">
+          <a data-page="doctor"><span class="dir">পূর্ববর্তী</span><span class="lbl">← ডাক্তার মডিউল</span></a>
+          <a data-page="guide"><span class="dir">পরবর্তী</span><span class="lbl">ক্যান্সার গাইড মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- GUIDE -->
+      <section class="page" id="page-guide">
+        <div class="eyebrow">মডিউল ০৩</div>
+        <h1>ক্যান্সার গাইড মডিউল (CMS)</h1>
+        <p class="lede">প্রতিটি ক্যান্সারের ধরনের জন্য বাংলায় সহজ ভাষায় লেখা গাইড। সবচেয়ে গুরুত্বপূর্ণ নিয়ম: <strong>কোনো গাইড ডাক্তার কর্তৃক পর্যালোচিত না হলে প্রকাশ করা যাবে না</strong> — এটা কোডে জোর করে আটকানো।</p>
+
+        <h2>কনটেন্ট তৈরির ওয়ার্কফ্লো</h2>
+        <div class="flow">
+          <div class="flow-step">content_editor গাইড লেখেন (খসড়া অবস্থায়)</div>
+          <div class="flow-step">content_editor টার্মস/স্টেজ/পদক্ষেপ/মিথ/প্রশ্নোত্তর/ভিডিও যোগ করেন</div>
+          <div class="flow-step">medical_reviewer "চিকিৎসা অনুমোদন" দেন (একজন ডাক্তার বেছে নিয়ে)</div>
+          <div class="flow-step sub">এখন "প্রকাশ" বাটন সক্রিয় হয় — এর আগে নিষ্ক্রিয় থাকে</div>
+          <div class="flow-step">super_admin "প্রকাশ" করেন → পাবলিক /guide-এ দেখা যায়</div>
+        </div>
+
+        <h2>কে কী করে</h2>
+        <p><strong>কোথায়:</strong> সাইডবার → "কন্টেন্ট ও চিকিৎসা গাইড" গ্রুপ → <strong>"ক্যান্সার গাইড"</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>রোল</th><th>পারে</th></tr></thead>
+            <tbody>
+              <tr><td>content_editor</td><td>নতুন গাইড তৈরি, সম্পাদনা, মুছে ফেলা — কিন্তু প্রকাশ করতে পারেন না</td></tr>
+              <tr><td>medical_reviewer</td><td>শুধু "চিকিৎসা অনুমোদন" অ্যাকশন — লেখা সম্পাদনা করতে পারেন না</td></tr>
+              <tr><td>super_admin</td><td>সব কিছু, এবং একমাত্র ইনিই প্রকাশ করতে পারেন</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>গাইডের ভেতরের ৬টা অংশ</h2>
+        <ul>
+          <li><strong>রিপোর্ট ডিকোডার টার্মস</strong> — মেডিকেল শব্দভান্ডার</li>
+          <li><strong>ক্যান্সার স্টেজ ও চিকিৎসা রূপরেখা</strong></li>
+          <li><strong>পরবর্তী পদক্ষেপ (Action Steps)</strong></li>
+          <li><strong>ভুল ধারণা vs সত্য (Myths)</strong></li>
+          <li><strong>সাধারণ প্রশ্নোত্তর (FAQ)</strong></li>
+          <li><strong>ডাক্তারের ভিডিও</strong></li>
+        </ul>
+
+        <h2>অ্যাকশন বাটন</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>বাটন</th><th>কে দেখে</th><th>কী করে</th></tr></thead>
+            <tbody>
+              <tr><td>"চিকিৎসা অনুমোদন"</td><td>medical_reviewer</td><td>ডাক্তার বেছে অনুমোদন — reviewed_at/reviewed_by_doctor_id সেট হয়</td></tr>
+              <tr><td>"প্রকাশ"</td><td>super_admin</td><td>চিকিৎসা-অনুমোদনের আগে নিষ্ক্রিয় থাকে, হোভারে লেখা: "ডাক্তার কর্তৃক পর্যালোচিত না হলে প্রকাশ করা যাবে না"</td></tr>
+              <tr><td>"খসড়া"</td><td>super_admin</td><td>প্রকাশিত গাইডকে আবার খসড়ায় ফেরানো</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <ul>
+          <li><strong>/guide</strong> — প্রকাশিত সব ক্যান্সারের ধরন, সার্চ, ফিল্টার ট্যাব</li>
+          <li><strong>/guide/{slug}</strong> — disclaimer, ভিডিও, রিপোর্ট ডিকোডার, স্টেজ সিলেক্টর, পরবর্তী পদক্ষেপ, ভুল ধারণা, প্রশ্নোত্তর</li>
+        </ul>
+        <p class="muted">schema.org <code>MedicalWebPage</code> মার্কআপে <code>reviewedBy</code> তথ্য যোগ থাকে (SEO/বিশ্বাসযোগ্যতার জন্য)।</p>
+
+        <div class="foot-nav">
+          <a data-page="hospital"><span class="dir">পূর্ববর্তী</span><span class="lbl">← হাসপাতাল মডিউল</span></a>
+          <a data-page="cost"><span class="dir">পরবর্তী</span><span class="lbl">খরচের হিসাব মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- COST -->
+      <section class="page" id="page-cost">
+        <div class="eyebrow">মডিউল ০৪</div>
+        <h1>খরচের হিসাব ক্যালকুলেটর মডিউল</h1>
+        <p class="lede">পরিবারকে আগে থেকেই ধারণা দেয় — চিকিৎসায় মোট কত টাকা লাগতে পারে। সম্পূর্ণ <strong>Stateless</strong> — কোনো নাম, ফোন বা ইনপুট কোথাও সংরক্ষণ করা হয় না।</p>
+
+        <h2>কনটেন্ট কোথা থেকে আসে</h2>
+        <p>এই মডিউলে কোনো "লেখা কনটেন্ট" নেই — শুধু <strong>সংখ্যা</strong> (রেট ও গুণক), যা সম্পূর্ণ CCB স্টাফ ঠিক করে। কোনো বাইরের ইনপুট বা যাচাই-ধাপ নেই।</p>
+
+        <h2>কে সংখ্যাগুলো ঠিক করে</h2>
+        <p><strong>শুধু super_admin</strong> এই রেট বদলাতে পারেন। content_editor ও medical_reviewer শুধু দেখতে পারেন।</p>
+        <p><strong>কোথায়:</strong> সাইডবার → "হাসপাতাল ও খরচ" গ্রুপে ৪টা আলাদা রিসোর্স:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>রিসোর্স</th><th>কী রাখে</th></tr></thead>
+            <tbody>
+              <tr><td>চিকিৎসা ভিত্তি হার</td><td>ক্যান্সারের ধরন + সেবা অনুযায়ী সরকারি বেস রেট ও গড় সময়কাল</td></tr>
+              <tr><td>খরচ গুণক (Multipliers)</td><td>স্টেজ/হাসপাতালের ধরন/দূরত্বভেদে গুণ করার সংখ্যা</td></tr>
+              <tr><td>আনুষঙ্গিক খরচ হার</td><td>পরোক্ষ খরচ — যাতায়াত, থাকা, খাওয়া</td></tr>
+              <tr><td>ধাপভিত্তিক খরচ টেমপ্লেট</td><td>প্রতিটি চিকিৎসা-ধাপের খরচ কীভাবে ভাগ হয় তার ভাঙন</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>হিসাব কীভাবে হয়</h2>
+        <p>ব্যবহারকারী ক্যান্সারের ধরন, স্টেজ, জেলা ও চিকিৎসার ধরন বেছে দিলে সিস্টেম উপরের ৪টা টেবিল থেকে সংখ্যা টেনে <strong>৩ ধরনের হাসপাতালের</strong> (সরকারি, মাঝারি বেসরকারি, প্রিমিয়াম বেসরকারি) হিসাব একসাথে দেখায় — সরাসরি ও পরোক্ষ খরচ দুটোই।</p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <p><strong>/cost-estimator</strong> — ইনপুট ফর্ম ও তিন কলামে তিন ধরনের হাসপাতালের হিসাব, মাসভিত্তিক খরচের প্রবাহ চার্ট। হিসাব <code>POST /ajax/cost-estimate</code>-এ AJAX দিয়ে হয় — পাতা রিফ্রেশ ছাড়াই তাৎক্ষণিক ফলাফল, কিছুই সার্ভারে জমা থাকে না।</p>
+
+        <div class="foot-nav">
+          <a data-page="guide"><span class="dir">পূর্ববর্তী</span><span class="lbl">← ক্যান্সার গাইড মডিউল</span></a>
+          <a data-page="patient"><span class="dir">পরবর্তী</span><span class="lbl">রোগীর সহায়তা মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- PATIENT SUPPORT -->
+      <section class="page" id="page-patient">
+        <div class="eyebrow">মডিউল ০৫</div>
+        <h1>রোগীর সহায়তা ও অনুদান মডিউল</h1>
+        <p class="lede">টাকার অভাবে চিকিৎসা থেমে যাওয়া রোগীদের যাচাইকৃত তথ্য প্রকাশ করা, যাতে সহায়তাকারীরা সরাসরি রোগীর নিজের বিকাশ/নগদ/ব্যাংক অ্যাকাউন্টে টাকা পাঠাতে পারেন।</p>
+
+        <div class="callout">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          <div>
+            <p><strong>CCB কখনো টাকা হাতে ধরে না</strong> — কোনো "কত % জমা হয়েছে" কলাম সিস্টেমে নেই।</p>
+            <p><strong>শিশুর ছবি কখনো প্রকাশ হয় না</strong> — বয়স ১৮-এর কম হলে ছবি স্বয়ংক্রিয়ভাবে বন্ধ হয়ে যায়, ম্যানুয়ালি বাইপাস করা যায় না।</p>
+            <p><strong>যাচাই ছাড়া প্রকাশ নয়</strong> — নিচের ৪ ধাপ + লিখিত সম্মতি সম্পূর্ণ না হলে প্রকাশের বাটন কাজ করবে না।</p>
+          </div>
+        </div>
+
+        <h2>কনটেন্ট কোথা থেকে আসে</h2>
+        <p>একটা কেস দুইভাবে শুরু হতে পারে: সরাসরি অ্যাডমিন প্যানেলে (field_agent/support_agent মাঠে গিয়ে/ফোনে কথা বলে), অথবা হেল্পলাইন কল থেকে সরাসরি (দেখুন <a data-page="helpline">হেল্পলাইন মডিউল</a>)। দুই ক্ষেত্রেই কেস <code>draft</code> অবস্থায় শুরু হয়।</p>
+
+        <h2>৪-ধাপের যাচাই ওয়ার্কফ্লো</h2>
+        <p><strong>কোথায়:</strong> সাইডবার → "রোগীর সহায়তা ও অনুদান" → <strong>"রোগী কেস যাচাই"</strong></p>
+        <div class="flow">
+          <div class="flow-step">১. হাসপাতালের কাগজ (documents) — বায়োপসি ও খরচের প্রাক্কলন</div>
+          <div class="flow-step">২. ডাক্তার নিশ্চিতকরণ (hospital_confirm) — প্রেসক্রিপশন ও প্রোটোকল</div>
+          <div class="flow-step">৩. পরিচয় (identity) — NID ও অ্যাকাউন্টের নামের মিল ("Name Verified")</div>
+          <div class="flow-step">৪. মাঠ পরিদর্শন (field_meeting) — সরাসরি দেখা করে লিখিত সম্মতিপত্র সংগ্রহ</div>
+        </div>
+        <p class="muted">field_agent/support_agent কেস তৈরি করতে পারেন কিন্তু প্রকাশ করতে পারেন না — শুধু verification_officer ও super_admin প্রকাশ করতে পারেন।</p>
+
+        <h2>অ্যাকশন বাটন</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>বাটন</th><th>কী করে</th></tr></thead>
+            <tbody>
+              <tr><td>"ধাপসমূহ যাচাই"</td><td>৪টা ধাপের অবস্থা ও নোট আপডেট</td></tr>
+              <tr><td>"প্রকাশ করুন"</td><td>৪টা ধাপ + লিখিত সম্মতিপত্র + অন্তত একটা নাম-যাচাইকৃত অ্যাকাউন্ট — সব শর্ত পূরণ না হলে এই বাটন কাজ করবে না (কন্ট্রোলার লেভেলেও চেক হয়, শুধু UI না)</td></tr>
+              <tr><td>"মেয়াদ বাড়াও"</td><td>নতুন অগ্রগতির নোট লিখে মেয়াদ আরও ৩০ দিন বাড়ানো</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>মেয়াদ ব্যবস্থাপনা (স্বয়ংক্রিয়)</h2>
+        <p>প্রকাশের পর কেস ৩০ দিন সক্রিয় থাকে। বিস্তারিত <a data-page="jobs">স্বয়ংক্রিয় কাজ</a>-এ।</p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <ul>
+          <li><strong>/patients</strong> — প্রকাশিত কেসের তালিকা, CCB-র ভূমিকা, প্রতারণা সতর্কতা</li>
+          <li><strong>/patients/{case_code}</strong> — রোগীর কথা, যাচাইয়ের টাইমলাইন, খরচের হিসাব, সরাসরি বিকাশ/নগদ/ব্যাংক নম্বর</li>
+          <li><strong>/apply-for-support</strong> — শুধু তথ্যের পাতা (কোনো ফর্ম নেই, পুরো প্রক্রিয়াটাই ম্যানুয়াল — ফোনে বা সরাসরি যোগাযোগ করে শুরু করতে হয়)</li>
+        </ul>
+        <p class="muted">প্রয়োজনীয় টাকার অগ্রগতি বার কখনো দেখানো হয় না।</p>
+
+        <div class="foot-nav">
+          <a data-page="cost"><span class="dir">পূর্ববর্তী</span><span class="lbl">← খরচের হিসাব মডিউল</span></a>
+          <a data-page="second-opinion"><span class="dir">পরবর্তী</span><span class="lbl">দ্বিতীয় মতামত মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- SECOND OPINION -->
+      <section class="page" id="page-second-opinion">
+        <div class="eyebrow">মডিউল ০৬</div>
+        <h1>দ্বিতীয় মতামত ও পেমেন্ট মডিউল</h1>
+        <p class="lede">একমাত্র জায়গা যেখানে CCB সরাসরি টাকা হ্যান্ডেল করে। রোগী একজন নির্দিষ্ট ডাক্তারকে ফি দিয়ে দ্বিতীয় মতামত জিজ্ঞাসা করেন, ডাক্তার লিখিত উত্তর দেন।</p>
+
+        <h2>পুরো ওয়ার্কফ্লো</h2>
+        <div class="flow">
+          <div class="flow-step">রোগী /second-opinion ফর্ম পূরণ করেন (রিপোর্ট → পরিস্থিতি → ডাক্তার বাছাই → পেমেন্ট)</div>
+          <div class="flow-step">পেমেন্ট গেটওয়েতে (bKash/Nagad/SSLCommerz) পাঠানো হয়</div>
+          <div class="flow-step">পেমেন্ট সফল হলে status = submitted হয়</div>
+          <div class="flow-step">ডাক্তার নিজের /doctor পোর্টালে অনুরোধ দেখেন, উত্তর লেখেন</div>
+          <div class="flow-step">status = answered — রোগী উত্তর পান</div>
+        </div>
+
+        <h2>রোগীর অংশ (/second-opinion)</h2>
+        <p>৪ ধাপ: রিপোর্ট আপলোড (একাধিক ফাইল, প্রাইভেট ডিস্কে) → পরিস্থিতি ও প্রশ্ন → ডাক্তার বাছাই → সারাংশ + পেমেন্ট। জমা দেওয়ার সাথে সাথেই ফি ডাক্তারের <strong>সেই মুহূর্তের</strong> ফি থেকে নেওয়া হয় ও চিরতরে সেভ থাকে।</p>
+
+        <h2>পেমেন্ট কীভাবে কাজ করে</h2>
+        <p>তিনটা গেটওয়ে: <span class="badge">bKash</span> <span class="badge">Nagad</span> <span class="badge">SSLCommerz</span> — প্রতিটির নিজস্ব ড্রাইভার। ব্যর্থ হলে অনুরোধ pending_payment-এই থেকে যায়, আবার চেষ্টা করা যায়। সফল হলে গেটওয়ে ফি বাদ দিয়ে রেকর্ড হয়।</p>
+
+        <h2>ডাক্তারের অংশ (/doctor পোর্টাল)</h2>
+        <ul>
+          <li><strong>দ্বিতীয় মতামত</strong> মেনুতে নিজের কাছে আসা অনুরোধ দেখা</li>
+          <li>রোগীর রিপোর্ট <strong>শুধু ১৫ মিনিটের জন্য বৈধ signed URL</strong> দিয়ে দেখা যায়</li>
+          <li>শুধু নির্বাচিত ডাক্তার ও super_admin — আর কেউ (এমনকি অন্য ডাক্তারও) রিপোর্ট দেখতে পারবেন না</li>
+          <li><strong>পে-আউট</strong> মেনুতে আয়ের হিসাব — গেটওয়ে চার্জ বাদ দিয়ে নীট পরিমাণ</li>
+        </ul>
+        <div class="callout positive">
+          <svg class="callout-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 13 4 4L19 7"/></svg>
+          <p><strong>CCB কোনো কমিশন নেয় না</strong> — পে-আউটে শুধু গেটওয়ে ফি বাদ যায়, CCB-র নিজের কাটছাঁট নেই। তাই টেবিলে "কমিশন" নামে কোনো কলাম নেই।</p>
+        </div>
+
+        <h2>অ্যাডমিন/ফাইন্যান্সের অংশ</h2>
+        <p><code>finance</code> রোল দ্বিতীয় মতামতের অনুরোধ ও পেমেন্ট দেখতে/পরিচালনা করতে পারেন (<code>second_opinions.view</code>, <code>payments.manage</code>)। ⚠️ <strong>পে-আউট তৈরি করার কোনো অ্যাডমিন পাতা এখনো নেই</strong> — ডাক্তার পোর্টালে শুধু দেখার জন্য; আসল পে-আউট রেকর্ড ভবিষ্যতের একটা কাজ।</p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <p>ডাক্তারের প্রোফাইলে (যাঁরা সেবা চালু রেখেছেন) "দ্বিতীয় মতামত নিন" বাটন, আর <strong>/second-opinion</strong> আবেদন ফর্ম।</p>
+
+        <div class="foot-nav">
+          <a data-page="patient"><span class="dir">পূর্ববর্তী</span><span class="lbl">← রোগীর সহায়তা মডিউল</span></a>
+          <a data-page="rating"><span class="dir">পরবর্তী</span><span class="lbl">ডাক্তার রেটিং মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- RATING -->
+      <section class="page" id="page-rating">
+        <div class="eyebrow">মডিউল ০৭</div>
+        <h1>ডাক্তার রেটিং মডিউল</h1>
+        <p class="lede">হাসপাতালে সরাসরি রোগীর কাছ থেকে সংগ্রহ করা রেটিং — CCB-র নিজের মাঠকর্মী সরাসরি রোগীর মুখ থেকে শুনে সংগ্রহ করেন, স্টাফ যাচাই করেন, তারপর শুধু গড় শতাংশ প্রকাশ হয়।</p>
+
+        <h2>পুরো ওয়ার্কফ্লো</h2>
+        <div class="flow">
+          <div class="flow-step">field_agent হাসপাতালে গিয়ে রোগীর কাছ থেকে ৩টা প্রশ্নের উত্তর নেন — /field পোর্টাল</div>
+          <div class="flow-step">verification_officer প্রতিটি জমা "যাচাই সম্পন্ন" করেন</div>
+          <div class="flow-step">প্রতি রাত ০৩:০০-এ স্বয়ংক্রিয় জব যাচাইকৃত উত্তর দিয়ে গড় হিসাব করে</div>
+          <div class="flow-step">১০টির বেশি যাচাইকৃত রেটিং জমা হলে প্রোফাইলে প্রকাশ হয়</div>
+        </div>
+
+        <h2>ধাপ ১ — সংগ্রহ (/field পোর্টাল)</h2>
+        <p><strong>লগইন:</strong> <code>/field/login</code> — শুধু field_agent রোল, এটাও /admin ও /doctor থেকে আলাদা।</p>
+        <p><strong>/field/rating/new</strong> — মোবাইল-ফ্রেন্ডলি ফর্ম, লক্ষ্য ৯০ সেকেন্ডে একটা জমা:</p>
+        <ul>
+          <li>ডাক্তার খোঁজা (লাইভ সার্চ) + সাম্প্রতিক ব্যবহৃত উপরে</li>
+          <li>৩টা প্রশ্ন (বড় হ্যাঁ/না বাটন) — এই ৩টাই এখন সক্রিয়, বাকি ৩টা (<code>follow_up_care</code>, <code>on_time</code>, <code>affordable</code>) ভবিষ্যতের জন্য রাখা আছে, এখন জিজ্ঞাসা করা হয় না</li>
+          <li>প্রেসক্রিপশনের ছবি (ঐচ্ছিক, ক্যামেরা সরাসরি খোলে)</li>
+          <li>রোগীর ফোন নম্বর — কখনো প্লেইন টেক্সটে সংরক্ষণ হয় না, হ্যাশ আকারে থাকে</li>
+        </ul>
+        <p class="muted"><strong>অফলাইন সাপোর্ট:</strong> নেটওয়ার্ক না থাকলে জমা ফোনেই থাকে, নেট ফিরলে স্বয়ংক্রিয়ভাবে পাঠায় (ছবি বাদে)।</p>
+
+        <h2>ধাপ ২ — যাচাই (অ্যাডমিন প্যানেল)</h2>
+        <p><strong>কে করবে:</strong> verification_officer, super_admin। <strong>কোথায়:</strong> সাইডবার → "ডাক্তার রেটিং"। প্রেসক্রিপশনের প্রমাণ signed URL দিয়ে দেখে "যাচাই সম্পন্ন" ক্লিক করলেই গড় হিসাবে যোগ হওয়ার যোগ্য হয়।</p>
+
+        <h2>ধাপ ৩ — গড় হিসাব (সম্পূর্ণ স্বয়ংক্রিয়)</h2>
+        <p>প্রতিটা প্রশ্নের হ্যাঁ-শতাংশ ও সার্বিক গড় (৫-এর মধ্যে) হিসাব হয়। <strong>১০টির কম যাচাইকৃত রেটিং থাকলে কিছুই প্রকাশ হয় না</strong> — "০টি রেটিং" লেখাও দেখানো হয় না।</p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <p>ডাক্তারের প্রোফাইলে রেটিং সেকশন — শুধু ১০+ যাচাইকৃত রেটিং থাকলে। প্রতিটি প্রশ্নের আলাদা শতাংশ + একটা সার্বিক স্কোর।</p>
+
+        <div class="foot-nav">
+          <a data-page="second-opinion"><span class="dir">পূর্ববর্তী</span><span class="lbl">← দ্বিতীয় মতামত মডিউল</span></a>
+          <a data-page="helpline"><span class="dir">পরবর্তী</span><span class="lbl">হেল্পলাইন মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- HELPLINE -->
+      <section class="page" id="page-helpline">
+        <div class="eyebrow">মডিউল ০৮</div>
+        <h1>হেল্পলাইন মডিউল</h1>
+        <p class="lede">হেল্পলাইন নম্বরে আসা প্রতিটি কলের সংক্ষিপ্ত লগ। এই ডেটাই CCB-কে বলে দেয় সাইটে কোন তথ্যের ঘাটতি আছে — একই বিষয়ে বারবার কল এলে বোঝা যায় সেই তথ্য ওয়েবসাইটে স্পষ্ট নয়।</p>
+
+        <h2>কে ম্যানেজ করে</h2>
+        <p><strong>রোল:</strong> support_agent (মূল ব্যবহারকারী), super_admin। verification_officer ও field_agent শুধু দেখতে পারেন।</p>
+        <p><strong>কোথায়:</strong> সাইডবার → (কোনো গ্রুপ ছাড়া) <strong>"হেল্পলাইন"</strong></p>
+
+        <h2>একটা কল কীভাবে লগ হয়</h2>
+        <p>"নতুন কল লগ করুন" চেপে দ্রুত ফর্ম পূরণ: মাধ্যম, কলারের নাম/ফোন, জেলা ও ক্যান্সারের ধরন, বিষয় (রিপোর্ট বোঝা/ডাক্তার খোঁজা/খরচ/আর্থিক সহায়তা/কেসের আবেদন/অভিযোগ/অন্যান্য), সারাংশ, ফলাফল, ফলো-আপের তারিখ।</p>
+
+        <h2>কল থেকে সরাসরি রোগীর কেস তৈরি</h2>
+        <p>লগের পাশে <strong>"রোগীর কেস তৈরি করুন"</strong> বাটন চাপলে একটা ছোট ফর্ম খোলে — জমা দিলেই একটা নতুন <code>draft</code> কেস তৈরি হয়ে সেই কল লগের সাথে যুক্ত থাকে। এই কেস এরপর স্বাভাবিক ৪-ধাপের যাচাই প্রক্রিয়ায় ঢোকে — কোনো ধাপ এড়িয়ে যাওয়া হয় না।</p>
+
+        <h2>ড্যাশবোর্ডে যা দেখা যায়</h2>
+        <ul>
+          <li><strong>আজকের কল</strong> ও <strong>ফলো-আপ বাকি</strong></li>
+          <li><strong>সাপ্তাহিক প্রতিবেদন</strong> — গত ৭ দিনে কোন বিষয়ে সবচেয়ে বেশি কল</li>
+        </ul>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <p>কিছুই না — এটা সম্পূর্ণ অভ্যন্তরীণ স্টাফ টুল। শুধু হেল্পলাইন নম্বর নেভিগেশন বার, হোমপেজ ও শূন্য সার্চ-ফলাফলে দেখা যায়।</p>
+
+        <div class="foot-nav">
+          <a data-page="rating"><span class="dir">পূর্ববর্তী</span><span class="lbl">← ডাক্তার রেটিং মডিউল</span></a>
+          <a data-page="search"><span class="dir">পরবর্তী</span><span class="lbl">সার্চ মডিউল →</span></a>
+        </div>
+      </section>
+
+      <!-- SEARCH -->
+      <section class="page" id="page-search">
+        <div class="eyebrow">মডিউল ০৯</div>
+        <h1>সার্চ মডিউল</h1>
+        <p class="lede">সাইটের একটাই সার্চ বক্স দিয়ে একসাথে ৫ ধরনের কনটেন্ট খোঁজা যায়। এই মডিউলে স্টাফের কোনো ম্যানুয়াল কাজ নেই — যা উপরের মডিউলে প্রকাশিত, তা স্বয়ংক্রিয়ভাবে সার্চে খোঁজা যায়।</p>
+
+        <h2>কনটেন্ট কীভাবে সার্চযোগ্য হয়</h2>
+        <p>ডাক্তার/হাসপাতাল/গাইড/রোগীর কেস <strong>প্রকাশ</strong> হলেই স্বয়ংক্রিয়ভাবে সার্চে খুঁজে পাওয়া যায় — আলাদা করে কিছু করতে হয় না। খসড়া/অপ্রকাশিত কিছু কখনো সার্চে আসবে না।</p>
+
+        <h2>প্রতিটা ধরনের অগ্রাধিকার (ওজন)</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>কনটেন্ট</th><th>ওজন</th></tr></thead>
+            <tbody>
+              <tr><td>গাইডের টার্ম</td><td>১.০</td></tr>
+              <tr><td>গাইড</td><td>০.৯</td></tr>
+              <tr><td>ডাক্তার</td><td>০.৮</td></tr>
+              <tr><td>হাসপাতাল</td><td>০.৭</td></tr>
+              <tr><td>রোগীর কেস</td><td>০.৫</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>রোগীর গোপনীয়তা</h2>
+        <p>রোগীর কেস সার্চে এলে <strong>শুধু ছদ্মনাম (<code>display_name_bn</code>)</strong> দেখা যায় — আসল নাম কখনো সার্চ ফলাফলে আসে না।</p>
+
+        <h2>কোনো ফলাফল না পেলে</h2>
+        <p>শূন্য-ফলাফলের অনুসন্ধান <code>search_logs</code>-এ লেখা হয় (শুধু লেখা ও তারিখ, কোনো ব্যক্তিগত তথ্য নয়)। এটাই বোঝার একমাত্র উপায় সাইটে কোন তথ্যের ঘাটতি আছে। (এই লগ দেখার অ্যাডমিন পাতা এখনো নেই — ডেভেলপারকে ডাটাবেজ থেকে দেখতে হবে।)</p>
+
+        <h2>পাবলিক সাইটে যা দেখা যাবে</h2>
+        <ul>
+          <li>হোমপেজের সার্চ বক্সে টাইপ করলেই ৪টা ভাগে ড্রপডাউনে সরাসরি ফলাফল</li>
+          <li><strong>/search?q=...</strong> — পূর্ণাঙ্গ ফলাফল পাতা, ট্যাব দিয়ে ভাগ করা</li>
+          <li>কোনো ফলাফল না পেলে হেল্পলাইন নম্বরসহ একটা কার্ড</li>
+        </ul>
+
+        <div class="foot-nav">
+          <a data-page="helpline"><span class="dir">পূর্ববর্তী</span><span class="lbl">← হেল্পলাইন মডিউল</span></a>
+          <a data-page="jobs"><span class="dir">পরবর্তী</span><span class="lbl">স্বয়ংক্রিয় কাজ →</span></a>
+        </div>
+      </section>
+
+      <!-- SYSTEM JOBS -->
+      <section class="page" id="page-jobs">
+        <div class="eyebrow">রেফারেন্স</div>
+        <h1>সিস্টেমের স্বয়ংক্রিয় কাজ</h1>
+        <p class="lede">কেউ হাতে না চালালেও প্রতিদিন এই কাজগুলো নিজে থেকে চলে (সার্ভারে Laravel Scheduler সেট থাকলে)।</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>সময়</th><th>কাজ</th><th>কী করে</th></tr></thead>
+            <tbody>
+              <tr><td>রাত ০১:০০</td><td>ExpirePatientCases</td><td>মেয়াদ (৩০ দিন) পার হওয়া রোগীর কেসের status expired করে</td></tr>
+              <tr><td>রাত ০২:০০</td><td>sitemap:generate</td><td>গুগল সার্চের জন্য sitemap.xml নতুন করে বানায়</td></tr>
+              <tr><td>রাত ০৩:০০</td><td>RecalculateRatingSummaries</td><td>যাচাইকৃত রেটিং দিয়ে ডাক্তারের গড় স্কোর নতুন করে হিসাব করে</td></tr>
+              <tr><td>সকাল ০৯:০০</td><td>NotifyCaseExpiring</td><td>৫ দিনের মধ্যে মেয়াদ শেষ হবে এমন কেসের জন্য স্টাফকে জানায়</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>কোনটা কেন গুরুত্বপূর্ণ</h2>
+        <ul>
+          <li><strong>ExpirePatientCases</strong> না চললে মেয়াদ পার হওয়া কেস পাবলিক সাইটে "সক্রিয়" থেকে যাবে</li>
+          <li><strong>RecalculateRatingSummaries</strong> না চললে নতুন রেটিং কখনো প্রোফাইলে প্রতিফলিত হবে না</li>
+          <li><strong>sitemap:generate</strong> না চললে নতুন পাতা গুগলে দেরিতে ইনডেক্স হবে</li>
+        </ul>
+
+        <h2>ম্যানুয়ালি চালাতে চাইলে (শুধু ডেভেলপার)</h2>
+        <pre><code>php artisan schedule:run   # যা যা সময় হয়ে গেছে সব একসাথে চালায়
+php artisan queue:work     # জব প্রসেস করতে (Redis queue)</code></pre>
+
+        <div class="foot-nav">
+          <a data-page="search"><span class="dir">পূর্ববর্তী</span><span class="lbl">← সার্চ মডিউল</span></a>
+          <a data-page="tech"><span class="dir">পরবর্তী</span><span class="lbl">টেকনিক্যাল অপারেশনস →</span></a>
+        </div>
+      </section>
+
+      <!-- TECH -->
+      <section class="page" id="page-tech">
+        <div class="eyebrow">রেফারেন্স · ডেভেলপার</div>
+        <h1>টেকনিক্যাল অপারেশনস</h1>
+        <p class="lede">এই পাতা স্টাফদের জন্য নয় — যাঁরা সার্ভার সেটআপ, ডিপ্লয়মেন্ট বা কোড নিয়ে কাজ করেন তাঁদের জন্য।</p>
+
+        <h2>সিস্টেম রিকোয়ারমেন্টস</h2>
+        <ul>
+          <li><strong>PHP:</strong> ^8.2</li>
+          <li><strong>Laravel:</strong> ^11.31, <strong>Filament:</strong> ^3.0</li>
+          <li><strong>Database:</strong> MySQL 8.0+ (utf8mb4_unicode_ci), FULLTEXT সার্চে ngram parser লাগে</li>
+          <li><strong>Queue/Cache:</strong> Redis (Laravel Horizon)</li>
+          <li><strong>Storage:</strong> s3_public (সাধারণ ছবি) ও s3_private (সংবেদনশীল ডকুমেন্ট) — dev-এ লোকাল ডিস্কে, প্রোডাকশনে আসল S3/Spaces-এ বদলাতে হবে</li>
+        </ul>
+
+        <h2>স্থানীয় সেটআপ</h2>
+        <pre><code>composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+npm run dev
+php artisan serve</code></pre>
+
+        <h2>প্রোডাকশন — Cron ও কিউ ওয়ার্কার</h2>
+        <pre><code># crontab -e
+* * * * * cd /path-to-cancercare && php artisan schedule:run >> /dev/null 2>&1</code></pre>
+        <p>Horizon (কিউ ওয়ার্কার) Supervisor দিয়ে সবসময় চালু রাখতে হবে:</p>
+        <pre><code>[program:cancercare-worker]
+command=php /path-to-cancercare/artisan horizon
+autostart=true
+autorestart=true
+user=www-data</code></pre>
+
+        <h2>কোডবেস কাঠামো</h2>
+        <pre><code>app/
+├── Enums/                 # স্ট্যাটাস, ধরন ইত্যাদি
+├── Filament/Resources/    # অ্যাডমিন প্যানেলের প্রতিটি মডিউল
+├── Filament/Widgets/      # ড্যাশবোর্ড উইজেট
+├── Http/Controllers/      # পাবলিক, Doctor/, Field/ পোর্টাল
+├── Jobs/                  # রাতের স্বয়ংক্রিয় কাজ
+├── Models/
+├── Observers/             # নীতি কোডে জোর করে প্রয়োগ
+├── Services/              # ব্যবসায়িক লজিক
+└── Http/Middleware/
+routes/
+├── web.php
+└── console.php            # ক্রন শিডিউল
+tests/Feature/             # ১৮০+ ফিচার টেস্ট</code></pre>
+
+        <h2>টেস্ট চালানো</h2>
+        <pre><code>php artisan test
+php artisan test --filter=SearchTest</code></pre>
+
+        <h2>ট্রাবলশুটিং চিটশিট</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>সমস্যা</th><th>সমাধান</th></tr></thead>
+            <tbody>
+              <tr><td>নতুন ছবি/ফাইল দেখা যাচ্ছে না</td><td><code>php artisan storage:link</code></td></tr>
+              <tr><td>রোল/পারমিশন বদলের পরও আগের মতো</td><td><code>php artisan permission:cache-reset</code></td></tr>
+              <tr><td>মেয়াদ/রেটিং স্বয়ংক্রিয়ভাবে আপডেট হচ্ছে না</td><td>crontab-এ schedule:run ঠিকমতো চলছে কিনা দেখুন</td></tr>
+              <tr><td>CSS/JS পুরনো দেখাচ্ছে</td><td><code>npm run build</code></td></tr>
+              <tr><td>সব ধরনের ক্যাশ সমস্যা</td><td><code>php artisan optimize:clear</code></td></tr>
+              <tr><td>স্টাফ ইউজার/রোল যোগ করতে হবে</td><td>কোনো UI নেই — <code>tinker</code> দিয়ে ম্যানুয়ালি</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="foot-nav">
+          <a data-page="jobs"><span class="dir">পূর্ববর্তী</span><span class="lbl">← স্বয়ংক্রিয় কাজ</span></a>
+          <span></span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var pageTitles = {
+    home: 'শুরুর পাতা',
+    overview: 'সিস্টেম পরিচিতি',
+    roles: 'রোল ও অনুমতি',
+    doctor: 'ডাক্তার মডিউল',
+    hospital: 'হাসপাতাল মডিউল',
+    guide: 'ক্যান্সার গাইড মডিউল',
+    cost: 'খরচের হিসাব মডিউল',
+    patient: 'রোগীর সহায়তা মডিউল',
+    'second-opinion': 'দ্বিতীয় মতামত মডিউল',
+    rating: 'ডাক্তার রেটিং মডিউল',
+    helpline: 'হেল্পলাইন মডিউল',
+    search: 'সার্চ মডিউল',
+    jobs: 'স্বয়ংক্রিয় কাজ',
+    tech: 'টেকনিক্যাল অপারেশনস'
+  };
+
+  var navLinks = document.querySelectorAll('[data-page]');
+  var pages = document.querySelectorAll('.page');
+  var crumb = document.getElementById('crumb');
+  var sidebar = document.getElementById('sidebar');
+  var scrim = document.getElementById('scrim');
+  var navToggle = document.getElementById('navToggle');
+
+  function showPage(id, push) {
+    if (!pageTitles.hasOwnProperty(id)) id = 'home';
+
+    pages.forEach(function (p) { p.classList.toggle('active', p.id === 'page-' + id); });
+    navLinks.forEach(function (l) {
+      if (l.classList.contains('nav-link')) {
+        l.classList.toggle('active', l.getAttribute('data-page') === id);
+      }
+    });
+    crumb.textContent = pageTitles[id];
+    document.getElementById('content').scrollTop = 0;
+    window.scrollTo(0, 0);
+
+    if (push !== false) {
+      history.pushState(null, '', '#' + id);
+    }
+    closeSidebar();
+  }
+
+  function openSidebar() { sidebar.classList.add('open'); scrim.classList.add('open'); }
+  function closeSidebar() { sidebar.classList.remove('open'); scrim.classList.remove('open'); }
+
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      showPage(link.getAttribute('data-page'));
+    });
+  });
+
+  navToggle.addEventListener('click', function () {
+    if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+  });
+  scrim.addEventListener('click', closeSidebar);
+
+  window.addEventListener('popstate', function () {
+    showPage((location.hash || '#home').slice(1), false);
+  });
+
+  showPage((location.hash || '#home').slice(1), false);
+})();
+</script>
+</body>
+</html>

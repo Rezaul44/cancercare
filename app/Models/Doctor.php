@@ -172,6 +172,28 @@ class Doctor extends Model
         return $this->hasMany(GuideVideo::class);
     }
 
+    public function hospitals(): BelongsToMany
+    {
+        return $this->belongsToMany(Hospital::class, 'hospital_doctor')
+            ->withPivot('schedule_note_bn', 'sort_order')
+            ->withTimestamps();
+    }
+
+    public function secondOpinionRequests(): HasMany
+    {
+        return $this->hasMany(SecondOpinionRequest::class);
+    }
+
+    public function secondOpinionResponses(): HasMany
+    {
+        return $this->hasMany(SecondOpinionResponse::class);
+    }
+
+    public function payouts(): HasMany
+    {
+        return $this->hasMany(DoctorPayout::class);
+    }
+
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('status', DoctorStatus::Published);

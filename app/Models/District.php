@@ -25,8 +25,23 @@ class District extends Model
         ];
     }
 
+    public function division(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Division::class);
+    }
+
     public function chambers(): HasMany
     {
         return $this->hasMany(Chamber::class);
+    }
+
+    public function hospitals(): HasMany
+    {
+        return $this->hasMany(Hospital::class);
+    }
+
+    public function patientCases(): HasMany
+    {
+        return $this->hasMany(PatientCase::class);
     }
 }

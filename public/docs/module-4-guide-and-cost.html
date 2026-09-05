@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মডিউল ৪: ক্যান্সার গাইড ও খরচের হিসাব ওয়ার্কফ্লো | CCB Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --slate: #334155;
+            --muted: #64748B;
+            --mist: #F8FAFC;
+            --off: #F1F5F9;
+            --line: #E2E8F0;
+            --teal: #0D9488;
+            --teal-soft: #F0FDFA;
+            --rose: #E11D48;
+            --rose-soft: #FFF1F2;
+            --gold: #D97706;
+            --gold-soft: #FEF3C7;
+            --sidebar-width: 280px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Hind Siliguri', sans-serif; color: var(--ink); background-color: #fff; line-height: 1.8; display: flex; min-height: 100vh; }
+        .top-nav { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: #ffffff; border-bottom: 1px solid var(--line); z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+        .brand-badge { background: #0F172A; color: #fff; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 6px; }
+        .sidebar { width: var(--sidebar-width); height: calc(100vh - 64px); position: fixed; top: 64px; left: 0; background: #FAFBFC; border-right: 1px solid var(--line); overflow-y: auto; padding: 24px 16px; z-index: 90; }
+        .nav-group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 18px 0 8px 10px; }
+        .nav-link { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; color: var(--slate); text-decoration: none; font-size: 13.5px; font-weight: 500; margin-bottom: 2px; transition: all 0.15s; }
+        .nav-link:hover { background: var(--line); color: var(--ink); }
+        .nav-link.active { background: #0F172A; color: #ffffff; font-weight: 600; }
+        .content-wrapper { margin-left: var(--sidebar-width); margin-top: 64px; flex: 1; padding: 40px 60px 80px; max-width: 1060px; }
+        .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .breadcrumb a { color: var(--teal); text-decoration: none; }
+        h1.main-title { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--ink); margin-bottom: 8px; }
+        .lead-text { font-size: 16px; color: var(--muted); margin-bottom: 30px; }
+        h2.section-heading { font-size: 22px; font-weight: 700; color: var(--ink); margin: 36px 0 16px; display: flex; align-items: center; gap: 8px; }
+        h3.sub-heading { font-size: 17px; font-weight: 600; color: var(--ink); margin: 24px 0 10px; }
+        p, li { font-size: 15px; color: var(--slate); margin-bottom: 12px; }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+        .step-box { border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 20px 0; background: #fff; position: relative; }
+        .step-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: #0F172A; color: #fff; font-weight: 700; font-size: 14px; margin-bottom: 12px; }
+        .callout { border-radius: 12px; padding: 16px 20px; margin: 18px 0; font-size: 14.5px; border-left: 4px solid transparent; background: var(--mist); }
+        .callout-info { background: var(--teal-soft); border-left-color: var(--teal); color: #115E59; }
+        .callout-warning { background: var(--gold-soft); border-left-color: var(--gold); color: #92400E; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+        th, td { padding: 12px 16px; border: 1px solid var(--line); text-align: left; }
+        th { background: #F8FAFC; font-weight: 600; color: var(--ink); }
+        code { font-family: 'JetBrains Mono', monospace; background: #F1F5F9; padding: 2px 6px; border-radius: 5px; font-size: 13px; color: #0F172A; border: 1px solid #E2E8F0; }
+        .nav-footer-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+        .btn { font-family: 'Hind Siliguri', sans-serif; font-size: 13.5px; font-weight: 600; padding: 8px 18px; border-radius: 8px; border: 1px solid var(--line); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; transition: all 0.2s; }
+        .btn-primary { background: #0F172A; color: #fff; border-color: #0F172A; }
+        .btn-primary:hover { background: #334155; }
+        .btn-secondary { background: #fff; color: var(--slate); }
+        .btn-secondary:hover { background: var(--mist); border-color: #CBD5E1; }
+        @media print { .top-nav, .sidebar, .nav-footer-buttons { display: none !important; } .content-wrapper { margin: 0 !important; padding: 0 !important; max-width: 100% !important; } }
+        @media (max-width: 900px) { .sidebar { display: none; } .content-wrapper { margin-left: 0; padding: 24px; } }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <a href="index.html" class="brand">
+            <span class="brand-badge">CCB DOCS</span>
+            <span style="font-weight: 700; font-size: 15px;">Cancer Care Bangladesh — ডকুমেন্টেশন</span>
+        </a>
+        <div style="display: flex; gap: 10px;">
+            <a href="index.html" class="btn btn-secondary"><i class="ti ti-home"></i> হোম</a>
+            <button onclick="window.print()" class="btn btn-primary"><i class="ti ti-printer"></i> প্রিন্ট / PDF</button>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <div class="nav-group-title">মডিউল সূচিপত্র</div>
+        <a href="index.html" class="nav-link"><i class="ti ti-layout-grid"></i> মাস্টার ওভারভিউ</a>
+        <a href="module-1-foundation.html" class="nav-link"><i class="ti ti-shield-lock"></i> মডিউল ১: প্ল্যাটফর্ম ভিত্তি ও RBAC</a>
+        <a href="module-2-doctors.html" class="nav-link"><i class="ti ti-stethoscope"></i> মডিউল ২: ডাক্তার ডিরেক্টরি ও ম্যাচিং</a>
+        <a href="module-3-hospitals.html" class="nav-link"><i class="ti ti-building-hospital"></i> মডিউল ৩: হাসপাতাল ও প্রস্তুতি সূচক</a>
+        <a href="module-4-guide-and-cost.html" class="nav-link active"><i class="ti ti-calculator"></i> মডিউল ৪: গাইড ও খরচের হিসাব</a>
+        <a href="module-5-patient-support.html" class="nav-link"><i class="ti ti-heart-handshake"></i> মডিউল ৫: রোগীর সহায়তা ও মেয়াদ</a>
+
+        <div class="nav-group-title">অ্যাডমিন ও টেকনিক্যাল গাইড</div>
+        <a href="admin-and-developer-manual.html" class="nav-link"><i class="ti ti-terminal-2"></i> অ্যাডমিন ও ডেভেলপার ম্যানুয়াল</a>
+    </aside>
+
+    <main class="content-wrapper">
+        <div class="breadcrumb">
+            <a href="index.html">ডকুমেন্টেশন</a> <span>/</span> <span>মডিউল ৪</span>
+        </div>
+
+        <h1 class="main-title">মডিউল ৪: ক্যান্সার গাইড ও খরচের হিসাব ক্যালকুলেটর ওয়ার্কফ্লো</h1>
+        <p class="lead-text">রোগী ও পরিবারের সহজে বোঝার উপযোগী ক্যান্সার নির্দেশিকা হাব এবং সম্পূর্ণ গোপনীয়তা নিশ্চিত করে ৩ ধরনের হাসপাতালের খরচের তুলনামূলক ক্যালকুলেটর ওয়ার্কফ্লো।</p>
+
+        <h2 class="section-heading"><i class="ti ti-book"></i> ১. ক্যান্সার গাইড ব্রাউজিং ওয়ার্কফ্লো (`/guide`)</h2>
+        
+        <div class="step-box">
+            <div class="step-number">১</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">ক্যান্সার টাইপ নির্বাচন</h3>
+            <p>ব্যবহারকারী <code>/guide</code> পেজে স্তন ক্যান্সার, ফুসফুসের ক্যান্সার, কোলন ক্যান্সার ইত্যাদি ব্রাউজ করেন।</p>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">২</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">রোগীর সহজবোধ্য ভাষায় বিস্তারিত গাইড (`/guide/{slug}`)</h3>
+            <p>প্রতিটি পূর্ণাঙ্গ গাইডে থাকে:</p>
+            <ul>
+                <li><strong>লক্ষণ ও প্রাথমিক সংকেত:</strong> শরীরে কী কী পরিবর্তন দেখলে অবিলম্বে ডাক্তারের কাছে যেতে হবে।</li>
+                <li><strong>প্রয়োজনীয় পরীক্ষা:</strong> এফএনএসি, বায়োপসি, সিটি স্ক্যান, রক্ত পরীক্ষার ব্যাখ্যা।</li>
+                <li><strong>চিকিৎসার ধাপসমূহ:</strong> সার্জারি, কেমোথেরাপির সাইকেল, রেডিয়েশনের প্রয়োজনীয়তা।</li>
+                <li><strong>সচরাচর জিজ্ঞাসা (FAQ):</strong> খাদ্যাভ্যাস, সাইড-ইফেক্ট নিয়ন্ত্রণ ও মানসিক প্রস্তুতি।</li>
+            </ul>
+        </div>
+
+        <h2 class="section-heading"><i class="ti ti-calculator"></i> ২. খরচের হিসাব ক্যালকুলেটরের সম্পূর্ণ ফ্লো (`/cost-estimator`)</h2>
+        
+        <div class="callout callout-warning">
+            <strong>🔒 সম্পূর্ণ গোপনীয়তা প্রতিশ্রুতি (Stateless Architecture):</strong><br>
+            ক্যালকুলেটরে ব্যবহারকারীর নাম, ফোন নম্বর বা অবস্থান সংক্রান্ত কোনো তথ্য সার্ভারে সংরক্ষণ বা লগ করা হয় না। ব্যবহারকারী নির্ভয়ে যেকোনো প্রাক্কলন হিসাব করতে পারেন।
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">১</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">ইনপুট প্যারামিটার নির্বাচন</h3>
+            <p>ব্যবহারকারী ৩টি সহজ তথ্য সিলেক্ট করেন:</p>
+            <ol>
+                <li><strong>ক্যান্সারের ধরন:</strong> যেমন: স্তন ক্যান্সার (Breast Cancer)।</li>
+                <li><strong>ক্যান্সারের পর্যায় (Stage):</strong> প্রাথমিক পর্যায় (Stage 1-2), উন্নত পর্যায় (Stage 3), ছড়ানো পর্যায় (Stage 4)।</li>
+                <li><strong>রোগীর বর্তমান জেলা:</strong> নিজ জেলা থেকে যাতায়াত দূরত্ব ও ব্যয়ের হারের হিসাব নির্ধারণের জন্য।</li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">২</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">তাৎক্ষণিক ৩-স্তরের খরচ তুলনা ফলাফল</h3>
+            <p>সাবমিট করার পর সিস্টেম পাশাপাশি ৩ ধরনের হাসপাতালের আনুমানিক খরচের ভাঙা হিসাব দেখায়:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>হাসপাতালের স্তর</th>
+                        <th>কোন ধরণের হাসপাতাল?</th>
+                        <th>খরচের আনুমানিক সীমা</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>🏛️ সরকারি হাসপাতাল</b></td>
+                        <td>জাতীয় ক্যান্সার গবেষণা ইনস্টিটিউট (NICRH), ঢাকা মেডিকেল, ইত্যাদি।</td>
+                        <td>সর্বনিম্ন (ভর্তুকিযুক্ত ঔষধ ও টিকিট)</td>
+                    </tr>
+                    <tr>
+                        <td><b>🏥 মাঝারি বেসরকারি হাসপাতাল</b></td>
+                        <td>আহছানিয়া মিশন ক্যান্সার হাসপাতাল, ডেল্টা মেডিকেল, ইত্যাদি।</td>
+                        <td>মাঝারি ও ভারসাম্যপূর্ণ খরচ</td>
+                    </tr>
+                    <tr>
+                        <td><b>⭐ উন্নত / কর্পোরেট হাসপাতাল</b></td>
+                        <td>এভারকেয়ার, স্কয়ার, ইউনাইটেড, ইত্যাদি।</td>
+                        <td>প্রিমিয়াম আধুনিক সুবিধাসম্পন্ন খরচ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">৩</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">পরোক্ষ খরচের হিসাব (Indirect Expenses)</h3>
+            <p>শুধু হাসপাতালের বিলই নয়, রোগী ও তার অভিভাবকের ঢাকা বা অনকোলজি সেন্টারে যাতায়াত, থাকা-খাওয়া ও অপ্রত্যাশিত মেডিকেল টেস্টের আনুমানিক মোট বাজেট প্রদর্শন করা হয়।</p>
+        </div>
+
+        <div class="nav-footer-buttons">
+            <a href="module-3-hospitals.html" class="btn btn-secondary"><i class="ti ti-arrow-left"></i> মডিউল ৩: হাসপাতাল ডিরেক্টরি</a>
+            <a href="module-5-patient-support.html" class="btn btn-primary">মডিউল ৫: রোগীর সহায়তা ও মেয়াদ <i class="ti ti-arrow-right"></i></a>
+        </div>
+    </main>
+
+</body>
+</html>

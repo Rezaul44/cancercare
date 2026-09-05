@@ -26,8 +26,8 @@
                 <div class="font-bn text-[11.5px] font-semibold text-white/40 uppercase tracking-[0.1em] mb-4">খুঁজুন</div>
                 <div class="font-bn flex flex-col gap-[11px]">
                     <a href="{{ route('doctors.index') }}" class="text-[13.5px] text-white/70 hover:text-white">ডাক্তার</a>
-                    <a href="{{ route('doctors.index') }}" class="text-[13.5px] text-white/70 hover:text-white">হাসপাতাল</a>
-                    <a href="{{ route('doctors.index') }}" class="text-[13.5px] text-white/70 hover:text-white">খরচের হিসাব</a>
+                    <a href="{{ route('hospitals.index') }}" class="text-[13.5px] text-white/70 hover:text-white">হাসপাতাল</a>
+                    <a href="{{ route('cost-estimator.index') }}" class="text-[13.5px] text-white/70 hover:text-white">খরচের হিসাব</a>
                     <a href="{{ route('doctors.index') }}" class="text-[13.5px] text-white/70 hover:text-white">দ্বিতীয় মতামত</a>
                 </div>
             </div>
@@ -36,8 +36,8 @@
                 <div class="font-bn text-[11.5px] font-semibold text-white/40 uppercase tracking-[0.1em] mb-4">সহায়তা</div>
                 <div class="font-bn flex flex-col gap-[11px]">
                     <a href="{{ route('guides.index') }}" class="text-[13.5px] text-white/70 hover:text-white">ক্যান্সার গাইড</a>
-                    <a href="{{ route('doctors.index') }}" class="text-[13.5px] text-white/70 hover:text-white">রোগীদের সহায়তা</a>
-                    <a href="{{ route('doctors.index') }}" class="text-[13.5px] text-white/70 hover:text-white">সহায়তার আবেদন</a>
+                    <a href="{{ route('patients.index') }}" class="text-[13.5px] text-white/70 hover:text-white">রোগীদের সহায়তা</a>
+                    <a href="{{ route('patients.apply') }}" class="text-[13.5px] text-white/70 hover:text-white">সহায়তার আবেদন</a>
                     <a href="{{ url('/') }}" class="text-[13.5px] text-white/70 hover:text-white">যোগাযোগ</a>
                 </div>
             </div>

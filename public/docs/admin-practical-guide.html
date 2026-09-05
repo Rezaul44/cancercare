@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন প্র্যাকটিক্যাল গাইড ও পাবলিকেশন ফ্লো | CCB Documentation</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    
+    <style>
+        :root {
+            --ink: #0F172A;
+            --slate: #334155;
+            --muted: #64748B;
+            --mist: #F8FAFC;
+            --off: #F1F5F9;
+            --line: #E2E8F0;
+            --teal: #0D9488;
+            --teal-soft: #F0FDFA;
+            --rose: #E11D48;
+            --rose-soft: #FFF1F2;
+            --gold: #D97706;
+            --gold-soft: #FEF3C7;
+            --blue: #2563EB;
+            --blue-soft: #EFF6FF;
+            --sidebar-width: 290px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--ink);
+            background-color: #fff;
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--line);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--ink);
+        }
+        .brand-badge {
+            background: #0F172A;
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - 64px);
+            position: fixed;
+            top: 64px; left: 0;
+            background: #FAFBFC;
+            border-right: 1px solid var(--line);
+            overflow-y: auto;
+            padding: 24px 16px;
+            z-index: 90;
+        }
+        .nav-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin: 18px 0 8px 10px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--slate);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            transition: all 0.15s;
+        }
+        .nav-link:hover {
+            background: var(--line);
+            color: var(--ink);
+        }
+        .nav-link.active {
+            background: #0F172A;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .content-wrapper {
+            margin-left: var(--sidebar-width);
+            margin-top: 64px;
+            flex: 1;
+            padding: 40px 60px 80px;
+            max-width: 1100px;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb a { color: var(--teal); text-decoration: none; }
+
+        h1.main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .lead-text {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+        h2.section-heading {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 40px 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 10px;
+        }
+        h3.sub-heading {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 24px 0 10px;
+        }
+        p, li {
+            font-size: 15px;
+            color: var(--slate);
+            margin-bottom: 12px;
+        }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+
+        /* Step Flow Container */
+        .flow-container {
+            margin: 24px 0 36px;
+        }
+        .flow-card {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
+        .flow-card-header {
+            padding: 16px 20px;
+            background: #F8FAFC;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .flow-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-tag {
+            background: #0F172A;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .flow-card-body {
+            padding: 24px;
+        }
+
+        /* Two-Column Comparison (Admin Action vs Public Output) */
+        .action-output-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 16px 0 8px;
+        }
+        .box-admin {
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+            padding: 16px;
+            background: #F8FAFC;
+        }
+        .box-admin h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .box-public {
+            border: 1px solid #A7F3D0;
+            border-radius: 10px;
+            padding: 16px;
+            background: #F0FDF4;
+        }
+        .box-public h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #065F46;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-live {
+            background: #10B981;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .callout {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            border-left: 4px solid transparent;
+            background: var(--mist);
+        }
+        .callout-info { background: var(--teal-soft); border-left-color: var(--teal); color: #115E59; }
+        .callout-danger { background: var(--rose-soft); border-left-color: var(--rose); color: #9F1239; }
+        .callout-warning { background: var(--gold-soft); border-left-color: var(--gold); color: #92400E; }
+
+        .btn {
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #0F172A; color: #fff; border-color: #0F172A; }
+        .btn-primary:hover { background: #334155; }
+        .btn-secondary { background: #fff; color: var(--slate); }
+        .btn-secondary:hover { background: var(--mist); border-color: #CBD5E1; }
+
+        @media print {
+            .top-nav, .sidebar { display: none !important; }
+            .content-wrapper { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+        }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .content-wrapper { margin-left: 0; padding: 24px; }
+            .action-output-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <a href="index.html" class="brand">
+            <span class="brand-badge">CCB DOCS</span>
+            <span style="font-weight: 700; font-size: 15px;">Cancer Care Bangladesh — অ্যাডমিন প্র্যাকটিক্যাল গাইড</span>
+        </a>
+        <div style="display: flex; gap: 10px;">
+            <a href="/admin" target="_blank" class="btn btn-primary"><i class="ti ti-lock"></i> অ্যাডমিন প্যানেল খুলুন</a>
+            <button onclick="window.print()" class="btn btn-secondary"><i class="ti ti-printer"></i> প্রিন্ট / PDF</button>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <div class="nav-group-title">মডিউল সূচিপত্র</div>
+        <a href="index.html" class="nav-link"><i class="ti ti-layout-grid"></i> মাস্টার ওভারভিউ</a>
+        <a href="module-1-foundation.html" class="nav-link"><i class="ti ti-shield-lock"></i> মডিউল ১: ভিত্তি ও RBAC</a>
+        <a href="module-2-doctors.html" class="nav-link"><i class="ti ti-stethoscope"></i> মডিউল ২: ডাক্তার ডিরেক্টরি</a>
+        <a href="module-3-hospitals.html" class="nav-link"><i class="ti ti-building-hospital"></i> মডিউল ৩: হাসপাতাল ও প্রস্তুতি</a>
+        <a href="module-4-guide-and-cost.html" class="nav-link"><i class="ti ti-calculator"></i> মডিউল ৪: গাইড ও খরচের হিসাব</a>
+        <a href="module-5-patient-support.html" class="nav-link"><i class="ti ti-heart-handshake"></i> মডিউল ৫: রোগীর সহায়তা ও মেয়াদ</a>
+
+        <div class="nav-group-title">অ্যাডমিন গাইডলাইন</div>
+        <a href="admin-practical-guide.html" class="nav-link active"><i class="ti ti-list-numbers"></i> অ্যাডমিন প্র্যাকটিক্যাল ওয়ার্কফ্লো</a>
+        <a href="admin-and-developer-manual.html" class="nav-link"><i class="ti ti-terminal-2"></i> টেকনিক্যাল ও ডেভ ম্যানুয়াল</a>
+    </aside>
+
+    <main class="content-wrapper">
+        <div class="breadcrumb">
+            <a href="index.html">ডকুমেন্টেশন</a> <span>/</span> <span>অ্যাডমিন প্র্যাকটিক্যাল গাইড</span>
+        </div>
+
+        <h1 class="main-title">অ্যাডমিনিস্ট্রেটরের প্র্যাকটিক্যাল কাজের নির্দেশিকা</h1>
+        <p class="lead-text">
+            লগইন করার পর কোন মডিউলে কী কাজ করবেন, কোনটার পর কোনটা করবেন এবং অ্যাডমিনের এন্ট্রি করা ডাটা পাবলিক ওয়েবসাইটে কীভাবে ও কোথায় দেখতে পাবেন তার স্টেপ-বাই-স্টেপ প্র্যাকটিক্যাল গাইড।
+        </p>
+
+        <!-- WORKFLOW 1: PATIENT SUPPORT -->
+        <h2 class="section-heading"><i class="ti ti-heart-handshake text-rose"></i> ১. রোগীর সহায়তা ও ৪-ধাপের ভেরিফিকেশন ওয়ার্কফ্লো (সবচেয়ে গুরুত্বপূর্ণ)</h2>
+        <p>অসচ্ছল ক্যান্সার রোগী সাহায্য চাইলে অ্যাডমিন প্যানেল থেকে যেভাবে ভেরিফাই করে ওয়েবসাইটে প্রকাশ করবেন:</p>
+
+        <div class="flow-container">
+            <!-- Step 1 -->
+            <div class="flow-card">
+                <div class="flow-card-header">
+                    <div class="flow-card-title">
+                        <span class="step-tag">ধাপ ১</span> নতুন কেস তৈরি (Case Creation)
+                    </div>
+                    <span style="font-size: 13px; color: var(--muted);">মেনু: <b>Patient Cases ➔ Create</b></span>
+                </div>
+                <div class="flow-card-body">
+                    <p>হেল্পলাইনে আসা রোগীর পারিবারিক অবস্থা ও চিকিৎসার ডাটা এন্ট্রি করুন।</p>
+                    <div class="callout callout-warning" style="margin: 8px 0 14px;">
+                        <strong>⚠️ শিশু সুরক্ষা নীতি:</strong> রোগীর বয়স ১৮-এর নিচে হলে ছবি স্বয়ংক্রিয়ভাবে বন্ধ থাকবে (<code>show_photo = false</code>)।
+                    </div>
+                    <div class="action-output-grid">
+                        <div class="box-admin">
+                            <h4><i class="ti ti-edit"></i> অ্যাডমিনে আপনি যা করবেন:</h4>
+                            রোগীর আসল নাম, পাবলিক নাম, বয়স, লিঙ্গ, ক্যান্সারের ধরন, স্টেজ ও পারিবারিক কষ্টের গল্প (<code>story_bn</code>) লিখবেন।
+                        </div>
+                        <div class="box-public">
+                            <h4><i class="ti ti-eye"></i> পাবলিক সাইটে যা হবে:</h4>
+                            কেসটি এখনো <b>Draft / Verifying</b> অবস্থায় থাকবে। কোনো সাধারণ মানুষ এখনো এটি ওয়েবসাইটে দেখতে পাবে না।
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flow-card">
+                <div class="flow-card-header">
+                    <div class="flow-card-title">
+                        <span class="step-tag">ধাপ ২</span> ৪-ধাপের নিরপেক্ষ যাচাই ও সম্মতিপত্র
+                    </div>
+                    <span style="font-size: 13px; color: var(--muted);">ট্যাব: <b>Consent Form & Verifications</b></span>
+                </div>
+                <div class="flow-card-body">
+                    <p>৪টি যাচাই ধাপে স্টাফদের নোট ও স্ট্যাটাস আপডেট করুন:</p>
+                    <ul>
+                        <li><b>১. হাসপাতালের কাগজ (documents):</b> বায়োপসি ও প্রেসক্রিপশন দেখে 'Done' দিন।</li>
+                        <li><b>২. ডাক্তার নিশ্চিতকরণ (hospital_confirm):</b> চিকিৎসকের সিল দেখে 'Done' দিন।</li>
+                        <li><b>৩. এনআইডি ও অ্যাকাউন্ট (identity):</b> রোগীর NID এবং বিকাশ/ব্যাংক অ্যাকাউন্টের নাম মিলিয়ে অ্যাকাউন্টে <code>Name Verified</code> চেক দিন।</li>
+                        <li><b>৪. মাঠ সাক্ষাৎ (field_meeting):</b> ফিল্ড এজেন্টের সশরীরে দেখা ও স্বাক্ষরিত লিখিত সম্মতিপত্র (<code>consent_form_path</code>) আপলোড করুন।</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flow-card">
+                <div class="flow-card-header">
+                    <div class="flow-card-title">
+                        <span class="step-tag">ধাপ ৩</span> অনুমোদন ও প্রকাশনা (Publishing Case)
+                    </div>
+                    <span class="badge-live">Live on Website</span>
+                </div>
+                <div class="flow-card-body">
+                    <p>৪টি ধাপ ও সম্মতিপত্র পূর্ণ হলে হেডার থেকে <b>"প্রকাশ করুন" (Publish)</b> বাটনে ক্লিক করুন।</p>
+                    <div class="action-output-grid">
+                        <div class="box-admin">
+                            <h4><i class="ti ti-check-circle"></i> অ্যাডমিনের অ্যাকশন:</h4>
+                            স্ট্যাটাস <code>Published</code> হবে এবং স্বয়ংক্রিয়ভাবে পরবর্তী <b>৩০ দিনের মেয়াদ</b> শুরু হবে।
+                        </div>
+                        <div class="box-public">
+                            <h4><i class="ti ti-world"></i> পাবলিক ওয়েবসাইটে যেভাবে দেখাবে:</h4>
+                            <ul>
+                                <li><b><code>/patients</code> এ:</b> কার্ডে রোগীর নাম, প্রয়োজন (৳), ৩টি যাচাই প্রমাণ এবং "সাহায্য করুন" বাটন আসবে।</li>
+                                <li><b><code>/patients/{code}</code> এ:</b> বিস্তারিত গল্প, ৪টি যাচাইয়ের টাইমলাইন ও ডানপাশে রোগীর বিকাশ/নগদ/ব্যাংক ১-ক্লিক কপি পেবক্স আসবে।</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flow-card">
+                <div class="flow-card-header">
+                    <div class="flow-card-title">
+                        <span class="step-tag">ধাপ ৪</span> মেয়াদ বৃদ্ধি ("মেয়াদ বাড়াও" অ্যাকশন)
+                    </div>
+                    <span style="font-size: 13px; color: var(--muted);">অ্যাকশন: <b>Extend Duration Action</b></span>
+                </div>
+                <div class="flow-card-body">
+                    <p>কেসের ৩০ দিন পার হওয়ার আগে বা পরে রোগীর পরিবারের কাছ থেকে নতুন চিকিৎসার আপডেট আসলে:</p>
+                    <ol>
+                        <li>টেবিলে বা ভিউ পেজে <b>"মেয়াদ বাড়াও"</b> বাটনে ক্লিক করুন।</li>
+                        <li>চিকিৎসার নতুন অবস্থা বা অগ্রগতি নোট (<code>note_bn</code>) লিখুন।</li>
+                        <li>সংরক্ষণ করলে কেসটির মেয়াদ আরও <b>৩০ দিন বৃদ্ধি</b> পাবে এবং মেয়াদোত্তীর্ণ থাকলে পুনরায় লাইভ হয়ে যাবে।</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKFLOW 2: DOCTORS -->
+        <h2 class="section-heading"><i class="ti ti-stethoscope text-teal"></i> ২. ডাক্তার মডিউল ও BMDC যাচাই ওয়ার্কফ্লো</h2>
+        <p>ওয়েবসাইটে ডাক্তারদের প্রোফাইল যুক্ত ও অনুমোদন করার পদ্ধতি:</p>
+
+        <div class="flow-container">
+            <div class="flow-card">
+                <div class="flow-card-header">
+                    <div class="flow-card-title">
+                        <span class="step-tag">পদ্ধতি ১</span> ডাক্তারদের সরাসরি আবেদন অনুমোদন
+                    </div>
+                    <span style="font-size: 13px; color: var(--muted);">মেনু: <b>Doctor Applications</b></span>
+                </div>
+                <div class="flow-card-body">
+                    <ol>
+                        <li>কোনো চিকিৎসক ওয়েবসাইটের <code>/for-doctors</code> ফর্ম থেকে আবেদন করলে তা এখানে পেন্ডিং থাকবে।</li>
+                        <li>চিকিৎসকের নাম ও BMDC নম্বর সরকারি ডাটাবেজে সঠিক কিনা চেক করুন।</li>
+                        <li><b>"Approve"</b> বাটনে ক্লিক করলে তা স্বয়ংক্রিয়ভাবে <code>Doctors</code> তালিকায় যুক্ত হয়ে যাবে।</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="flow-card">
+                <div class="flow-card-header">
+                    <div class="flow-card-title">
+                        <span class="step-tag">পদ্ধতি ২</span> অ্যাডমিন থেকে সরাসরি ডাক্তার এন্ট্রি
+                    </div>
+                    <span style="font-size: 13px; color: var(--muted);">মেনু: <b>Doctors ➔ Create</b></span>
+                </div>
+                <div class="flow-card-body">
+                    <p>ডাক্তারের নাম, স্পেশালিটি (মেডিকেল/রেডিয়েশন/সার্জিক্যাল অনকোলজি), ডিগ্রি, চেম্বার শিডিউল (বার, সময়, ভিজিট ফি ও সিরিয়াল নম্বর) এন্ট্রি করুন।</p>
+                    
+                    <div class="action-output-grid">
+                        <div class="box-admin">
+                            <h4><i class="ti ti-check"></i> অ্যাডমিন সেভ করার পর:</h4>
+                            ডাক্তার ডাটাবেজে সক্রিয় থাকবে।
+                        </div>
+                        <div class="box-public">
+                            <h4><i class="ti ti-eye"></i> পাবলিক ওয়েবসাইটে যেভাবে দেখাবে:</h4>
+                            <ul>
+                                <li><code>/doctors</code> তালিকায় ফিল্টারযোগ্য কার্ড আসবে।</li>
+                                <li><code>/doctors/{slug}</code> পেজে চেম্বারের সময় ও সরাসরি ফোন নম্বর বুকিং বাটন দেখাবে।</li>
+                                <li>হোমপেজের <b>৩-ধাপের ম্যাচিং উইজার্ডে</b> রোগীকে রিকমেন্ড করবে।</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKFLOW 3: HOSPITALS -->
+        <h2 class="section-heading"><i class="ti ti-building-hospital text-blue"></i> ৩. হাসপাতাল ও ৫-পয়েন্ট প্রস্তুতি সূচক ওয়ার্কফ্লো</h2>
+        <p>হাসপাতালের অনকোলজি সেবা ও নতুন রোগীর ব্যবহারিক গাইড এন্ট্রি:</p>
+
+        <div class="flow-card">
+            <div class="flow-card-header">
+                <div class="flow-card-title">
+                    <span class="step-tag">ধাপ ১</span> হাসপাতাল ও প্রস্তুতি সূচক সেট করা
+                </div>
+                <span style="font-size: 13px; color: var(--muted);">মেনু: <b>Hospitals ➔ Create / Edit</b></span>
+            </div>
+            <div class="flow-card-body">
+                <ol>
+                    <li>হাসপাতালের নাম, বিভাগ, সরকারি/বেসরকারি ধরন ও অনকোলজিস্ট সংখ্যা দিন।</li>
+                    <li><b>৫-পয়েন্ট প্রস্তুতি সূচক:</b> হাসপাতালে ICU, লিনিয়াক (LINAC), কেমো ডে-কেয়ার, PET-CT বা ২৪/৭ ইমার্জেন্সি থাকলে টিক দিন।</li>
+                    <li><b>প্র্যাকটিক্যাল গাইড:</b> অ্যাম্বুলেন্স পার্কিং ড্রপ-অফ পয়েন্ট, নতুন রোগীর টিকিট কাউন্টার নম্বর ও ভর্তি ফি লিখে দিন।</li>
+                </ol>
+
+                <div class="action-output-grid">
+                    <div class="box-admin">
+                        <h4><i class="ti ti-settings"></i> অ্যাডমিনে সংরক্ষণ:</h4>
+                        হাসপাতালের পূর্ণাঙ্গ তথ্য ডাটাবেজে যুক্ত হলো।
+                    </div>
+                    <div class="box-public">
+                        <h4><i class="ti ti-world"></i> পাবলিক সাইটে যা দেখাবে:</h4>
+                        <code>/hospitals/{slug}</code> পেজে রোগীরা গিয়ে দেখতে পাবেন কোন গেট দিয়ে ঢুকতে হবে, কোন কাউন্টারে টিকিট কাটতে হবে এবং গড়ে কতক্ষণ অপেক্ষা করতে হয়।
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKFLOW 4: CANCER GUIDES & COST ESTIMATOR -->
+        <h2 class="section-heading"><i class="ti ti-calculator text-gold"></i> ৪. ক্যান্সার গাইড ও খরচের হিসাব সিএমএস</h2>
+
+        <div class="flow-card">
+            <div class="flow-card-header">
+                <div class="flow-card-title">
+                    <span class="step-tag">ধাপ ১</span> গাইড ও খরচের রেট আপডেট
+                </div>
+                <span style="font-size: 13px; color: var(--muted);">মেনু: <b>Cancer Types & Cost Rates</b></span>
+            </div>
+            <div class="flow-card-body">
+                <ul>
+                    <li><b>ক্যান্সার গাইড সম্পাদনা:</b> <code>Cancer Types</code>-এ গিয়ে বিভিন্ন ক্যান্সারের প্রাথমিক লক্ষণ, পরীক্ষা ও চিকিৎসার বিকল্প বাংলায় আপডেট করুন ➔ যা সরাসরি <code>/guide/{slug}</code> পেজে সুন্দর আর্টিকেলে পরিণত হবে।</li>
+                    <li><b>খরচের বেইজ রেট:</b> <code>Cost Rates</code>-এ বিভিন্ন চিকিৎসা ও কেমোথেরাপির সরকারি ও বেসরকারি বেইজ খরচ পরিবর্তন করুন ➔ যা <code>/cost-estimator</code> ক্যালকুলেটরে সরাসরি প্রাক্কলিত হিসেবে কাজ করবে।</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top: 36px;">
+            <b>💡 প্রো-টিপ (ক্যাশ ক্লিয়ার):</b> অ্যাডমিন থেকে কোনো পরিবর্তন ওয়েবসাইটে সাথে সাথে দেখতে না পেলে ব্রাউজারে <a href="/clear-cache" target="_blank"><b>/clear-cache</b></a> লিংকে ক্লিক করে ক্যাশ ক্লিয়ার করে নিন।
+        </div>
+
+    </main>
+
+</body>
+</html>

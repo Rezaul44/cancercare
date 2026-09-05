@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিনিস্ট্রেটর ও ডেভেলপার গাইডলাইন এবং অপারেশনাল ম্যানুয়াল | CCB Documentation</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    
+    <style>
+        :root {
+            --ink: #0F172A;
+            --slate: #334155;
+            --muted: #64748B;
+            --mist: #F8FAFC;
+            --off: #F1F5F9;
+            --line: #E2E8F0;
+            --teal: #0D9488;
+            --teal-soft: #F0FDFA;
+            --rose: #E11D48;
+            --rose-soft: #FFF1F2;
+            --gold: #D97706;
+            --gold-soft: #FEF3C7;
+            --sidebar-width: 290px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--ink);
+            background-color: #fff;
+            line-height: 1.8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--line);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--ink);
+        }
+        .brand-badge {
+            background: #0F172A;
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - 64px);
+            position: fixed;
+            top: 64px; left: 0;
+            background: #FAFBFC;
+            border-right: 1px solid var(--line);
+            overflow-y: auto;
+            padding: 24px 16px;
+            z-index: 90;
+        }
+        .nav-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin: 18px 0 8px 10px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--slate);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            transition: all 0.15s;
+        }
+        .nav-link:hover {
+            background: var(--line);
+            color: var(--ink);
+        }
+        .nav-link.active {
+            background: #0F172A;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .content-wrapper {
+            margin-left: var(--sidebar-width);
+            margin-top: 64px;
+            flex: 1;
+            padding: 40px 60px 80px;
+            max-width: 1080px;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb a { color: var(--teal); text-decoration: none; }
+
+        h1.main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .lead-text {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+        h2.section-heading {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 36px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 8px;
+        }
+        h3.sub-heading {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 24px 0 10px;
+        }
+        p, li {
+            font-size: 15px;
+            color: var(--slate);
+            margin-bottom: 12px;
+        }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+
+        .step-box {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin: 18px 0;
+            background: #fff;
+        }
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: #0F172A;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .callout {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 18px 0;
+            font-size: 14.5px;
+            border-left: 4px solid transparent;
+            background: var(--mist);
+        }
+        .callout-info { background: var(--teal-soft); border-left-color: var(--teal); color: #115E59; }
+        .callout-danger { background: var(--rose-soft); border-left-color: var(--rose); color: #9F1239; }
+        .callout-warning { background: var(--gold-soft); border-left-color: var(--gold); color: #92400E; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+        }
+        th, td {
+            padding: 12px 16px;
+            border: 1px solid var(--line);
+            text-align: left;
+        }
+        th { background: #F8FAFC; font-weight: 600; color: var(--ink); }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #F1F5F9;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #0F172A;
+            border: 1px solid #E2E8F0;
+        }
+        .code-block {
+            background: #0F172A;
+            color: #E2E8F0;
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .btn {
+            font-family: 'Hind Siliguri', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #0F172A; color: #fff; border-color: #0F172A; }
+        .btn-primary:hover { background: #334155; }
+        .btn-secondary { background: #fff; color: var(--slate); }
+        .btn-secondary:hover { background: var(--mist); border-color: #CBD5E1; }
+
+        @media print {
+            .top-nav, .sidebar { display: none !important; }
+            .content-wrapper { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+        }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .content-wrapper { margin-left: 0; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <a href="index.html" class="brand">
+            <span class="brand-badge">CCB DOCS</span>
+            <span style="font-weight: 700; font-size: 15px;">Cancer Care Bangladesh — অ্যাডমিন ও ডেভেলপার ম্যানুয়াল</span>
+        </a>
+        <div style="display: flex; gap: 10px;">
+            <a href="ADMIN_AND_DEVELOPER_MANUAL.md" download class="btn btn-secondary"><i class="ti ti-download"></i> Markdown ডাউনলোড</a>
+            <button onclick="window.print()" class="btn btn-primary"><i class="ti ti-printer"></i> প্রিন্ট / PDF</button>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <div class="nav-group-title">মডিউল ডকুমেন্টেশন</div>
+        <a href="index.html" class="nav-link"><i class="ti ti-layout-grid"></i> মাস্টার ওভারভিউ</a>
+        <a href="module-1-foundation.html" class="nav-link"><i class="ti ti-shield-lock"></i> মডিউল ১: ভিত্তি ও RBAC</a>
+        <a href="module-2-doctors.html" class="nav-link"><i class="ti ti-stethoscope"></i> মডিউল ২: ডাক্তার ডিরেক্টরি</a>
+        <a href="module-3-hospitals.html" class="nav-link"><i class="ti ti-building-hospital"></i> মডিউল ৩: হাসপাতাল ও প্রস্তুতি</a>
+        <a href="module-4-guide-and-cost.html" class="nav-link"><i class="ti ti-calculator"></i> মডিউল ৪: গাইড ও খরচের হিসাব</a>
+        <a href="module-5-patient-support.html" class="nav-link"><i class="ti ti-heart-handshake"></i> মডিউল ৫: রোগীর সহায়তা ও মেয়াদ</a>
+
+        <div class="nav-group-title">অ্যাডমিন ও টেকনিক্যাল গাইড</div>
+        <a href="admin-and-developer-manual.html" class="nav-link active"><i class="ti ti-terminal-2"></i> অ্যাডমিন ও ডেভেলপার ম্যানুয়াল</a>
+        <a href="/admin" target="_blank" class="nav-link"><i class="ti ti-lock"></i> অ্যাডমিন প্যানেল</a>
+    </aside>
+
+    <main class="content-wrapper">
+        <div class="breadcrumb">
+            <a href="index.html">ডকুমেন্টেশন</a> <span>/</span> <span>অ্যাডমিন ও ডেভেলপার ম্যানুয়াল</span>
+        </div>
+
+        <h1 class="main-title">Cancer Care Bangladesh (CCB)</h1>
+        <p class="lead-text">অ্যাডমিনিস্ট্রেটর ও ডেভেলপারদের জন্য সম্পূর্ণ টেকনিক্যাল অপারেশনস, সার্ভার ডিপ্লয়মেন্ট, কোডবেস স্ট্রাকচার, ইউজার মডারেশন ও ট্রাবলশুটিং ম্যানুয়াল।</p>
+
+        <!-- SECTION 1: DEVELOPER GUIDE -->
+        <h2 class="section-heading"><i class="ti ti-code"></i> ১. ডেভেলপার ও ডেভঅপ্স নির্দেশিকা (Developer & DevOps Guide)</h2>
+
+        <h3 class="sub-heading">১.১ সার্ভার ও এনভায়রনমেন্ট রিকোয়ারমেন্টস</h3>
+        <ul>
+            <li><strong>PHP:</strong> <code>^8.2</code> (প্রয়োজনীয় এক্সটেনশন: <code>pdo_mysql</code>, <code>mbstring</code>, <code>bcmath</code>, <code>intl</code>, <code>gd</code>, <code>redis</code>, <code>curl</code>)।</li>
+            <li><strong>Database:</strong> MySQL <code>8.0+</code> (Default Collation: <code>utf8mb4_unicode_ci</code> — বাংলায় ইউনিকোড সাপোর্টের জন্য আবশ্যক)।</li>
+            <li><strong>Queue / Cache:</strong> Redis <code>6.0+</code> (অ্যাসিঙ্ক্রোনাস জব ও নোটিফিকেশনের জন্য)।</li>
+            <li><strong>Package Managers:</strong> Composer <code>2.6+</code>, Node.js <code>18.0+</code> এবং NPM।</li>
+            <li><strong>Storage:</strong> AWS S3 অথবা যেকোনো S3-সামঞ্জস্যপূর্ণ স্টোরেজ (MinIO / Wasabi / DigitalOcean Spaces)।</li>
+        </ul>
+
+        <h3 class="sub-heading">১.২ লোকাল প্রজেক্ট সেটআপ স্টেপ-বাই-স্টেপ</h3>
+        <div class="code-block">
+# ১. রিপোজিটরি ক্লোন করুন
+git clone https://github.com/Rezaul44/cancercare.git
+cd cancercare
+
+# ২. প্যাকেজসমূহ ইনস্টল করুন
+composer install
+npm install
+
+# ৩. এনভায়রনমেন্ট তৈরি করুন
+cp .env.example .env
+php artisan key:generate
+
+# ৪. ডাটাবেজ মাইগ্রেশন ও সিডার চালান
+php artisan migrate --seed
+
+# ৫. স্টোরেজ লিংক তৈরি করুন
+php artisan storage:link
+
+# ৬. ফ্রন্টএন্ড বিল্ড করুন
+npm run build
+
+# ৭. সার্ভার চালু করুন
+php artisan serve
+        </div>
+
+        <h3 class="sub-heading">১.৩ প্রোডাকশন ক্রন শিডিউলিং (Crontab Setup)</h3>
+        <p>সার্ভারে লারাভেল শিডিউলার সক্রিয় রাখতে সার্ভারের crontab-এ (<code>crontab -e</code>) নিচের লাইনটি কনফিগার করুন:</p>
+        <div class="code-block">
+* * * * * cd /path-to-cancercare && php artisan schedule:run >> /dev/null 2>&1
+        </div>
+        <p><strong>যা যা স্বয়ংক্রিয়ভাবে চলবে:</strong></p>
+        <ul>
+            <li><strong>রাত ০১:০০ টা:</strong> <code>ExpirePatientCases</code> — মেয়াদোত্তীর্ণ প্রকাশিত কেসের স্ট্যাটাস <code>expired</code> করে।</li>
+            <li><strong>রাত ০২:০০ টা:</strong> <code>sitemap:generate</code> — গুগলে দ্রুত ইন্ডেক্সিংয়ের জন্য সাইটম্যাপ আপডেট করে।</li>
+            <li><strong>সকাল ০৯:০০ টা:</strong> <code>NotifyCaseExpiring</code> — যেসকল কেসের মেয়াদ ৫ দিন বা কম বাকি তাদের জন্য স্টাফদের বেল নোটিফিকেশন পাঠায়।</li>
+        </ul>
+
+        <!-- SECTION 2: ADMINISTRATOR OPERATIONS -->
+        <h2 class="section-heading"><i class="ti ti-user-check"></i> ২. অ্যাডমিনিস্ট্রেটরদের অপারেশনাল ওয়ার্কফ্লো (Administrator Manual)</h2>
+
+        <div class="step-box">
+            <div class="step-number">১</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">ইউজার ও স্টাফদের রোল প্রদান</h3>
+            <p>অ্যাডমিন প্যানেলে (<code>/admin/users</code>) গিয়ে নতুন স্টাফ নিয়োগ ও তাদের কাজের সুনির্দিষ্ট রোল সিলেক্ট করুন:</p>
+            <ul>
+                <li><strong><code>verification_officer</code>:</strong> ডাক্তার ও রোগীর কাগজপত্র যাচাই ও ফিল্ড রিপোর্ট পর্যালোচনার জন্য।</li>
+                <li><strong><code>support_agent</code>:</strong> হেল্পলাইন অনুসন্ধান, প্রাথমিক কেস ড্রাফট ও বিকাশ অ্যাকাউন্ট ভেরিফিকেশনের জন্য।</li>
+                <li><strong><code>field_agent</code>:</strong> সরাসরি রোগীর বাড়ি বা হাসপাতালে গিয়ে পরিবার সাক্ষাৎকার ও সম্মতিপত্র গ্রহণের জন্য।</li>
+                <li><strong><code>medical_reviewer</code>:</strong> ডাক্তার প্রোফাইল ও ক্যান্সার গাইড পর্যালোচনার জন্য।</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">২</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">ডাক্তার আবেদন অনুমোদন ওয়ার্কফ্লো</h3>
+            <ol>
+                <li><code>Doctor Applications</code> মেনুতে যান।</li>
+                <li>চিকিৎসকের নাম ও BMDC রেজিস্ট্রেশন নম্বর সরকারি BMDC ডাটাবেজে যাচাই করুন।</li>
+                <li>চিকিৎসকের ডিগ্রি ও বর্তমান কর্মস্থলের সত্যতা নিশ্চিত হলে <strong>"Approve"</strong> বাটনে ক্লিক করুন। সাথে সাথে ডাক্তারের নতুন প্রোফাইল তৈরি হবে ও পাবলিক ডিরেক্টরিতে প্রকাশিত হবে।</li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">৩</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">রোগীর সহায়তা ও ৪-ধাপের ভেরিফিকেশন পরিচালনা</h3>
+            <ol>
+                <li><strong>শিশু সুরক্ষা নিশ্চিতকরণ:</strong> রোগীর বয়স ১৮-এর কম হলে ছবি কোনো অবস্থাতেই ডিসপ্লে করা যাবে না।</li>
+                <li><strong>৪টি যাচাই ধাপ:</strong> ১. হাসপাতালের কাগজ, ২. ডাক্তার প্রোটোকল, ৩. এনআইডি মিল, এবং ৪. ফিল্ড সাক্ষাৎ।</li>
+                <li><strong>কেস প্রকাশনা:</strong> ৪টি শর্ত পূরণ হলে তবেই <strong>"প্রকাশ করুন" (Publish)</strong> বাটন সক্রিয় হবে এবং প্রকাশের পর কেসটি ৩০ দিনের জন্য পাবলিক থাকবে।</li>
+                <li><strong>মেয়াদ বাড়ানো ("মেয়াদ বাড়াও"):</strong> নতুন চিকিৎসার অগ্রগতি লিখে সাবমিট করলে কেসের মেয়াদ আরও <strong>৩০ দিন বৃদ্ধি</strong> পাবে।</li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">৪</div>
+            <h3 style="font-size: 16px; margin-bottom: 6px;">ক্যাশ ক্লিয়ারিং ও অপ্টিমাইজেশন</h3>
+            <p>ওয়েবসাইটে কোনো ডাটা বা সেটিংস তাৎক্ষণিক আপডেট না হলে ব্রাউজার থেকে সরাসরি <a href="/clear-cache" target="_blank"><code>/clear-cache</code></a> হিট করুন অথবা টার্মিনালে চালান: <code>php artisan optimize:clear</code>।</p>
+        </div>
+
+        <!-- SECTION 3: TROUBLESHOOTING CHEAT SHEET -->
+        <h2 class="section-heading"><i class="ti ti-tool"></i> ৩. জরুরি ট্রাবলশুটিং চিটশিট (Troubleshooting Cheat Sheet)</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>সমস্যা</th>
+                    <th>সম্ভাব্য কারণ</th>
+                    <th>সমাধানের কমান্ড</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>নতুন আপলোড করা ছবি দেখাচ্ছে না</strong></td>
+                    <td>স্টোরেজ লিংক তৈরি নেই</td>
+                    <td><code>php artisan storage:link</code></td>
+                </tr>
+                <tr>
+                    <td><strong>পারমিশন বা রোলে অ্যাক্সেস সমস্যা</strong></td>
+                    <td>পারমিশন ডাটা ক্যাশড হয়ে আছে</td>
+                    <td><code>php artisan permission:cache-reset</code></td>
+                </tr>
+                <tr>
+                    <td><strong>ক্রন জব বা মেয়াদ অটোমেটিক পরিবর্তন হচ্ছে না</strong></td>
+                    <td>শিডিউলার সার্ভারে বন্ধ আছে</td>
+                    <td><code>php artisan schedule:run</code> চালিয়ে টেস্ট করুন</td>
+                </tr>
+                <tr>
+                    <td><strong>সিএসএস বা টেলউইন্ড ডিজাইন ভেঙে গেছে</strong></td>
+                    <td>Vite প্রোডাকশন বিল্ড মিসিং</td>
+                    <td><code>npm run build</code></td>
+                </tr>
+                <tr>
+                    <td><strong>সব ক্যাশ এক ক্লিকে মুছে ফেলতে</strong></td>
+                    <td>কনফিগ/ভিউ/রুট ক্যাশ জ্যাম</td>
+                    <td><code>php artisan optimize:clear</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+</body>
+</html>

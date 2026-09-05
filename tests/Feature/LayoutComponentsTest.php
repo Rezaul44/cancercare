@@ -41,13 +41,20 @@ class LayoutComponentsTest extends TestCase
     {
         $html = Blade::render('<x-search-box />');
 
-        $this->assertStringContainsString('x-data', $html);
+        $this->assertStringContainsString('x-data="searchSuggest()"', $html);
         $this->assertStringContainsString('x-model="query"', $html);
         $this->assertStringContainsString('@click.outside="open = false"', $html);
-        $this->assertStringContainsString('স্তন ক্যান্সার বিশেষজ্ঞ', $html);
-        $this->assertStringContainsString('স্তন ক্যান্সার চিকিৎসা কেন্দ্র', $html);
-        $this->assertStringContainsString('স্তন ক্যান্সার — লক্ষণ ও চিকিৎসা', $html);
-        $this->assertStringContainsString('স্তন ক্যান্সারের চিকিৎসার খরচ', $html);
+        // Phase 8.1 — ড্রপডাউন এখন /ajax/search/suggest থেকে real ডেটা দেখায়, ৪টি ক্যাটাগরি: ডাক্তার/হাসপাতাল/গাইড/রোগীর সহায়তা
+        $this->assertStringContainsString('@input="onInput()"', $html);
+        $this->assertStringContainsString('x-ref="doctorsList"', $html);
+        $this->assertStringContainsString('x-ref="hospitalsList"', $html);
+        $this->assertStringContainsString('x-ref="guidesList"', $html);
+        $this->assertStringContainsString('x-ref="patient_casesList"', $html);
+        $this->assertStringContainsString('ডাক্তার', $html);
+        $this->assertStringContainsString('হাসপাতাল', $html);
+        $this->assertStringContainsString('ক্যান্সার গাইড', $html);
+        $this->assertStringContainsString('রোগীর সহায়তা', $html);
+        $this->assertStringContainsString('হেল্পলাইনে কল করুন', $html);
         $this->assertStringNotContainsString('<style', $html);
     }
 

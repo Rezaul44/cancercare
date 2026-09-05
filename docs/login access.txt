@@ -9,8 +9,11 @@ Logout	POST 			http://127.0.0.1:8000/admin/logout (triggered from the panel's UI
 
 Log in with :
 -----------------------
-super_admin@example.com / password 
-(or verification_officer@example.com / password) 
+user	 : super_admin@example.com
+password : password
+
+user	 : verification_officer@example.com
+password : password
 
 from the seeder I ran earlier.
 
