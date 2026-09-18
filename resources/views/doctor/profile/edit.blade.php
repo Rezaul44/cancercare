@@ -14,7 +14,7 @@
         <div class="font-bn text-[13.5px] text-[#8A6416]">আপনার প্রোফাইল এখনো অনুমোদন করেননি — অনুমোদন না দেওয়া পর্যন্ত এটি প্রকাশ করা হবে না।</div>
         <form method="POST" action="{{ route('doctor.profile.approve') }}">
             @csrf
-            <button type="submit" class="font-bn text-[13px] px-4 py-2 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700 whitespace-nowrap">প্রোফাইল অনুমোদন করুন</button>
+            <button type="submit" class="font-bn text-[13px] px-4 py-2 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition whitespace-nowrap">প্রোফাইল অনুমোদন করুন</button>
         </form>
     </div>
 @endif
@@ -87,6 +87,6 @@
         @endforelse
     </div>
 
-    <button type="submit" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">সংরক্ষণ করুন</button>
+    <button type="submit" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">সংরক্ষণ করুন</button>
 </form>
 @endsection

@@ -28,7 +28,7 @@
             @foreach ($sortOptions as $sortKey => $sortLabel)
                 <button type="button"
                         @click="setSort('{{ $sortKey }}')"
-                        class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition font-bn cursor-pointer {{ $sort === $sortKey ? 'bg-slate-900 border-slate-900 text-white font-medium shadow-sm' : 'bg-white border-line text-slate-600 hover:border-slate-300 hover:text-ink' }}">
+                        class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition font-bn cursor-pointer {{ $sort === $sortKey ? 'bg-teal-700 border-teal-700 text-white font-medium shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400 hover:text-ink' }}">
                     {{ $sortLabel }}
                 </button>
             @endforeach
@@ -58,7 +58,7 @@
             </p>
             <button type="button"
                     @click="clearFilters()"
-                    class="font-bn text-sm px-5 py-2.5 rounded-lg font-medium bg-slate-900 text-white hover:bg-slate-700 transition">
+                    class="font-bn text-sm px-5 py-2.5 rounded-lg font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">
                 সব ফিল্টার মুছুন
             </button>
         </div>

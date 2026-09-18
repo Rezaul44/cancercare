@@ -92,19 +92,19 @@
 
             <div class="flex flex-wrap items-center gap-2 font-bn">
                 <a href="{{ request()->fullUrlWithQuery(['sort' => 'recent']) }}"
-                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'recent' ? 'bg-slate-900 border-slate-900 text-white font-medium' : 'bg-white border-line text-slate-600 hover:border-slate-300' }}">
+                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'recent' ? 'bg-pink-600 border-pink-600 text-white font-medium shadow-xs' : 'bg-white border-line text-slate-600 hover:border-pink-300' }}">
                     সাম্প্রতিক যাচাই
                 </a>
                 <a href="{{ request()->fullUrlWithQuery(['sort' => 'urgent']) }}"
-                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'urgent' ? 'bg-slate-900 border-slate-900 text-white font-medium' : 'bg-white border-line text-slate-600 hover:border-slate-300' }}">
+                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'urgent' ? 'bg-pink-600 border-pink-600 text-white font-medium shadow-xs' : 'bg-white border-line text-slate-600 hover:border-pink-300' }}">
                     সবচেয়ে জরুরি
                 </a>
                 <a href="{{ request()->fullUrlWithQuery(['sort' => 'amount_desc']) }}"
-                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'amount_desc' ? 'bg-slate-900 border-slate-900 text-white font-medium' : 'bg-white border-line text-slate-600 hover:border-slate-300' }}">
+                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'amount_desc' ? 'bg-pink-600 border-pink-600 text-white font-medium shadow-xs' : 'bg-white border-line text-slate-600 hover:border-pink-300' }}">
                     প্রয়োজন — বেশি
                 </a>
                 <a href="{{ request()->fullUrlWithQuery(['sort' => 'amount_asc']) }}"
-                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'amount_asc' ? 'bg-slate-900 border-slate-900 text-white font-medium' : 'bg-white border-line text-slate-600 hover:border-slate-300' }}">
+                   class="text-[12.5px] px-3.5 py-1.5 rounded-full border transition-colors {{ $sort === 'amount_asc' ? 'bg-pink-600 border-pink-600 text-white font-medium shadow-xs' : 'bg-white border-line text-slate-600 hover:border-pink-300' }}">
                     প্রয়োজন — কম
                 </a>
             </div>
@@ -114,7 +114,7 @@
         @if($cases->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-9">
                 @foreach($cases as $case)
-                    <div class="bg-white border border-line rounded-[18px] overflow-hidden hover:border-slate-300 transition-all flex flex-col justify-between shadow-sm">
+                    <div class="bg-white border border-line rounded-[18px] overflow-hidden hover:border-pink-300 transition-all flex flex-col justify-between shadow-sm">
                         <div>
                             {{-- TOP SECTION --}}
                             <div class="p-5 pb-3.5 flex items-start gap-3.5">
@@ -181,7 +181,7 @@
                                 যাচাই: {{ $case->verified_at ? $case->verified_at->translatedFormat('d F Y') : 'সম্প্রতি' }}
                             </span>
                             <a href="{{ route('patients.show', $case->case_code) }}"
-                               class="font-bn text-[13.5px] px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-700 transition-colors font-medium">
+                               class="font-bn text-[13.5px] px-4 py-2 rounded-lg bg-pink-600 text-white hover:bg-pink-700 border border-pink-500 shadow-sm transition-all font-semibold">
                                 বিস্তারিত ও যোগাযোগ
                             </a>
                         </div>

@@ -69,7 +69,7 @@
                 </span>
             </div>
             <div class="h-1 bg-line rounded-full overflow-hidden">
-                <div class="h-full bg-slate-900 rounded-full transition-all duration-300" :style="'width: ' + (step * 25) + '%'"></div>
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-300" :style="'width: ' + (step * 25) + '%'"></div>
             </div>
         </div>
 
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
-                    <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">পরবর্তী ধাপ</button>
+                    <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-blue-700 text-white hover:bg-blue-800 border border-blue-600 shadow-sm transition">পরবর্তী ধাপ</button>
                 </div>
             </div>
 
@@ -198,7 +198,7 @@
 
                 <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
                     <button type="button" @click="back()" class="font-bn bg-transparent text-slate-500 border border-line px-5 py-3 rounded-[9px] font-medium hover:bg-mist hover:text-ink">পেছনে</button>
-                    <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">পরবর্তী ধাপ</button>
+                    <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-blue-700 text-white hover:bg-blue-800 border border-blue-600 shadow-sm transition">পরবর্তী ধাপ</button>
                 </div>
             </div>
 
@@ -214,7 +214,7 @@
 
                 <div class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
                     @foreach ($doctors as $doctor)
-                        <label class="relative flex items-center justify-between gap-4 rounded-[14px] border border-line px-5 py-4 cursor-pointer has-[:checked]:border-slate-900 has-[:checked]:bg-mist">
+                        <label class="relative flex items-center justify-between gap-4 rounded-[14px] border border-line px-5 py-4 cursor-pointer transition has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50/40 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
                             <input type="radio" name="doctor_id" value="{{ $doctor->id }}" x-model="doctorId" class="sr-only">
                             <div>
                                 <div class="font-bn text-[14.5px] font-semibold text-ink">{{ $doctor->name_bn }}</div>
@@ -232,7 +232,7 @@
 
                 <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
                     <button type="button" @click="back()" class="font-bn bg-transparent text-slate-500 border border-line px-5 py-3 rounded-[9px] font-medium hover:bg-mist hover:text-ink">পেছনে</button>
-                    <button type="button" @click="next()" :disabled="!doctorId" :class="doctorId ? 'bg-slate-900 hover:bg-slate-700' : 'bg-line cursor-not-allowed'" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium text-white">পরবর্তী ধাপ</button>
+                    <button type="button" @click="next()" :disabled="!doctorId" :class="doctorId ? 'bg-blue-700 hover:bg-blue-800 text-white border border-blue-600 shadow-sm' : 'bg-slate-300 text-slate-500 cursor-not-allowed'" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold transition">পরবর্তী ধাপ</button>
                 </div>
             </div>
 
@@ -243,18 +243,18 @@
                     <span class="font-bn">সারাংশ ও পেমেন্ট</span>
                 </div>
 
-                <div class="bg-mist rounded-[14px] px-6 py-5 mb-5" x-show="selectedDoctor">
+                <div class="bg-blue-50/50 border border-blue-200 rounded-[14px] px-6 py-5 mb-5" x-show="selectedDoctor">
                     <div class="font-bn text-[13px] text-slate-500 mb-1">নির্বাচিত ডাক্তার</div>
                     <div class="font-bn text-[15px] font-semibold text-ink" x-text="selectedDoctor?.name_bn"></div>
                     <div class="font-bn text-[13px] text-slate-500 mt-3 mb-1">প্রত্যাশিত উত্তর</div>
-                    <div class="font-bn text-[14px] text-ink">{{ $expectedHours }} ঘণ্টার মধ্যে</div>
+                    <div class="font-bn text-[14px] text-teal-700 font-semibold">{{ $expectedHours }} ঘণ্টার মধ্যে</div>
                     <div class="font-bn text-[13px] text-slate-500 mt-3 mb-1">ফি</div>
                     <div class="font-serif text-[24px] font-medium text-ink" x-text="'৳' + (selectedDoctor?.fee || 0)"></div>
                 </div>
 
-                <div class="flex gap-3 bg-[#FDF4E3] border border-[#F0DFBC] rounded-[13px] px-5 py-4 mb-5">
-                    <i class="ti ti-alert-triangle text-[#C98A1E]"></i>
-                    <div class="font-bn text-[13.5px] text-[#8A6416] leading-[1.68]">
+                <div class="flex gap-3 bg-amber-50/70 border border-amber-200 rounded-[13px] px-5 py-4 mb-5">
+                    <i class="ti ti-alert-triangle text-amber-600"></i>
+                    <div class="font-bn text-[13.5px] text-amber-900 leading-[1.68]">
                         <b class="font-semibold">জরুরি অবস্থায় অপেক্ষা করবেন না।</b> শ্বাসকষ্ট, তীব্র ব্যথা, বা হঠাৎ অবনতি হলে এখনই নিকটস্থ হাসপাতালে যান বা চিকিৎসা শুরু করুন — দ্বিতীয় মতামতের জন্য অপেক্ষা করবেন না।
                     </div>
                 </div>
@@ -263,7 +263,7 @@
                     <label class="font-bn text-[12.5px] font-semibold text-slate-500 mb-2 block">পেমেন্ট পদ্ধতি বাছুন <span class="text-pink-600">*</span></label>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         @foreach (\App\Enums\PaymentGateway::cases() as $gatewayOption)
-                            <label class="relative flex flex-col items-center gap-1 rounded-[13px] border border-line bg-white px-4 py-4 text-center cursor-pointer has-[:checked]:border-slate-900 has-[:checked]:bg-mist">
+                            <label class="relative flex flex-col items-center gap-1 rounded-[13px] border border-line bg-white px-4 py-4 text-center cursor-pointer transition has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50/40 has-[:checked]:ring-1 has-[:checked]:ring-blue-500">
                                 <input type="radio" name="gateway" value="{{ $gatewayOption->value }}" x-model="gateway" class="sr-only">
                                 <span class="font-bn text-[13.5px] font-semibold text-ink">{{ $gatewayOption->labelBn() }}</span>
                             </label>
@@ -274,7 +274,7 @@
 
                 <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
                     <button type="button" @click="back()" class="font-bn bg-transparent text-slate-500 border border-line px-5 py-3 rounded-[9px] font-medium hover:bg-mist hover:text-ink">পেছনে</button>
-                    <button type="submit" :disabled="!gateway" :class="gateway ? 'bg-slate-900 hover:bg-slate-700' : 'bg-line cursor-not-allowed'" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium text-white">
+                    <button type="submit" :disabled="!gateway" :class="gateway ? 'bg-blue-700 hover:bg-blue-800 text-white border border-blue-600 shadow-sm' : 'bg-slate-300 text-slate-500 cursor-not-allowed'" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold transition">
                         <span x-text="selectedDoctor ? 'পেমেন্ট করুন — ৳' + selectedDoctor.fee : 'পেমেন্ট করুন'"></span>
                     </button>
                 </div>

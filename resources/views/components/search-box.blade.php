@@ -18,7 +18,7 @@
         @blur="focused = false"
         @input="onInput()"
         @keydown.enter="goToResults()"
-        class="font-bn w-full py-[19px] pl-14 pr-14 border-2 border-line rounded-2xl text-[16.5px] text-ink bg-white shadow-[0_4px_20px_rgba(20,23,25,0.05)] focus:outline-none focus:border-slate-900 focus:shadow-[0_6px_28px_rgba(20,23,25,0.1)]"
+        class="font-bn w-full py-[19px] pl-14 pr-14 border-2 border-line rounded-2xl text-[16.5px] text-ink bg-white shadow-[0_4px_20px_rgba(20,23,25,0.05)] focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600 focus:shadow-[0_6px_28px_rgba(11,110,92,0.15)] transition"
     >
 
     <i

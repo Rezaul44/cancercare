@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <a href="{{ url('/') }}" class="font-bn inline-block mt-8 text-sm px-6 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">
+            <a href="{{ url('/') }}" class="font-bn inline-block mt-8 text-sm px-6 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">
                 হোমপেজে ফিরে যান
             </a>
         </div>
@@ -121,7 +121,7 @@
                     </span>
                 </div>
                 <div class="h-1 bg-line rounded-full overflow-hidden">
-                    <div class="h-full bg-slate-900 rounded-full transition-all duration-300" :style="'width: ' + (step * 25) + '%'"></div>
+                    <div class="h-full bg-teal-700 rounded-full transition-all duration-300" :style="'width: ' + (step * 25) + '%'"></div>
                 </div>
             </div>
 
@@ -153,13 +153,13 @@
                         <div>
                             <label class="font-bn text-[12.5px] font-semibold text-slate-500 mb-2 block">পূর্ণ নাম <span class="text-pink-600">*</span></label>
                             <input type="text" name="full_name" value="{{ old('full_name') }}" placeholder="ডা. সাদিয়া রহমান"
-                                class="font-bn w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700">
+                                class="font-bn w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600">
                             @error('full_name') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="font-bn text-[12.5px] font-semibold text-slate-500 mb-2 block">BMDC নিবন্ধন নম্বর <span class="text-pink-600">*</span></label>
                             <input type="text" name="bmdc_number" value="{{ old('bmdc_number') }}" placeholder="A-34821"
-                                class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700">
+                                class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600">
                             @error('bmdc_number') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                         </div>
                     </div>
@@ -168,13 +168,13 @@
                         <div>
                             <label class="font-bn text-[12.5px] font-semibold text-slate-500 mb-2 block">মোবাইল নম্বর <span class="text-pink-600">*</span></label>
                             <input type="text" name="phone" value="{{ old('phone') }}" placeholder="01712345678"
-                                class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700">
+                                class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600">
                             @error('phone') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="font-bn text-[12.5px] font-semibold text-slate-500 mb-2 block">ইমেইল <span class="text-pink-600">*</span></label>
                             <input type="email" name="email" value="{{ old('email') }}" placeholder="doctor@example.com"
-                                class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700">
+                                class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600">
                             @error('email') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                     </div>
 
                     <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
-                        <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">পরবর্তী ধাপ</button>
+                        <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">পরবর্তী ধাপ</button>
                     </div>
                 </div>
 
@@ -296,7 +296,7 @@
 
                     <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
                         <button type="button" @click="back()" class="font-bn bg-transparent text-slate-500 border border-line px-5 py-3 rounded-[9px] font-medium hover:bg-mist hover:text-ink">পেছনে</button>
-                        <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">পরবর্তী ধাপ</button>
+                        <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">পরবর্তী ধাপ</button>
                     </div>
                 </div>
 
@@ -316,7 +316,7 @@
                             @foreach ($doctorTypes as $type)
                                 <label class="cursor-pointer">
                                     <input type="checkbox" name="doctor_types[]" value="{{ $type->id }}" class="peer sr-only" @checked(in_array($type->id, old('doctor_types', [])))>
-                                    <span class="font-bn inline-block rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-slate-500 peer-checked:border-slate-900 peer-checked:bg-slate-900 peer-checked:text-white">
+                                    <span class="font-bn inline-block rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-slate-500 peer-checked:border-teal-700 peer-checked:bg-teal-700 peer-checked:text-white transition">
                                         {{ $type->label_bn }}
                                     </span>
                                 </label>
@@ -331,7 +331,7 @@
                             @foreach ($cancerTypes as $type)
                                 <label class="cursor-pointer">
                                     <input type="checkbox" name="cancer_types[]" value="{{ $type->id }}" class="peer sr-only" @checked(in_array($type->id, old('cancer_types', [])))>
-                                    <span class="font-bn inline-block rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-slate-500 peer-checked:border-slate-900 peer-checked:bg-slate-900 peer-checked:text-white">
+                                    <span class="font-bn inline-block rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-slate-500 peer-checked:border-teal-700 peer-checked:bg-teal-700 peer-checked:text-white transition">
                                         {{ $type->name_bn }}
                                     </span>
                                 </label>
@@ -400,7 +400,7 @@
                             @foreach ($extraServiceOptions as $value => $label)
                                 <label class="cursor-pointer">
                                     <input type="checkbox" name="extra_services[]" value="{{ $value }}" class="peer sr-only" @checked(in_array($value, old('extra_services', [])))>
-                                    <span class="font-bn inline-block rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-slate-500 peer-checked:border-slate-900 peer-checked:bg-slate-900 peer-checked:text-white">
+                                    <span class="font-bn inline-block rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-slate-500 peer-checked:border-teal-700 peer-checked:bg-teal-700 peer-checked:text-white transition">
                                         {{ $label }}
                                     </span>
                                 </label>
@@ -410,7 +410,7 @@
 
                     <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
                         <button type="button" @click="back()" class="font-bn bg-transparent text-slate-500 border border-line px-5 py-3 rounded-[9px] font-medium hover:bg-mist hover:text-ink">পেছনে</button>
-                        <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">পরবর্তী ধাপ</button>
+                        <button type="button" @click="next()" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">পরবর্তী ধাপ</button>
                     </div>
                 </div>
 
@@ -440,7 +440,7 @@
                         @foreach ($declarationItems as $key => $label)
                             <label class="flex cursor-pointer items-start gap-3 py-2">
                                 <input type="checkbox" name="declarations[{{ $key }}]" value="1" class="peer sr-only" @checked(old("declarations.$key", true))>
-                                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border border-line bg-white peer-checked:border-slate-900 peer-checked:bg-slate-900">
+                                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border border-line bg-white peer-checked:border-teal-700 peer-checked:bg-teal-700 transition">
                                     <i class="ti ti-check text-white text-xs"></i>
                                 </span>
                                 <span class="font-bn text-[13.5px] leading-[1.65] text-slate-500 peer-checked:text-ink">{{ $label }}</span>
@@ -505,7 +505,7 @@
 
                     <div class="flex items-center gap-3 mt-7 pt-6 border-t border-line">
                         <button type="button" @click="back()" class="font-bn bg-transparent text-slate-500 border border-line px-5 py-3 rounded-[9px] font-medium hover:bg-mist hover:text-ink">পেছনে</button>
-                        <button type="submit" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">আবেদন জমা দিন</button>
+                        <button type="submit" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">আবেদন জমা দিন</button>
                     </div>
                 </div>
             </form>

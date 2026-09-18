@@ -31,7 +31,7 @@
     <div class="flex gap-[7px] flex-wrap">
         @foreach ($sortOptions as $value => $label)
             <button type="submit" name="sort" value="{{ $value }}" form="filters-form" data-sort="{{ $value }}"
-                class="font-bn px-4 py-2 rounded-full text-[13px] border {{ $sort === $value ? 'bg-slate-900 border-slate-900 text-white font-medium' : 'bg-white border-line text-slate-700' }}">
+                class="font-bn px-4 py-2 rounded-full text-[13px] border transition {{ $sort === $value ? 'bg-teal-700 border-teal-700 text-white font-medium shadow-xs' : 'bg-white border-line text-slate-700 hover:border-teal-500' }}">
                 {{ $label }}
             </button>
         @endforeach

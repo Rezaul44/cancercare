@@ -32,7 +32,7 @@
                     name="q"
                     x-model="localSearch"
                     placeholder="ক্যান্সারের নাম বা রিপোর্টের শব্দ লিখুন (যেমন: স্তন, HER2, বায়োপসি)"
-                    class="font-bn w-full py-[18px] pl-14 pr-12 border-2 border-line rounded-[15px] text-[15.5px] text-ink bg-white shadow-[0_4px_18px_rgba(20,23,25,0.05)] focus:outline-none focus:border-slate-900 transition"
+                    class="font-bn w-full py-[18px] pl-14 pr-12 border-2 border-line rounded-[15px] text-[15.5px] text-ink bg-white shadow-[0_4px_18px_rgba(20,23,25,0.05)] focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600 transition"
                 >
                 @if($search !== '')
                     <a href="{{ route('guides.index') }}" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-ink">
@@ -144,7 +144,7 @@
             <button
                 type="button"
                 @click="activeTab = 'all'"
-                :class="activeTab === 'all' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500 hover:border-slate-300 hover:text-ink'"
+                :class="activeTab === 'all' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400 hover:text-ink'"
                 class="font-bn text-[13.5px] px-4 py-2 rounded-full border font-medium transition cursor-pointer"
             >
                 সব ক্যান্সার ({{ $publishedCancerTypes->count() }})
@@ -152,7 +152,7 @@
             <button
                 type="button"
                 @click="activeTab = 'female'"
-                :class="activeTab === 'female' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500 hover:border-slate-300 hover:text-ink'"
+                :class="activeTab === 'female' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400 hover:text-ink'"
                 class="font-bn text-[13.5px] px-4 py-2 rounded-full border font-medium transition cursor-pointer"
             >
                 নারী সংক্রান্ত
@@ -160,7 +160,7 @@
             <button
                 type="button"
                 @click="activeTab = 'male'"
-                :class="activeTab === 'male' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500 hover:border-slate-300 hover:text-ink'"
+                :class="activeTab === 'male' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400 hover:text-ink'"
                 class="font-bn text-[13.5px] px-4 py-2 rounded-full border font-medium transition cursor-pointer"
             >
                 পুরুষ সংক্রান্ত
@@ -168,7 +168,7 @@
             <button
                 type="button"
                 @click="activeTab = 'child'"
-                :class="activeTab === 'child' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500 hover:border-slate-300 hover:text-ink'"
+                :class="activeTab === 'child' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400 hover:text-ink'"
                 class="font-bn text-[13.5px] px-4 py-2 rounded-full border font-medium transition cursor-pointer"
             >
                 শিশু ক্যান্সার
@@ -176,7 +176,7 @@
             <button
                 type="button"
                 @click="activeTab = 'has_video'"
-                :class="activeTab === 'has_video' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500 hover:border-slate-300 hover:text-ink'"
+                :class="activeTab === 'has_video' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400 hover:text-ink'"
                 class="font-bn text-[13.5px] px-4 py-2 rounded-full border font-medium transition cursor-pointer"
             >
                 ভিডিও গাইড আছে
@@ -261,7 +261,7 @@
                     <i class="ti ti-search-off text-4xl text-slate-300 mb-3 inline-block"></i>
                     <h3 class="font-bn text-lg font-semibold text-ink mb-1">কোনো গাইড পাওয়া যায়নি</h3>
                     <p class="font-bn text-sm text-slate-500 mb-4">আপনার অনুসন্ধানের সাথে মেলে এমন কোনো ক্যান্সার গাইড এই মুহূর্তে নেই।</p>
-                    <a href="{{ route('guides.index') }}" class="font-bn text-sm px-5 py-2 rounded-lg bg-slate-900 text-white inline-flex items-center">সব গাইড দেখুন</a>
+                    <a href="{{ route('guides.index') }}" class="font-bn text-sm px-5 py-2.5 rounded-lg bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition inline-flex items-center font-semibold">সব গাইড দেখুন</a>
                 </div>
             @endforelse
 
@@ -280,7 +280,7 @@
         </div>
 
         {{-- 3. HELPLINE BAND --}}
-        <div class="bg-slate-900 text-white rounded-[20px] p-9 flex items-center gap-9 mt-9 text-left">
+        <div class="bg-gradient-to-r from-teal-950 via-teal-900 to-slate-900 text-white rounded-[20px] p-9 flex items-center gap-9 mt-9 text-left border border-teal-800 shadow-md">
             <div>
                 <h3 class="font-serif text-[26px] font-medium leading-[1.24] mb-2 tracking-[-0.016em] text-white">
                     রিপোর্ট হাতে আছে, কিন্তু কিছুই বুঝছেন না?

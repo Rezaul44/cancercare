@@ -24,7 +24,7 @@
 
         <div class="flex items-center justify-center gap-3">
             @if ($outcome !== 'success')
-                <a href="{{ route('second-opinion.request') }}" class="font-bn inline-block text-sm px-6 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">
+                <a href="{{ route('second-opinion.request') }}" class="font-bn inline-block text-sm px-6 py-3 rounded-[9px] font-semibold bg-blue-700 text-white hover:bg-blue-800 border border-blue-600 shadow-sm transition">
                     আবার চেষ্টা করুন
                 </a>
             @endif

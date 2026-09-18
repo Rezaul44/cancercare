@@ -79,13 +79,13 @@
                     <label class="text-[12px] font-semibold text-slate-500 mb-1.5 block font-bn">স্টেজ</label>
                     <div class="flex gap-1.5">
                         <button type="button" @click="setStage('1')" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="stage === '1' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">১</button>
+                                :class="stage === '1' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">১</button>
                         <button type="button" @click="setStage('2')" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="stage === '2' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">২</button>
+                                :class="stage === '2' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">২</button>
                         <button type="button" @click="setStage('3')" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="stage === '3' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">৩</button>
+                                :class="stage === '3' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">৩</button>
                         <button type="button" @click="setStage('4')" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="stage === '4' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">৪</button>
+                                :class="stage === '4' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">৪</button>
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                              @click="toggleTreat('surgery')"
                              :class="treat.surgery ? 'text-ink font-semibold' : 'text-slate-500'">
                             <div class="w-[17px] h-[17px] rounded-[5px] border flex items-center justify-center shrink-0"
-                                 :class="treat.surgery ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent'">
+                                 :class="treat.surgery ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent'">
                                 <i class="ti ti-check text-[11px]"></i>
                             </div>
                             <span>অপারেশন</span>
@@ -107,7 +107,7 @@
                              @click="toggleTreat('chemo')"
                              :class="treat.chemo ? 'text-ink font-semibold' : 'text-slate-500'">
                             <div class="w-[17px] h-[17px] rounded-[5px] border flex items-center justify-center shrink-0"
-                                 :class="treat.chemo ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent'">
+                                 :class="treat.chemo ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent'">
                                 <i class="ti ti-check text-[11px]"></i>
                             </div>
                             <span>কেমোথেরাপি</span>
@@ -117,7 +117,7 @@
                              @click="toggleTreat('radiation')"
                              :class="treat.radiation ? 'text-ink font-semibold' : 'text-slate-500'">
                             <div class="w-[17px] h-[17px] rounded-[5px] border flex items-center justify-center shrink-0"
-                                 :class="treat.radiation ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent'">
+                                 :class="treat.radiation ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent'">
                                 <i class="ti ti-check text-[11px]"></i>
                             </div>
                             <span>রেডিওথেরাপি</span>
@@ -127,7 +127,7 @@
                              @click="toggleTreat('targeted')"
                              :class="treat.targeted ? 'text-ink font-semibold' : 'text-slate-500'">
                             <div class="w-[17px] h-[17px] rounded-[5px] border flex items-center justify-center shrink-0"
-                                 :class="treat.targeted ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent'">
+                                 :class="treat.targeted ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent'">
                                 <i class="ti ti-check text-[11px]"></i>
                             </div>
                             <span>টার্গেটেড থেরাপি</span>
@@ -138,7 +138,7 @@
                 {{-- District Distance --}}
                 <div class="mb-4">
                     <label class="text-[12px] font-semibold text-slate-500 mb-1.5 block font-bn">কোন জেলা থেকে আসবেন</label>
-                    <select class="w-full p-2.5 px-3.5 border border-line rounded-[11px] text-[14px] text-ink bg-white font-bn focus:outline-none focus:border-slate-700 cursor-pointer"
+                    <select class="w-full p-2.5 px-3.5 border border-line rounded-[11px] text-[14px] text-ink bg-white font-bn focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600 cursor-pointer"
                             x-model="dist"
                             @change="setDist($event.target.value)">
                         <option value="local">ঢাকার ভেতরে</option>
@@ -152,9 +152,9 @@
                     <label class="text-[12px] font-semibold text-slate-500 mb-1.5 block font-bn">সাথে কতজন থাকবেন</label>
                     <div class="flex gap-1.5">
                         <button type="button" @click="setAtt(1)" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="att === 1 ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">১ জন</button>
+                                :class="att === 1 ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">১ জন</button>
                         <button type="button" @click="setAtt(2)" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="att === 2 ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">২ জন</button>
+                                :class="att === 2 ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">২ জন</button>
                     </div>
                 </div>
 
@@ -163,9 +163,9 @@
                     <label class="text-[12px] font-semibold text-slate-500 mb-1.5 block font-bn">সাথের লোকের মাসিক আয় বন্ধ হবে?</label>
                     <div class="flex gap-1.5">
                         <button type="button" @click="setLoss('yes')" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="loss === 'yes' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">হ্যাঁ</button>
+                                :class="loss === 'yes' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">হ্যাঁ</button>
                         <button type="button" @click="setLoss('no')" class="flex-1 text-[12.5px] py-2 rounded-[10px] border font-bn font-medium transition cursor-pointer"
-                                :class="loss === 'no' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-600 hover:border-slate-300'">না</button>
+                                :class="loss === 'no' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'">না</button>
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
             <div class="space-y-4">
 
                 {{-- Top Headline Box --}}
-                <div class="bg-white border-2 border-slate-900 rounded-[20px] p-6 md:p-[28px_32px] shadow-sm">
+                <div class="bg-white border-2 border-teal-700/40 rounded-[20px] p-6 md:p-[28px_32px] shadow-sm">
                     <div class="text-[12px] text-slate-400 uppercase tracking-widest font-semibold mb-2 font-bn">
                         আনুমানিক মোট খরচ — <span x-text="hosp === 'govt' ? 'সরকারি হাসপাতালে' : (hosp === 'npo' ? 'অলাভজনক হাসপাতালে' : 'বেসরকারি হাসপাতালে')">সরকারি হাসপাতালে</span>
                     </div>
@@ -249,9 +249,9 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         {{-- Govt --}}
-                        <div class="border-1.5 rounded-[14px] p-4 md:p-[18px_20px] cursor-pointer transition"
+                        <div class="border-2 rounded-[14px] p-4 md:p-[18px_20px] cursor-pointer transition"
                              @click="setHosp('govt')"
-                             :class="hosp === 'govt' ? 'border-slate-900 bg-off shadow-sm' : 'border-line hover:border-slate-300'">
+                             :class="hosp === 'govt' ? 'border-teal-600 bg-teal-50/50 shadow-sm' : 'border-line hover:border-teal-400'">
                             <div class="text-[14px] font-semibold font-bn flex items-center gap-1.5 mb-1 text-ink">
                                 <span>সরকারি</span>
                                 <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-teal-100 text-teal-700">সবচেয়ে সাশ্রয়ী</span>
@@ -265,9 +265,9 @@
                         </div>
 
                         {{-- NPO --}}
-                        <div class="border-1.5 rounded-[14px] p-4 md:p-[18px_20px] cursor-pointer transition"
+                        <div class="border-2 rounded-[14px] p-4 md:p-[18px_20px] cursor-pointer transition"
                              @click="setHosp('npo')"
-                             :class="hosp === 'npo' ? 'border-slate-900 bg-off shadow-sm' : 'border-line hover:border-slate-300'">
+                             :class="hosp === 'npo' ? 'border-amber-600 bg-amber-50/50 shadow-sm' : 'border-line hover:border-amber-400'">
                             <div class="text-[14px] font-semibold font-bn flex items-center gap-1.5 mb-1 text-ink">
                                 <span>অলাভজনক</span>
                                 <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-gold-soft text-[#7A5410]">মাঝামাঝি</span>
@@ -281,9 +281,9 @@
                         </div>
 
                         {{-- Private --}}
-                        <div class="border-1.5 rounded-[14px] p-4 md:p-[18px_20px] cursor-pointer transition"
+                        <div class="border-2 rounded-[14px] p-4 md:p-[18px_20px] cursor-pointer transition"
                              @click="setHosp('priv')"
-                             :class="hosp === 'priv' || hosp === 'private' ? 'border-slate-900 bg-off shadow-sm' : 'border-line hover:border-slate-300'">
+                             :class="hosp === 'priv' || hosp === 'private' ? 'border-blue-600 bg-blue-50/50 shadow-sm' : 'border-line hover:border-blue-400'">
                             <div class="text-[14px] font-semibold font-bn flex items-center gap-1.5 mb-1 text-ink">
                                 <span>বেসরকারি</span>
                                 <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-[#E6F1FB] text-[#0C447C]">দ্রুততম</span>
@@ -456,7 +456,7 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex gap-3 pt-2 flex-wrap">
-                    <button type="button" @click="printEstimate()" class="text-sm px-5 py-3 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-700 font-bn transition inline-flex items-center gap-2 shadow-sm cursor-pointer">
+                    <button type="button" @click="printEstimate()" class="text-sm px-5 py-3 rounded-xl bg-teal-700 text-white font-semibold hover:bg-teal-800 border border-teal-600 font-bn transition inline-flex items-center gap-2 shadow-sm cursor-pointer">
                         <i class="ti ti-printer text-base"></i>
                         <span>হিসাবটি প্রিন্ট করুন</span>
                     </button>

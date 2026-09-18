@@ -191,7 +191,7 @@
 
             <div class="space-y-4">
                 <div class="flex items-start gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">১</div>
+                    <div class="w-8 h-8 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">১</div>
                     <div class="flex-1 pb-2">
                         <div class="flex justify-between items-baseline mb-1">
                             <h3 class="text-[15px] font-semibold text-ink">যোগাযোগ করুন</h3>
@@ -204,7 +204,7 @@
                 </div>
 
                 <div class="flex items-start gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">২</div>
+                    <div class="w-8 h-8 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">২</div>
                     <div class="flex-1 pb-2">
                         <div class="flex justify-between items-baseline mb-1">
                             <h3 class="text-[15px] font-semibold text-ink">কাগজপত্র পাঠান</h3>
@@ -217,7 +217,7 @@
                 </div>
 
                 <div class="flex items-start gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">৩</div>
+                    <div class="w-8 h-8 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">৩</div>
                     <div class="flex-1 pb-2">
                         <div class="flex justify-between items-baseline mb-1">
                             <h3 class="text-[15px] font-semibold text-ink">মাঠপর্যায়ে সরাসরি সাক্ষাৎ</h3>
@@ -230,7 +230,7 @@
                 </div>
 
                 <div class="flex items-start gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">৪</div>
+                    <div class="w-8 h-8 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">৪</div>
                     <div class="flex-1 pb-2">
                         <div class="flex justify-between items-baseline mb-1">
                             <h3 class="text-[15px] font-semibold text-ink">লিখিত সম্মতিপত্রে স্বাক্ষর</h3>

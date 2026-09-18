@@ -24,7 +24,7 @@
             <input type="email" name="email" value="{{ old('email') }}" required
                 class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700">
         </div>
-        <button type="submit" class="font-bn w-full text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">লিংক পাঠান</button>
+        <button type="submit" class="font-bn w-full text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">লিংক পাঠান</button>
     </form>
 
     <a href="{{ route('doctor.login') }}" class="font-bn block text-center text-[13px] text-slate-500 hover:text-ink mt-5">লগইনে ফিরে যান</a>

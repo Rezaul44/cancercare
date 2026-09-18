@@ -24,7 +24,7 @@
                            x-model="selectedCapabilities"
                            @change="updateFilters()"
                            class="hidden">
-                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent' }}">
+                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent' }}">
                         <i class="ti ti-check text-[11px]"></i>
                     </div>
                     <span>{{ $cap->label_bn }}</span>
@@ -59,7 +59,7 @@
                            x-model="selectedTypes"
                            @change="updateFilters()"
                            class="hidden">
-                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent' }}">
+                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent' }}">
                         <i class="ti ti-check text-[11px]"></i>
                     </div>
                     <span>{{ $typeLabel }}</span>
@@ -87,7 +87,7 @@
                            x-model="selectedDivisions"
                            @change="updateFilters()"
                            class="hidden">
-                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent' }}">
+                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent' }}">
                         <i class="ti ti-check text-[11px]"></i>
                     </div>
                     <span>{{ $division->name_bn }}</span>
@@ -125,7 +125,7 @@
                            x-model="selectedFacilities"
                            @change="updateFilters()"
                            class="hidden">
-                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-slate-900 border-slate-900 text-white' : 'border-line text-transparent' }}">
+                    <div class="w-[17px] h-[17px] rounded-[5px] border-1.5 flex items-center justify-center shrink-0 transition {{ $isSelected ? 'bg-teal-700 border-teal-700 text-white' : 'border-line text-transparent' }}">
                         <i class="ti ti-check text-[11px]"></i>
                     </div>
                     <span>{{ $fLabel }}</span>

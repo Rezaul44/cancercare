@@ -183,13 +183,13 @@
                         <div class="flex gap-[7px] flex-wrap mb-4">
                             @foreach ($tabCancerTypes as $cancerType)
                                 <button type="button" @click="tab = '{{ $cancerType->id }}'"
-                                    :class="tab === '{{ $cancerType->id }}' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500'"
-                                    class="font-bn text-[13px] px-4 py-2 rounded-full border-[1.5px] font-medium">{{ $cancerType->name_bn }}</button>
+                                    :class="tab === '{{ $cancerType->id }}' ? 'bg-teal-700 border-teal-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-teal-400'"
+                                    class="font-bn text-[13px] px-4 py-2 rounded-full border-[1.5px] font-medium transition">{{ $cancerType->name_bn }}</button>
                             @endforeach
                             @if ($doctor->offers_second_opinion)
                                 <button type="button" @click="tab = 'second-opinion'"
-                                    :class="tab === 'second-opinion' ? 'bg-slate-900 border-slate-900 text-white' : 'bg-white border-line text-slate-500'"
-                                    class="font-bn text-[13px] px-4 py-2 rounded-full border-[1.5px] font-medium">দ্বিতীয় মতামত</button>
+                                    :class="tab === 'second-opinion' ? 'bg-blue-700 border-blue-700 text-white shadow-xs' : 'bg-white border-line text-slate-600 hover:border-blue-400'"
+                                    class="font-bn text-[13px] px-4 py-2 rounded-full border-[1.5px] font-medium transition">দ্বিতীয় মতামত</button>
                             @endif
                         </div>
 

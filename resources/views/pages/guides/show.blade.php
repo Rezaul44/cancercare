@@ -164,7 +164,7 @@
                             type="text"
                             x-model="search"
                             placeholder="রিপোর্ট থেকে শব্দ লিখুন — যেমন Grade, ER, HER2"
-                            class="font-bn w-full py-3.5 pl-11 pr-4 border border-line rounded-xl text-sm text-ink bg-white focus:outline-none focus:border-slate-900 transition"
+                            class="font-bn w-full py-3.5 pl-11 pr-4 border border-line rounded-xl text-sm text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600 transition"
                         >
                     </div>
 
@@ -174,7 +174,7 @@
                             <div
                                 id="{{ $term->slug }}"
                                 x-show="match('{{ addslashes($term->code) }}', '{{ addslashes($term->hint_bn) }}', '{{ addslashes($term->plain_explanation_bn) }}', '{{ addslashes($term->search_keywords ?? '') }}')"
-                                :class="openId === '{{ $term->slug }}' ? 'border-slate-900 shadow-sm' : 'border-line'"
+                                :class="openId === '{{ $term->slug }}' ? 'border-teal-600 shadow-sm ring-1 ring-teal-600/30' : 'border-line'"
                                 class="border rounded-xl overflow-hidden bg-white transition scroll-mt-24"
                             >
                                 <div
@@ -272,8 +272,8 @@
                             @foreach($guide->stages as $idx => $stg)
                                 <div
                                     @click="currentIndex = {{ $idx }}"
-                                    :class="currentIndex === {{ $idx }} ? 'border-slate-900 bg-mist/60 shadow-sm' : 'border-line bg-white hover:border-slate-300'"
-                                    class="border rounded-xl p-4 cursor-pointer transition flex flex-col justify-between text-left {{ $idx === 0 ? 'border-slate-900 bg-mist/60 shadow-sm' : 'border-line bg-white' }}"
+                                    :class="currentIndex === {{ $idx }} ? 'border-teal-600 bg-teal-50/40 shadow-sm' : 'border-line bg-white hover:border-teal-400'"
+                                    class="border rounded-xl p-4 cursor-pointer transition flex flex-col justify-between text-left {{ $idx === 0 ? 'border-teal-600 bg-teal-50/40 shadow-sm' : 'border-line bg-white' }}"
                                 >
                                     <div>
                                         <div class="font-serif text-[18px] font-semibold text-ink mb-1">{{ $stg->stage }}</div>

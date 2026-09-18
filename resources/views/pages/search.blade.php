@@ -18,7 +18,7 @@
         <form method="GET" action="{{ route('search.index') }}" class="relative">
             <i class="ti ti-search absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 text-[20px] pointer-events-none"></i>
             <input type="text" name="q" value="{{ $query }}" placeholder="যা জানতে চান লিখুন — ডাক্তার, হাসপাতাল, গাইড..."
-                class="font-bn w-full py-4 pl-14 pr-5 border-2 border-line rounded-2xl text-[16px] text-ink bg-white focus:outline-none focus:border-slate-900">
+                class="font-bn w-full py-4 pl-14 pr-5 border-2 border-line rounded-2xl text-[16px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600 transition">
         </form>
     </div>
 </div>
@@ -40,11 +40,11 @@
     @else
         <div x-data="{ tab: 'all' }">
             <div class="flex items-center gap-2 flex-wrap border-b border-line mb-6 pb-px">
-                <button type="button" @click="tab = 'all'" :class="tab === 'all' ? 'border-slate-900 text-ink' : 'border-transparent text-slate-500'" class="font-bn text-[13.5px] font-semibold px-4 py-3 border-b-2 -mb-px">
+                <button type="button" @click="tab = 'all'" :class="tab === 'all' ? 'border-teal-700 text-teal-800' : 'border-transparent text-slate-500 hover:text-ink'" class="font-bn text-[13.5px] font-semibold px-4 py-3 border-b-2 -mb-px transition">
                     সব ({{ count($results['all']) }})
                 </button>
                 @foreach ($groupMeta as $key => $meta)
-                    <button type="button" @click="tab = '{{ $key }}'" :class="tab === '{{ $key }}' ? 'border-slate-900 text-ink' : 'border-transparent text-slate-500'" class="font-bn text-[13.5px] font-semibold px-4 py-3 border-b-2 -mb-px">
+                    <button type="button" @click="tab = '{{ $key }}'" :class="tab === '{{ $key }}' ? 'border-teal-700 text-teal-800' : 'border-transparent text-slate-500 hover:text-ink'" class="font-bn text-[13.5px] font-semibold px-4 py-3 border-b-2 -mb-px transition">
                         {{ $meta['label'] }} ({{ count($results[$key]) }})
                     </button>
                 @endforeach

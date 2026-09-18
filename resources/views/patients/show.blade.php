@@ -219,10 +219,10 @@
             <div class="space-y-4">
 
                 {{-- PAYBOX --}}
-                <div class="bg-white border-2 border-slate-900 rounded-[18px] overflow-hidden shadow-md sticky top-24"
+                <div class="bg-white border-2 border-pink-500 rounded-[18px] overflow-hidden shadow-md sticky top-24"
                      x-data="{ copiedNumber: null, copyText(text) { navigator.clipboard.writeText(text); this.copiedNumber = text; setTimeout(() => this.copiedNumber = null, 2000); } }">
 
-                    <div class="p-6 border-b border-line bg-slate-900 text-white">
+                    <div class="p-6 border-b border-pink-600 bg-gradient-to-r from-pink-600 to-rose-600 text-white">
                         <div class="font-bn text-lg font-semibold mb-1">সরাসরি সাহায্য পাঠান</div>
                         <div class="font-bn text-[13px] text-white/70 leading-relaxed">
                             নিচের অ্যাকাউন্টগুলো {{ $patientCase->display_name_bn }}-এর নিজস্ব। CCB-র কোনো ভূমিকা নেই — টাকা সরাসরি তাঁর কাছে যাবে।
@@ -279,7 +279,7 @@
                                     </span>
                                     <button type="button"
                                             @click="copyText('{{ preg_replace('/[^0-9]/', '', $acc->account_number) }}')"
-                                            class="font-bn text-xs px-2.5 py-1 rounded bg-white border border-line text-slate-700 hover:bg-slate-900 hover:text-white transition-colors font-medium">
+                                            class="font-bn text-xs px-2.5 py-1 rounded bg-white border border-line text-slate-700 hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-colors font-medium">
                                         <span x-show="copiedNumber !== '{{ preg_replace('/[^0-9]/', '', $acc->account_number) }}'">কপি</span>
                                         <span x-show="copiedNumber === '{{ preg_replace('/[^0-9]/', '', $acc->account_number) }}'" class="text-teal-600 font-semibold" style="display:none;">কপি হয়েছে!</span>
                                     </button>

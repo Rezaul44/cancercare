@@ -34,7 +34,7 @@
             <input type="password" name="password_confirmation" required minlength="8"
                 class="w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700">
         </div>
-        <button type="submit" class="font-bn w-full text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">পাসওয়ার্ড সেট করুন</button>
+        <button type="submit" class="font-bn w-full text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">পাসওয়ার্ড সেট করুন</button>
     </form>
 </div>
 @endsection

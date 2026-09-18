@@ -6,7 +6,7 @@
     $rating = $doctor->ratingSummary;
 @endphp
 
-<div class="dcard flex gap-[18px] p-[22px] rounded-2xl border border-line bg-white hover:border-slate-900 transition-colors">
+<div class="dcard flex gap-[18px] p-[22px] rounded-2xl border border-line bg-white hover:border-teal-600 transition-colors shadow-xs">
     @if ($doctor->photo_path)
         <img class="w-[76px] h-[76px] rounded-[15px] object-cover shrink-0 bg-mist"
             src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($doctor->photo_path) }}"
@@ -79,6 +79,6 @@
             <div class="font-serif text-[19px] font-semibold text-ink">{{ $minFee !== null ? '৳'.$minFee : '—' }}</div>
             <div class="font-bn text-[12px] text-slate-500">চেম্বার ফি</div>
         </div>
-        <a href="{{ route('doctors.show', $doctor) }}" class="font-bn mt-auto py-2.5 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700 text-[13.5px] text-center">প্রোফাইল দেখুন</a>
+        <a href="{{ route('doctors.show', $doctor) }}" class="font-bn mt-auto py-2.5 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm text-[13.5px] text-center transition">প্রোফাইল দেখুন</a>
     </div>
 </div>

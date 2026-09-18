@@ -44,7 +44,7 @@
                 <div class="grid grid-cols-[1fr_1fr_auto] gap-3 mt-6 max-w-[820px] items-end">
                     <div>
                         <label class="font-bn block text-[12.5px] font-medium text-slate-500 mb-1.5">ক্যান্সারের ধরন</label>
-                        <select name="cancer" class="font-bn w-full border border-line rounded-lg px-4 py-3 text-[14px] text-ink bg-white focus:outline-none focus:border-slate-900">
+                        <select name="cancer" class="font-bn w-full border border-line rounded-lg px-4 py-3 text-[14px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600">
                             <option value="">এখনো জানি না</option>
                             @foreach ($cancerTypes as $cancerType)
                                 <option value="{{ $cancerType->slug }}" @selected($filters['cancer_slug'] === $cancerType->slug)>{{ $cancerType->name_bn }}</option>
@@ -53,14 +53,14 @@
                     </div>
                     <div>
                         <label class="font-bn block text-[12.5px] font-medium text-slate-500 mb-1.5">জেলা</label>
-                        <select name="district" class="font-bn w-full border border-line rounded-lg px-4 py-3 text-[14px] text-ink bg-white focus:outline-none focus:border-slate-900">
+                        <select name="district" class="font-bn w-full border border-line rounded-lg px-4 py-3 text-[14px] text-ink bg-white focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600">
                             <option value="">সব জেলা</option>
                             @foreach ($districts as $district)
                                 <option value="{{ $district->slug }}" @selected($filters['district_slug'] === $district->slug)>{{ $district->name_bn }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="font-bn px-[26px] py-3 rounded-[10px] font-medium bg-slate-900 text-white hover:bg-slate-700 whitespace-nowrap">ডাক্তার দেখুন</button>
+                    <button type="submit" class="font-bn px-[26px] py-3 rounded-[10px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition whitespace-nowrap">ডাক্তার দেখুন</button>
                 </div>
                 <a href="{{ route('doctors.index') }}" @click.prevent="clearFilters()" class="font-bn block mt-3 text-[13.5px] text-slate-500 underline">
                     অথবা ফিল্টার ছাড়াই সব {{ $totalPublishedDoctors }} জন ডাক্তার দেখুন →

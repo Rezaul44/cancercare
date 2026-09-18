@@ -13,7 +13,7 @@
         @foreach ($doctorTypes as $doctorType)
             <label class="flex items-center gap-2.5 py-1.5 cursor-pointer text-[13.5px] text-slate-700 font-bn">
                 <input type="checkbox" name="doctor_type[]" value="{{ $doctorType->key }}"
-                    class="w-[17px] h-[17px] rounded accent-slate-900"
+                    class="w-[17px] h-[17px] rounded accent-teal-700"
                     @checked(in_array($doctorType->key, $filters['doctor_type_keys'], true))>
                 {{ $doctorType->label_bn }}
             </label>
@@ -25,7 +25,7 @@
         @foreach (['govt' => 'সরকারি', 'private' => 'বেসরকারি', 'npo' => 'অলাভজনক'] as $value => $label)
             <label class="flex items-center gap-2.5 py-1.5 cursor-pointer text-[13.5px] text-slate-700 font-bn">
                 <input type="checkbox" name="hospital_type[]" value="{{ $value }}"
-                    class="w-[17px] h-[17px] rounded accent-slate-900"
+                    class="w-[17px] h-[17px] rounded accent-teal-700"
                     @checked(in_array($value, $filters['chamber_types'], true))>
                 {{ $label }}
             </label>
@@ -37,7 +37,7 @@
         @foreach (['upto_500' => '৳৫০০ পর্যন্ত', '500_1000' => '৳৫০০ – ১,০০০', '1000_plus' => '৳১,০০০+'] as $value => $label)
             <label class="flex items-center gap-2.5 py-1.5 cursor-pointer text-[13.5px] text-slate-700 font-bn">
                 <input type="checkbox" name="fee[]" value="{{ $value }}"
-                    class="w-[17px] h-[17px] rounded accent-slate-900"
+                    class="w-[17px] h-[17px] rounded accent-teal-700"
                     @checked(in_array($value, $filters['fee_buckets'], true))>
                 {{ $label }}
             </label>
@@ -49,7 +49,7 @@
         @foreach (['female' => 'নারী ডাক্তার', 'male' => 'পুরুষ ডাক্তার'] as $value => $label)
             <label class="flex items-center gap-2.5 py-1.5 cursor-pointer text-[13.5px] text-slate-700 font-bn">
                 <input type="checkbox" name="gender[]" value="{{ $value }}"
-                    class="w-[17px] h-[17px] rounded accent-slate-900"
+                    class="w-[17px] h-[17px] rounded accent-teal-700"
                     @checked(in_array($value, $filters['gender'], true))>
                 {{ $label }}
             </label>
@@ -61,7 +61,7 @@
         @foreach (['whatsapp' => 'WhatsApp পরামর্শ', 'second_opinion' => 'দ্বিতীয় মতামত দেন'] as $value => $label)
             <label class="flex items-center gap-2.5 py-1.5 cursor-pointer text-[13.5px] text-slate-700 font-bn">
                 <input type="checkbox" name="facility[]" value="{{ $value }}"
-                    class="w-[17px] h-[17px] rounded accent-slate-900"
+                    class="w-[17px] h-[17px] rounded accent-teal-700"
                     @checked(in_array($value, $filters['facilities'], true))>
                 {{ $label }}
             </label>
@@ -69,6 +69,6 @@
     </div>
 
     <noscript>
-        <button type="submit" class="font-bn w-full mt-5 py-2.5 rounded-[9px] font-medium bg-slate-900 text-white">ফিল্টার প্রয়োগ করুন</button>
+        <button type="submit" class="font-bn w-full mt-5 py-2.5 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">ফিল্টার প্রয়োগ করুন</button>
     </noscript>
 </div>

@@ -62,3 +62,10 @@ body {
 [x-cloak] {
     display: none !important;
 }
+
+.modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999999 !important;
+}
+

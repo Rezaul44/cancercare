@@ -222,9 +222,9 @@
             @endforeach
 
             {{-- More types card --}}
-            <a href="{{ route('guides.index') }}" class="bg-slate-900 border border-slate-900 rounded-[14px] p-5 flex flex-col justify-center items-center text-center hover:bg-slate-800 transition text-white">
+            <a href="{{ route('guides.index') }}" class="bg-teal-800 border-2 border-teal-600 rounded-[14px] p-5 flex flex-col justify-center items-center text-center hover:bg-teal-900 shadow-sm transition text-white">
                 <div class="font-bn text-[15px] font-semibold text-white">আরও {{ $otherCancerTypes->count() > 0 ? \App\Support\BanglaHelper::bnNumber($otherCancerTypes->count()) : '৯' }}টি</div>
-                <div class="font-bn text-[12px] text-white/60 mt-1">সব দেখুন →</div>
+                <div class="font-bn text-[12px] text-white/70 mt-1">সব দেখুন →</div>
             </a>
         </div>
     </div>
@@ -293,7 +293,7 @@
                     </div>
                 </div>
 
-                <a href="{{ route('doctors.apply') }}" class="font-bn text-sm px-6 py-3 rounded-lg font-semibold bg-slate-900 text-white hover:bg-slate-700 transition self-start inline-flex items-center gap-2">
+                <a href="{{ route('doctors.apply') }}" class="font-bn text-sm px-6 py-3 rounded-lg font-semibold bg-blue-700 text-white hover:bg-blue-800 border border-blue-600 shadow-sm transition self-start inline-flex items-center gap-2">
                     <span>আবেদন করুন</span>
                 </a>
             </div>

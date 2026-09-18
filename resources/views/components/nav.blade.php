@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<nav class="bg-white border-b border-line sticky top-0 z-[100]">
+<nav class="bg-white border-b border-line sticky top-0 z-40">
     <div class="max-w-[1240px] mx-auto px-10 h-[76px] flex items-center gap-[34px]">
         <a href="{{ url('/') }}" class="block shrink-0">
             <img src="{{ asset('images/logo.png') }}" alt="CancerCare Bangladesh লোগো" class="h-[38px] w-auto">
@@ -38,8 +38,8 @@
         </div>
 
         <div class="ml-auto flex gap-3 items-center">
-            <a href="{{ url('/admin') }}" class="font-bn text-sm px-5 py-2.5 rounded-[9px] font-medium bg-white text-ink border border-line hover:bg-mist inline-flex items-center">সাইন ইন</a>
-            <a href="{{ route('doctors.index') }}" class="font-bn text-sm px-5 py-2.5 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700 inline-flex items-center">শুরু করুন</a>
+            <a href="{{ url('/admin') }}" class="font-bn text-sm px-5 py-2.5 rounded-[9px] font-medium bg-white text-ink border border-slate-300 hover:border-teal-500 hover:bg-mist inline-flex items-center transition">সাইন ইন</a>
+            <a href="{{ route('doctors.index') }}" class="font-bn text-sm px-5 py-2.5 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 shadow-sm border border-teal-600 inline-flex items-center transition">শুরু করুন</a>
         </div>
     </div>
 </nav>

@@ -166,7 +166,7 @@
     <template x-if="submitted">
         <div class="bg-teal-50 border border-[#BFE5DC] rounded-[16px] px-6 py-8 text-center">
             <div class="font-bn text-[16px] font-semibold text-teal-700 mb-2">ধন্যবাদ! রেটিং জমা হয়েছে</div>
-            <button type="button" @click="newSubmission()" class="font-bn mt-3 text-[14px] px-6 py-2.5 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">আরেকটি জমা দিন</button>
+            <button type="button" @click="newSubmission()" class="font-bn mt-3 text-[14px] px-6 py-2.5 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition">আরেকটি জমা দিন</button>
         </div>
     </template>
 
@@ -243,7 +243,7 @@
         </div>
 
         <button type="button" @click="submitRating()" :disabled="submitting"
-            class="font-bn w-full text-[15px] px-7 py-3.5 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700 disabled:opacity-50">
+            class="font-bn w-full text-[15px] px-7 py-3.5 rounded-[9px] font-semibold bg-teal-700 text-white hover:bg-teal-800 border border-teal-600 shadow-sm transition disabled:opacity-50">
             জমা দিন
         </button>
     </div>

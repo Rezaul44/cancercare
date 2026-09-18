@@ -523,7 +523,7 @@
                     @if ($hospital->latitude && $hospital->longitude)
                         <a href="https://www.google.com/maps/dir/?api=1&destination={{ $hospital->latitude }},{{ $hospital->longitude }}"
                            target="_blank" rel="noopener noreferrer"
-                           class="w-full text-[13.5px] py-2.5 rounded-lg bg-slate-900 text-white font-medium hover:bg-slate-700 text-center block mt-3 font-bn transition shadow-sm">
+                           class="w-full text-[13.5px] py-2.5 rounded-lg bg-teal-700 text-white font-semibold hover:bg-teal-800 border border-teal-600 text-center block mt-3 font-bn transition shadow-sm">
                             দিকনির্দেশনা নিন (Directions)
                         </a>
                     @endif

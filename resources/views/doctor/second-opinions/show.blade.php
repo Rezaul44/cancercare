@@ -72,7 +72,7 @@
             <textarea name="call_note" rows="2" placeholder="ফোন কল সংক্রান্ত নোট (ঐচ্ছিক)"
                 class="font-bn w-full px-4 py-3 border border-line rounded-[11px] text-[14.5px] text-ink bg-white focus:outline-none focus:border-slate-700 mb-5">{{ old('call_note') }}</textarea>
 
-            <button type="submit" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-medium bg-slate-900 text-white hover:bg-slate-700">উত্তর জমা দিন</button>
+            <button type="submit" class="font-bn text-[15px] px-7 py-3 rounded-[9px] font-semibold bg-blue-700 text-white hover:bg-blue-800 border border-blue-600 shadow-sm transition">উত্তর জমা দিন</button>
         </form>
     </div>
 @endif
