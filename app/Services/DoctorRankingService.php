@@ -58,6 +58,7 @@ class DoctorRankingService
         $feeBuckets = $filters['fee_buckets'] ?? [];
         $genders = $filters['gender'] ?? [];
         $facilities = $filters['facilities'] ?? [];
+        $searchKeyword = trim((string) ($filters['q'] ?? ''));
 
         $specialty = $this->specialtyScoreExpr($cancerTypeId, $weights);
         $district = $this->districtScoreExpr($districtId, $weights);
@@ -76,6 +77,19 @@ class DoctorRankingService
                 "({$specialty['sql']} + {$district['sql']} + {$rating['sql']} + {$availability['sql']}) as score",
                 array_merge($specialty['bindings'], $district['bindings'], $rating['bindings'], $availability['bindings'])
             );
+
+        if ($searchKeyword !== '') {
+            $query->where(function (Builder $builder) use ($searchKeyword) {
+                $builder->where('name_bn', 'like', "%{$searchKeyword}%")
+                    ->orWhere('name_en', 'like', "%{$searchKeyword}%")
+                    ->orWhere('bmdc_number', 'like', "%{$searchKeyword}%")
+                    ->orWhere('degrees_line_bn', 'like', "%{$searchKeyword}%")
+                    ->orWhere('current_position_bn', 'like', "%{$searchKeyword}%")
+                    ->orWhereHas('doctorTypes', fn (Builder $b) => $b->where('label_bn', 'like', "%{$searchKeyword}%")->orWhere('label_en', 'like', "%{$searchKeyword}%"))
+                    ->orWhereHas('cancerTypes', fn (Builder $b) => $b->where('name_bn', 'like', "%{$searchKeyword}%")->orWhere('name_en', 'like', "%{$searchKeyword}%"))
+                    ->orWhereHas('chambers', fn (Builder $b) => $b->where('name_bn', 'like', "%{$searchKeyword}%")->orWhere('address_bn', 'like', "%{$searchKeyword}%"));
+            });
+        }
 
         if (! empty($cancerTypeId)) {
             // হার্ড ফিল্টার: এই cancer type-এ চিকিৎসা দেন না এমন ডাক্তার একেবারেই বাদ।

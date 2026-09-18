@@ -8,6 +8,7 @@ use App\Models\GuideTerm;
 use App\Models\Hospital;
 use App\Models\PatientCase;
 use App\Models\SearchLog;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 
@@ -81,6 +82,58 @@ class SearchService
             'guides' => $top->whereIn('type', ['guide_term', 'guide'])->values()->all(),
             'patient_cases' => $top->where('type', 'patient_case')->values()->all(),
         ];
+    }
+
+    /**
+     * @return list<array<string, mixed>> হোমপেজের শুধু ডাক্তার সার্চের ড্রপডাউন সাজেশন
+     */
+    public function suggestDoctors(string $query, int $limit = 8): array
+    {
+        $query = trim($query);
+
+        if (mb_strlen($query) < 1) {
+            return [];
+        }
+
+        $doctors = Doctor::query()
+            ->published()
+            ->with(['doctorTypes', 'cancerTypes', 'chambers.district'])
+            ->where(function (Builder $builder) use ($query) {
+                $builder->where('name_bn', 'like', "%{$query}%")
+                    ->orWhere('name_en', 'like', "%{$query}%")
+                    ->orWhere('bmdc_number', 'like', "%{$query}%")
+                    ->orWhere('degrees_line_bn', 'like', "%{$query}%")
+                    ->orWhere('current_position_bn', 'like', "%{$query}%")
+                    ->orWhereHas('doctorTypes', fn (Builder $b) => $b->where('label_bn', 'like', "%{$query}%")->orWhere('label_en', 'like', "%{$query}%"))
+                    ->orWhereHas('cancerTypes', fn (Builder $b) => $b->where('name_bn', 'like', "%{$query}%")->orWhere('name_en', 'like', "%{$query}%"))
+                    ->orWhereHas('chambers', fn (Builder $b) => $b->where('name_bn', 'like', "%{$query}%")->orWhere('address_bn', 'like', "%{$query}%"));
+            })
+            ->limit($limit)
+            ->get();
+
+        $this->logIfZeroResults($query, $doctors->count());
+
+        return $doctors->map(function (Doctor $doctor) {
+            $firstChamber = $doctor->chambers->first();
+            $specialties = $doctor->doctorTypes->pluck('label_bn')->implode(', ');
+            $photoUrl = $doctor->photo_path 
+                ? \Illuminate\Support\Facades\Storage::disk('public')->url($doctor->photo_path) 
+                : null;
+
+            return [
+                'id' => $doctor->id,
+                'title' => $doctor->name_bn,
+                'name_en' => $doctor->name_en,
+                'current_position' => $doctor->current_position_bn ?: 'অনকোলজিস্ট',
+                'degrees' => $doctor->degrees_line_bn,
+                'specialties' => $specialties,
+                'photo_url' => $photoUrl,
+                'chamber_name' => $firstChamber?->name_bn,
+                'district' => $firstChamber?->district?->name_bn,
+                'fee' => $firstChamber?->fee,
+                'url' => route('doctors.show', $doctor),
+            ];
+        })->values()->all();
     }
 
     /**

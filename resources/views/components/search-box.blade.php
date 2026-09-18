@@ -1,8 +1,6 @@
 {{--
-    docs/prototypes/homepage.html-এর .sbox/.sdrop হুবহু অনুসরণ করে, vanilla JS (ot()/cl()/setInterval)
-    এর বদলে Alpine.js দিয়ে। ড্রপডাউন এখন GET /ajax/search/suggest থেকে real ডেটা দেখায় (resources/js/search-suggest.js) —
-    prototype-এর ৪টি ডেমো ক্যাটাগরির মধ্যে "খরচ" বাদ (কোনো searchable কনটেন্ট টেবিল নেই), বদলে
-    "রোগীর সহায়তা" (patient_cases) — যা আসল ব্যাকএন্ড ডেটার সাথে মেলে।
+    হোমপেজের অনকোলজিস্ট অনুসন্ধান বক্স — resources/js/search-suggest.js থেকে Alpine.js ড্রপডাউন চালায়।
+    GET /ajax/search/suggest?type=doctors&q=... কল করে ডাক্তারদের রিয়েল-টাইম তালিকা দেখায়।
 --}}
 <div
     x-data="searchSuggest()"
@@ -16,7 +14,7 @@
         x-ref="input"
         x-model="query"
         :placeholder="placeholders[placeholderIndex]"
-        @focus="focused = true; open = query.length > 0"
+        @focus="focused = true; open = query.trim().length > 0"
         @blur="focused = false"
         @input="onInput()"
         @keydown.enter="goToResults()"
@@ -27,44 +25,40 @@
         x-show="query.length > 0"
         x-cloak
         @click="clear()"
-        class="ti ti-x absolute right-[21px] top-1/2 -translate-y-1/2 text-[#8E979D] text-[19px] cursor-pointer"
+        class="ti ti-x absolute right-[21px] top-1/2 -translate-y-1/2 text-[#8E979D] text-[19px] cursor-pointer hover:text-ink transition"
     ></i>
 
     <div
         x-show="open"
         x-cloak
         x-transition
-        class="absolute top-[calc(100%+10px)] left-0 w-full bg-white border border-line rounded-2xl overflow-hidden z-[60] shadow-[0_20px_52px_rgba(20,23,25,0.16)] text-left"
+        class="absolute top-[calc(100%+10px)] left-0 w-full bg-white border border-line rounded-2xl overflow-hidden z-[60] shadow-[0_20px_52px_rgba(20,23,25,0.16)] text-left max-h-[440px] flex flex-col"
     >
-        <div x-show="results.doctors.length > 0" class="py-[7px] border-b border-[#F1F1EE]">
-            <div class="font-bn text-[10.5px] font-semibold text-[#8E979D] uppercase tracking-[0.09em] px-5 pt-2.5 pb-1.5">ডাক্তার</div>
-            <div x-ref="doctorsList"></div>
+        {{-- Results List Header --}}
+        <div x-show="doctors.length > 0" class="flex-1 overflow-y-auto divide-y divide-slate-100">
+            <div class="font-bn text-[11px] font-semibold text-slate-400 uppercase tracking-[0.08em] px-5 pt-3 pb-2 flex items-center justify-between bg-slate-50/70">
+                <span>অনকোলজিস্ট ডাক্তারগণ</span>
+                <span class="text-xs text-pink-600 font-medium" x-text="doctors.length + ' জন পাওয়া গেছে'"></span>
+            </div>
+            <div x-ref="doctorsList" class="divide-y divide-slate-100"></div>
         </div>
 
-        <div x-show="results.hospitals.length > 0" class="py-[7px] border-b border-[#F1F1EE]">
-            <div class="font-bn text-[10.5px] font-semibold text-[#8E979D] uppercase tracking-[0.09em] px-5 pt-2.5 pb-1.5">হাসপাতাল</div>
-            <div x-ref="hospitalsList"></div>
+        {{-- No Results --}}
+        <div x-show="query.trim().length >= 1 && !loading && doctors.length === 0" class="px-5 py-7 text-center">
+            <div class="w-11 h-11 rounded-full bg-slate-100 text-slate-400 mx-auto flex items-center justify-center mb-2.5">
+                <i class="ti ti-user-x text-2xl"></i>
+            </div>
+            <p class="font-bn text-[14.5px] font-semibold text-slate-700">কোনো ডাক্তার পাওয়া যায়নি</p>
+            <p class="font-bn text-[12.5px] text-slate-400 mt-1">হেল্পলাইনে কল করুন <b class="text-ink font-semibold">০৯৬১১-৭৭৭৮৮৮</b> — আমরা সরাসরি ডাক্তারের সন্ধান দেব।</p>
         </div>
 
-        <div x-show="results.guides.length > 0" class="py-[7px] border-b border-[#F1F1EE]">
-            <div class="font-bn text-[10.5px] font-semibold text-[#8E979D] uppercase tracking-[0.09em] px-5 pt-2.5 pb-1.5">ক্যান্সার গাইড</div>
-            <div x-ref="guidesList"></div>
-        </div>
-
-        <div x-show="results.patient_cases.length > 0" class="py-[7px] border-b border-[#F1F1EE]">
-            <div class="font-bn text-[10.5px] font-semibold text-[#8E979D] uppercase tracking-[0.09em] px-5 pt-2.5 pb-1.5">রোগীর সহায়তা</div>
-            <div x-ref="patient_casesList"></div>
-        </div>
-
-        <div x-show="query.trim().length >= 2 && totalResults === 0" class="px-5 py-6 text-center">
-            <p class="font-bn text-[13.5px] text-slate-500">কোনো ফলাফল পাওয়া যায়নি।</p>
-            <p class="font-bn text-[12.5px] text-[#8E979D] mt-1">হেল্পলাইনে কল করুন <b>০৯৬১১-৭৭৭৮৮৮</b> — আমরা সাহায্য করব।</p>
-        </div>
-
-        <div x-show="totalResults > 0" class="px-5 py-3">
-            <button type="button" @click="goToResults()" class="font-bn text-[13px] font-semibold text-slate-900 hover:underline">
-                "<span x-text="query"></span>"-এর সব ফলাফল দেখুন →
+        {{-- Footer --}}
+        <div x-show="doctors.length > 0" class="px-5 py-3 bg-slate-50 border-t border-line flex items-center justify-between shrink-0">
+            <button type="button" @click="goToResults()" class="font-bn text-[13.5px] font-semibold text-pink-600 hover:text-pink-700 hover:underline flex items-center gap-1.5">
+                <span>"<span x-text="query"></span>"-এর সব ডাক্তার দেখুন</span>
+                <i class="ti ti-arrow-right text-xs"></i>
             </button>
+            <span class="font-bn text-[11.5px] text-slate-400">ক্লিক করে প্রোফাইলে যান</span>
         </div>
     </div>
 </div>

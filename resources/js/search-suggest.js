@@ -1,8 +1,7 @@
 /**
- * হোমপেজের সার্চ বক্সের ড্রপডাউন — GET /ajax/search/suggest থেকে আসা ফলাফল
- * ৪টি গ্রুপে (ডাক্তার/হাসপাতাল/গাইড/রোগীর সহায়তা) দেখায়। doctor-match.js-এর
- * esc()-escape করা template-literal + $refs.innerHTML প্যাটার্ন অনুসরণ করে —
- * টাইটেল/এক্সসার্প্ট DB থেকে আসা টেক্সট, তাই stored-XSS ঠেকাতে escape বাধ্যতামূলক।
+ * হোমপেজের সার্চ বক্সের ড্রপডাউন — অনকোলজিস্ট ডাক্তার অনুসন্ধানের জন্য ডেডিকেটেড।
+ * GET /ajax/search/suggest?type=doctors&q=... থেকে আসা ফলাফল দেখায়।
+ * XSS প্রতিরোধে esc() এস্কেপ বাধ্যতামূলক।
  */
 function esc(value) {
     const div = document.createElement('div');
@@ -11,28 +10,27 @@ function esc(value) {
     return div.innerHTML;
 }
 
-const GROUP_ICONS = {
-    doctors: { bg: '#E3EEF9', fg: '#1C5E9E', icon: 'ti-stethoscope' },
-    hospitals: { bg: '#DCF2ED', fg: '#0B6E5C', icon: 'ti-building-hospital' },
-    guides: { bg: '#EFEEFC', fg: '#5B4FB5', icon: 'ti-book-2' },
-    patient_cases: { bg: '#FFE1EC', fg: '#DE0159', icon: 'ti-heart-handshake' },
-};
-
-const EMPTY_RESULTS = { doctors: [], hospitals: [], guides: [], patient_cases: [] };
+function toBnNum(num) {
+    if (!num) return '';
+    const en = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(num).replace(/[0-9]/g, (d) => bn[d]);
+}
 
 export default function searchSuggest() {
     return {
         query: '',
         focused: false,
         open: false,
-        results: { ...EMPTY_RESULTS },
+        loading: false,
+        doctors: [],
         debounceTimer: null,
         placeholders: [
-            'যা জানতে চান লিখুন — ডাক্তার, হাসপাতাল, খরচ',
-            'স্তন ক্যান্সারের ভালো ডাক্তার কে',
-            'NICRH-এ কী কী চিকিৎসা হয়',
-            'কেমোথেরাপিতে আসলে কত টাকা লাগে',
-            'সরকারি হাসপাতালে রেডিওথেরাপি কোথায়',
+            'ডাক্তারের নাম বা ক্যান্সার লিখে খুঁজুন...',
+            'যেমন: ডা. কামাল বা সার্জিক্যাল অনকোলজিস্ট',
+            'স্তন ক্যান্সারের বিশেষজ্ঞ ডাক্তার...',
+            'ফুসফুস বা রক্তের ক্যান্সার বিশেষজ্ঞ...',
+            'হেমাটোলজি বা রেডিয়েশন অনকোলজিস্ট...',
         ],
         placeholderIndex: 0,
 
@@ -44,57 +42,81 @@ export default function searchSuggest() {
             }, 3400);
         },
 
-        get totalResults() {
-            return Object.values(this.results).reduce((sum, group) => sum + group.length, 0);
-        },
-
         onInput() {
-            this.open = this.query.length > 0;
+            const trimmed = this.query.trim();
+            this.open = trimmed.length > 0;
             clearTimeout(this.debounceTimer);
 
-            if (this.query.trim().length < 2) {
-                this.results = { ...EMPTY_RESULTS };
-                this.renderGroups();
-
+            if (trimmed.length < 1) {
+                this.doctors = [];
+                this.renderDoctors();
                 return;
             }
 
-            this.debounceTimer = setTimeout(() => this.fetchSuggestions(), 250);
+            this.debounceTimer = setTimeout(() => this.fetchSuggestions(), 220);
         },
 
         async fetchSuggestions() {
+            const trimmed = this.query.trim();
+            if (trimmed.length < 1) return;
+
+            this.loading = true;
             try {
-                const response = await window.axios.get('/ajax/search/suggest', { params: { q: this.query } });
-                this.results = { ...EMPTY_RESULTS, ...response.data };
+                const response = await window.axios.get('/ajax/search/suggest', {
+                    params: {
+                        q: trimmed,
+                        type: 'doctors',
+                    },
+                });
+
+                this.doctors = Array.isArray(response.data) ? response.data : [];
             } catch (error) {
-                console.error('Search suggest request failed:', error);
-                this.results = { ...EMPTY_RESULTS };
+                console.error('Doctor search suggest failed:', error);
+                this.doctors = [];
             } finally {
-                this.renderGroups();
+                this.loading = false;
+                this.renderDoctors();
             }
         },
 
-        renderGroups() {
-            for (const key of Object.keys(GROUP_ICONS)) {
-                const ref = this.$refs[key + 'List'];
-                if (!ref) continue;
-                ref.innerHTML = (this.results[key] || []).map((item) => this.itemHtml(key, item)).join('');
-            }
+        renderDoctors() {
+            const ref = this.$refs.doctorsList;
+            if (!ref) return;
+
+            ref.innerHTML = this.doctors.map((item) => this.itemHtml(item)).join('');
         },
 
-        itemHtml(group, item) {
-            const cfg = GROUP_ICONS[group];
+        itemHtml(item) {
+            const photoImg = item.photo_url
+                ? `<img src="${esc(item.photo_url)}" alt="${esc(item.title)}" class="w-11 h-11 rounded-full object-cover border border-line shrink-0" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">
+                   <div class="w-11 h-11 rounded-full bg-pink-100 text-pink-700 items-center justify-center shrink-0" style="display:none"><i class="ti ti-stethoscope text-xl"></i></div>`
+                : `<div class="w-11 h-11 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center shrink-0"><i class="ti ti-stethoscope text-xl"></i></div>`;
+
+            const chamberParts = [item.chamber_name, item.district].filter(Boolean).map(esc);
+            const chamberStr = chamberParts.length > 0 ? chamberParts.join(' · ') : '';
+            const feeStr = item.fee ? `· ৳${toBnNum(item.fee)}` : '';
 
             return `
-                <a href="${esc(item.url)}" class="flex items-center gap-[13px] px-5 py-[11px] cursor-pointer hover:bg-mist">
-                    <div class="w-[34px] h-[34px] rounded-[10px] flex items-center justify-center shrink-0" style="background:${cfg.bg}">
-                        <i class="ti ${cfg.icon}" style="font-size:18px;color:${cfg.fg}"></i>
+                <a href="${esc(item.url)}" class="flex items-center gap-3.5 px-5 py-3 cursor-pointer hover:bg-mist transition group">
+                    <div class="relative shrink-0">
+                        ${photoImg}
                     </div>
-                    <div>
-                        <div class="font-bn text-[14.5px] font-semibold">${esc(item.title)}</div>
-                        <div class="font-bn text-[12.5px] text-[#8E979D] mt-0.5">${esc(item.excerpt)}</div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="font-bn text-[14.5px] font-semibold text-ink group-hover:text-pink-600 transition leading-snug">${esc(item.title)}</span>
+                            ${item.name_en ? `<span class="font-bn text-[12px] text-slate-400 font-normal">(${esc(item.name_en)})</span>` : ''}
+                        </div>
+                        <div class="font-bn text-[12px] text-pink-600 font-medium truncate mt-0.5">${esc(item.specialties || item.current_position || 'অনকোলজিস্ট')}</div>
+                        ${chamberStr ? `
+                            <div class="font-bn text-[11.5px] text-slate-400 flex items-center gap-1 mt-0.5 truncate">
+                                <i class="ti ti-map-pin text-[12px]"></i>
+                                <span>${chamberStr} ${feeStr}</span>
+                            </div>
+                        ` : ''}
                     </div>
-                    <i class="ti ti-arrow-right ml-auto text-[#8E979D] text-base"></i>
+                    <div class="shrink-0 text-slate-300 group-hover:text-pink-600 transition">
+                        <i class="ti ti-chevron-right text-lg"></i>
+                    </div>
                 </a>
             `;
         },
@@ -102,7 +124,10 @@ export default function searchSuggest() {
         clear() {
             this.query = '';
             this.open = false;
-            this.results = { ...EMPTY_RESULTS };
+            this.doctors = [];
+            if (this.$refs.doctorsList) {
+                this.$refs.doctorsList.innerHTML = '';
+            }
             this.$refs.input.focus();
         },
 
@@ -110,7 +135,7 @@ export default function searchSuggest() {
             const trimmed = this.query.trim();
             if (trimmed.length === 0) return;
 
-            window.location.href = '/search?q=' + encodeURIComponent(trimmed);
+            window.location.href = '/doctors?q=' + encodeURIComponent(trimmed);
         },
     };
 }

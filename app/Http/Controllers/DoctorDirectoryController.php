@@ -66,6 +66,7 @@ class DoctorDirectoryController extends Controller
      */
     private function resolveFilters(Request $request): array
     {
+        $q = trim((string) $request->query('q', ''));
         $cancerSlug = (string) $request->query('cancer', '');
         $districtSlug = (string) $request->query('district', '');
 
@@ -92,6 +93,7 @@ class DoctorDirectoryController extends Controller
         ));
 
         return [
+            'q' => $q,
             'cancer_type_id' => $cancerSlug !== '' ? CancerType::where('slug', $cancerSlug)->value('id') : null,
             'district_id' => $districtSlug !== '' ? District::where('slug', $districtSlug)->value('id') : null,
             'doctor_type_ids' => $doctorTypeKeys === [] ? [] : DoctorType::whereIn('key', $doctorTypeKeys)->pluck('id')->all(),

@@ -35,5 +35,9 @@ class AppServiceProvider extends ServiceProvider
                 'email' => $notifiable->getEmailForPasswordReset(),
             ], false));
         });
+
+        \Illuminate\Support\Facades\Blade::directive('bnNum', function ($expression) {
+            return "<?php echo \\App\\Support\\BanglaHelper::bnNumber($expression); ?>";
+        });
     }
 }

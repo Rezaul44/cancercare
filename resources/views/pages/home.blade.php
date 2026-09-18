@@ -75,7 +75,7 @@
                         <i class="ti ti-shield-check text-2xl"></i>
                     </div>
                     <div>
-                        <div class="font-serif text-[22px] font-semibold leading-none text-ink">{{ $totalDoctorsCount > 0 ? $totalDoctorsCount : '৩৪২' }}</div>
+                        <div class="font-serif text-[22px] font-semibold leading-none text-ink">{{ $totalDoctorsCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalDoctorsCount) : '৩৪২' }}</div>
                         <div class="font-bn text-[12.5px] text-slate-500 mt-1">যাচাই করা অনকোলজিস্ট</div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                     ভুল বিশেষজ্ঞের কাছে গেলে সময় নষ্ট হয়। আপনার ক্যান্সারের ধরন অনুযায়ী কে উপযুক্ত, দেখে নিন।
                 </p>
                 <div class="font-bn text-[13px] font-semibold text-ink flex items-center gap-1.5 group-hover:text-pink-600">
-                    <span>{{ $totalDoctorsCount > 0 ? $totalDoctorsCount . ' জন বিশেষজ্ঞ' : 'ডাক্তারদের তালিকা' }}</span>
+                    <span>{{ $totalDoctorsCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalDoctorsCount) . ' জন বিশেষজ্ঞ' : 'ডাক্তারদের তালিকা' }}</span>
                     <i class="ti ti-arrow-right text-sm transition group-hover:translate-x-1"></i>
                 </div>
             </a>
@@ -124,7 +124,7 @@
                     সব হাসপাতালে রেডিওথেরাপি নেই। যাওয়ার আগেই জেনে নিন কোথায় কী আছে, অপেক্ষা কত দিন।
                 </p>
                 <div class="font-bn text-[13px] font-semibold text-ink flex items-center gap-1.5 group-hover:text-teal-700">
-                    <span>৮৭টি কেন্দ্রের তথ্য</span>
+                    <span>{{ $totalHospitalsCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalHospitalsCount) . 'টি কেন্দ্রের তথ্য' : '৮৭টি কেন্দ্রের তথ্য' }}</span>
                     <i class="ti ti-arrow-right text-sm transition group-hover:translate-x-1"></i>
                 </div>
             </a>
@@ -154,7 +154,7 @@
                     টাকার অভাবে কারো চিকিৎসা যেন না থামে। যাচাই করা রোগীর কাছে সরাসরি পাঠান।
                 </p>
                 <div class="font-bn text-[13px] font-semibold text-ink flex items-center gap-1.5 group-hover:text-pink-700">
-                    <span>২৪ জন অপেক্ষায়</span>
+                    <span>{{ $activePatientsCount > 0 ? \App\Support\BanglaHelper::bnNumber($activePatientsCount) . ' জন অপেক্ষায়' : 'রোগীদের সহায়তা' }}</span>
                     <i class="ti ti-arrow-right text-sm transition group-hover:translate-x-1"></i>
                 </div>
             </a>
@@ -166,22 +166,22 @@
 <section class="bg-slate-900 text-white py-[26px]">
     <div class="max-w-[1240px] mx-auto px-10 grid grid-cols-4 divide-x divide-white/15">
         <div class="pr-7 text-left">
-            <div class="font-serif text-[30px] font-semibold leading-none text-white">{{ $totalDoctorsCount > 0 ? $totalDoctorsCount : '৩৪২' }}</div>
+            <div class="font-serif text-[30px] font-semibold leading-none text-white">{{ $totalDoctorsCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalDoctorsCount) : '৩৪২' }}</div>
             <div class="font-bn text-[12.5px] text-white/60 mt-1.5">যাচাই করা অনকোলজিস্ট</div>
         </div>
 
         <div class="px-7 text-left">
-            <div class="font-serif text-[30px] font-semibold leading-none text-white">৮৭</div>
+            <div class="font-serif text-[30px] font-semibold leading-none text-white">{{ $totalHospitalsCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalHospitalsCount) : '৮৭' }}</div>
             <div class="font-bn text-[12.5px] text-white/60 mt-1.5">চিকিৎসা কেন্দ্রের পূর্ণ তথ্য</div>
         </div>
 
         <div class="px-7 text-left">
-            <div class="font-serif text-[30px] font-semibold leading-none text-white">৬৪</div>
+            <div class="font-serif text-[30px] font-semibold leading-none text-white">{{ $totalDistrictsCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalDistrictsCount) : '৬৪' }}</div>
             <div class="font-bn text-[12.5px] text-white/60 mt-1.5">জেলা থেকে খোঁজা যায়</div>
         </div>
 
         <div class="pl-7 text-left">
-            <div class="font-serif text-[30px] font-semibold leading-none text-white">১,২৪০</div>
+            <div class="font-serif text-[30px] font-semibold leading-none text-white">{{ $totalHelpedFamiliesCount > 0 ? \App\Support\BanglaHelper::bnNumber($totalHelpedFamiliesCount) : '১,২৪০+' }}</div>
             <div class="font-bn text-[12.5px] text-white/60 mt-1.5">পরিবার পথ খুঁজে পেয়েছে</div>
         </div>
     </div>
@@ -196,7 +196,7 @@
                 <h2 class="font-serif text-[33px] font-medium tracking-[-0.018em] text-ink leading-tight">কোন ক্যান্সার, কার কাছে যাবেন</h2>
             </div>
             <a href="{{ route('guides.index') }}" class="font-bn text-[14px] font-semibold text-ink hover:text-pink-600 flex items-center gap-1.5">
-                <span>সব ১৮টি ধরন</span>
+                <span>সব {{ $cancerTypes->count() > 0 ? \App\Support\BanglaHelper::bnNumber($cancerTypes->count()) : '১৮' }}টি ধরন</span>
                 <i class="ti ti-arrow-right text-sm"></i>
             </a>
         </div>
@@ -216,14 +216,14 @@
                     </div>
                     <div class="font-bn text-[15px] font-semibold text-ink group-hover:text-pink-600 transition">{{ $type->name_bn }} ক্যান্সার</div>
                     <div class="font-bn text-[12px] text-slate-400 mt-1">
-                        {{ $type->doctors_count ?? 15 }} জন ডাক্তার
+                        {{ \App\Support\BanglaHelper::bnNumber($type->doctors_count ?? 0) }} জন ডাক্তার
                     </div>
                 </a>
             @endforeach
 
             {{-- More types card --}}
             <a href="{{ route('guides.index') }}" class="bg-slate-900 border border-slate-900 rounded-[14px] p-5 flex flex-col justify-center items-center text-center hover:bg-slate-800 transition text-white">
-                <div class="font-bn text-[15px] font-semibold text-white">আরও ৯টি</div>
+                <div class="font-bn text-[15px] font-semibold text-white">আরও {{ $otherCancerTypes->count() > 0 ? \App\Support\BanglaHelper::bnNumber($otherCancerTypes->count()) : '৯' }}টি</div>
                 <div class="font-bn text-[12px] text-white/60 mt-1">সব দেখুন →</div>
             </a>
         </div>
@@ -315,50 +315,91 @@
             </span>
         </div>
 
+        @php
+            $featuredStory = $stories->first();
+            $smallStories = $stories->slice(1);
+        @endphp
+
         <div class="grid grid-cols-[1.4fr_1fr] gap-5">
             {{-- Big Story --}}
             <div class="rounded-[20px] overflow-hidden relative min-h-[340px] flex flex-col justify-end">
                 <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=900&q=80" alt="ক্যান্সার জয়ী গল্প" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover">
                 <div class="relative z-[2] p-8 bg-gradient-to-t from-slate-900/95 via-slate-900/60 to-transparent text-white text-left">
                     <div class="inline-flex items-center gap-1.5 font-bn text-[11.5px] bg-white/20 px-3 py-1 rounded-full font-semibold mb-3.5">
-                        <i class="ti ti-confetti text-xs"></i> ৩ বছর ক্যান্সার-মুক্ত
+                        <i class="ti ti-confetti text-xs"></i> {{ $featuredStory?->outcome_duration_bn ?: '৩ বছর ক্যান্সার-মুক্ত' }}
                     </div>
                     <div class="font-serif text-[22px] leading-[1.42] italic mb-4 font-normal">
-                        "স্টেজ ৩ শুনে ভেবেছিলাম মেয়ের বিয়ে দেখে যেতে পারব না। আজ সে বিবাহিত, আর আমি তার বিয়েতে নেচেছি।"
+                        "{{ $featuredStory?->quote_bn ?: 'স্টেজ ৩ শুনে ভেবেছিলাম মেয়ের বিয়ে দেখে যেতে পারব না। আজ সে বিবাহিত, আর আমি তার বিয়েতে নেচেছি।' }}"
                     </div>
                     <div class="font-bn text-[13.5px] text-white/80">
-                        <b class="text-white font-semibold">মোহাম্মদ রফিক, ৪৪</b> · কোলন ক্যান্সার · রংপুর
+                        <b class="text-white font-semibold">{{ $featuredStory?->patient_label_bn ?: 'মোহাম্মদ রফিক, ৪৪' }}</b> · {{ $featuredStory?->cancerType?->name_bn ? $featuredStory->cancerType->name_bn . ' ক্যান্সার' : 'কোলন ক্যান্সার' }} · {{ $featuredStory?->district?->name_bn ?: 'রংপুর' }}
                     </div>
                 </div>
             </div>
 
             {{-- 2 Small Stories --}}
             <div class="flex flex-col gap-4">
-                <div class="bg-mist border border-line rounded-[18px] p-6 flex-1 flex flex-col justify-between text-left">
-                    <div class="font-serif text-[16px] leading-[1.55] italic text-ink mb-4">
-                        "ডাক্তার যা বলতেন কিছুই বুঝতাম না। এখানে বাংলায় পড়ে বুঝলাম আমার কী হয়েছে — সেদিন থেকেই ভয়টা কমতে শুরু করল।"
-                    </div>
-                    <div class="flex items-center gap-3 pt-4 border-t border-line">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80" alt="সালমা বেগম" loading="lazy" decoding="async" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <div class="font-bn text-[13.5px] font-semibold text-ink">সালমা বেগম, ৩৯</div>
-                            <div class="font-bn text-[12px] text-slate-400">স্তন ক্যান্সার · ২ বছর সুস্থ</div>
+                @if($smallStories->isNotEmpty())
+                    @foreach($smallStories as $story)
+                        <div class="bg-mist border border-line rounded-[18px] p-6 flex-1 flex flex-col justify-between text-left">
+                            <div class="font-serif text-[16px] leading-[1.55] italic text-ink mb-4">
+                                "{{ $story->quote_bn }}"
+                            </div>
+                            <div class="flex items-center gap-3 pt-4 border-t border-line">
+                                <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center shrink-0 font-bn font-semibold text-sm">
+                                    {{ mb_substr($story->patient_label_bn, 0, 1) }}
+                                </div>
+                                <div>
+                                    <div class="font-bn text-[13.5px] font-semibold text-ink">{{ $story->patient_label_bn }}</div>
+                                    <div class="font-bn text-[12px] text-slate-400">
+                                        {{ $story->cancerType?->name_bn ? $story->cancerType->name_bn . ' ক্যান্সার' : '' }}
+                                        @if($story->outcome_duration_bn) · {{ $story->outcome_duration_bn }} @elseif($story->district) · {{ $story->district->name_bn }} @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if($smallStories->count() < 2)
+                        <div class="bg-mist border border-line rounded-[18px] p-6 flex-1 flex flex-col justify-between text-left">
+                            <div class="font-serif text-[16px] leading-[1.55] italic text-ink mb-4">
+                                "সিলেট থেকে ঢাকা — প্রতিবার আসা-যাওয়ায় কত লাগবে জানতাম না। হিসাবটা আগে দেখেছিলাম বলে মায়ের চিকিৎসা একদিনও থামেনি।"
+                            </div>
+                            <div class="flex items-center gap-3 pt-4 border-t border-line">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="মোহাম্মদ করিম" loading="lazy" decoding="async" class="w-10 h-10 rounded-full object-cover">
+                                <div>
+                                    <div class="font-bn text-[13.5px] font-semibold text-ink">মোহাম্মদ করিম, ৩৪</div>
+                                    <div class="font-bn text-[12px] text-slate-400">মায়ের যত্নকারী · সিলেট</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div class="bg-mist border border-line rounded-[18px] p-6 flex-1 flex flex-col justify-between text-left">
+                        <div class="font-serif text-[16px] leading-[1.55] italic text-ink mb-4">
+                            "ডাক্তার যা বলতেন কিছুই বুঝতাম না। এখানে বাংলায় পড়ে বুঝলাম আমার কী হয়েছে — সেদিন থেকেই ভয়টা কমতে শুরু করল।"
+                        </div>
+                        <div class="flex items-center gap-3 pt-4 border-t border-line">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80" alt="সালমা বেগম" loading="lazy" decoding="async" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <div class="font-bn text-[13.5px] font-semibold text-ink">সালমা বেগম, ৩৯</div>
+                                <div class="font-bn text-[12px] text-slate-400">স্তন ক্যান্সার · ২ বছর সুস্থ</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-mist border border-line rounded-[18px] p-6 flex-1 flex flex-col justify-between text-left">
-                    <div class="font-serif text-[16px] leading-[1.55] italic text-ink mb-4">
-                        "সিলেট থেকে ঢাকা — প্রতিবার আসা-যাওয়ায় কত লাগবে জানতাম না। হিসাবটা আগে দেখেছিলাম বলে মায়ের চিকিৎসা একদিনও থামেনি।"
-                    </div>
-                    <div class="flex items-center gap-3 pt-4 border-t border-line">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="মোহাম্মদ করিম" loading="lazy" decoding="async" class="w-10 h-10 rounded-full object-cover">
-                        <div>
-                            <div class="font-bn text-[13.5px] font-semibold text-ink">মোহাম্মদ করিম, ৩৪</div>
-                            <div class="font-bn text-[12px] text-slate-400">মায়ের যত্নকারী · সিলেট</div>
+                    <div class="bg-mist border border-line rounded-[18px] p-6 flex-1 flex flex-col justify-between text-left">
+                        <div class="font-serif text-[16px] leading-[1.55] italic text-ink mb-4">
+                            "সিলেট থেকে ঢাকা — প্রতিবার আসা-যাওয়ায় কত লাগবে জানতাম না। হিসাবটা আগে দেখেছিলাম বলে মায়ের চিকিৎসা একদিনও থামেনি।"
+                        </div>
+                        <div class="flex items-center gap-3 pt-4 border-t border-line">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="মোহাম্মদ করিম" loading="lazy" decoding="async" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <div class="font-bn text-[13.5px] font-semibold text-ink">মোহাম্মদ করিম, ৩৪</div>
+                                <div class="font-bn text-[12px] text-slate-400">মায়ের যত্নকারী · সিলেট</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

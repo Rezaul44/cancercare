@@ -173,6 +173,18 @@ class SearchTest extends TestCase
         $this->assertCount(1, $response->json('doctors'));
     }
 
+    public function test_ajax_suggest_endpoint_returns_doctors_only_when_type_is_doctors(): void
+    {
+        $doctor = $this->makeDoctor(['name_bn' => 'ডা. সুনির্দিষ্ট অনকোলজিস্ট']);
+
+        $response = $this->getJson(route('ajax.search.suggest', ['type' => 'doctors', 'q' => 'সুনির্দিষ্ট']));
+
+        $response->assertOk();
+        $this->assertIsArray($response->json());
+        $this->assertGreaterThanOrEqual(1, count($response->json()));
+        $this->assertSame($doctor->name_bn, $response->json()[0]['title']);
+    }
+
     private function makeDoctor(array $overrides = []): Doctor
     {
         return Doctor::create(array_merge([

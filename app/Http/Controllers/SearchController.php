@@ -26,7 +26,11 @@ class SearchController extends Controller
         $query = trim((string) $request->query('q', ''));
 
         if ($query === '') {
-            return response()->json(['doctors' => [], 'hospitals' => [], 'guides' => [], 'patient_cases' => []]);
+            return response()->json($request->query('type') === 'doctors' ? [] : ['doctors' => [], 'hospitals' => [], 'guides' => [], 'patient_cases' => []]);
+        }
+
+        if ($request->query('type') === 'doctors') {
+            return response()->json($service->suggestDoctors($query));
         }
 
         return response()->json($service->suggest($query));

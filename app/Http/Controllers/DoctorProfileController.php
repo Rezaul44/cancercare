@@ -49,6 +49,7 @@ class DoctorProfileController extends Controller
             'videos' => fn ($query) => $query->orderBy('sort_order'),
             'chambers' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order'),
             'chambers.district',
+            'chambers.hospital',
             'ratingSummary',
             'patientTestimonials' => fn ($query) => $query->orderBy('sort_order'),
             'patientStories' => fn ($query) => $query->orderBy('sort_order'),

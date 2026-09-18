@@ -27,6 +27,19 @@
                 @submit.prevent="submitFilters($event)"
                 @change="handleFormChange()">
                 <input type="hidden" name="sort" x-ref="sortInput" value="{{ $sort }}">
+                <input type="hidden" name="q" value="{{ $filters['q'] ?? '' }}">
+
+                @if (!empty($filters['q']))
+                    <div class="mt-4 flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-pink-50 border border-pink-200 text-pink-700 font-bn text-[13.5px]">
+                            <i class="ti ti-search text-xs"></i>
+                            <span>"{{ $filters['q'] }}"-এর ফলাফল</span>
+                            <a href="{{ route('doctors.index', collect(request()->query())->except('q')->all()) }}" class="ml-1 text-pink-500 hover:text-pink-800" title="অনুসন্ধান মুছুন">
+                                <i class="ti ti-x text-xs"></i>
+                            </a>
+                        </span>
+                    </div>
+                @endif
 
                 <div class="grid grid-cols-[1fr_1fr_auto] gap-3 mt-6 max-w-[820px] items-end">
                     <div>
