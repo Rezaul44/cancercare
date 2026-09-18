@@ -55,10 +55,38 @@ class CostEstimatorService
             default => str_contains($cancerTypeKey, '-cancer') ? $cancerTypeKey : "{$cancerTypeKey}-cancer",
         };
 
-        $base = $rates['base_rates'][$cancerTypeSlug] ?? $rates['base_rates']['breast-cancer'];
-        $stageMul = $rates['stage_multipliers'][$stage] ?? 1.00;
-        $distMul = $rates['dist_multipliers'][$dist] ?? 1.00;
-        $hospMul = $rates['hosp_multipliers'];
+        $defaultBase = [
+            'name_bn' => 'স্তন ক্যান্সার',
+            'diag' => 14000,
+            'surgery' => 32000,
+            'chemo' => 48000,
+            'radiation' => 22000,
+            'targeted' => 180000,
+            'months' => 8,
+        ];
+        $resolvedBase = $rates['base_rates'][$cancerTypeSlug]
+            ?? $rates['base_rates'][$cancerTypeKey]
+            ?? ($rates['base_rates']['breast-cancer'] ?? (is_array($rates['base_rates']) && !empty($rates['base_rates']) ? reset($rates['base_rates']) : []));
+        $base = array_merge($defaultBase, is_array($resolvedBase) ? $resolvedBase : []);
+        $stageMul = $rates['stage_multipliers'][$stage] ?? match ($stage) {
+            '1' => 0.72,
+            '2' => 1.00,
+            '3' => 1.35,
+            '4' => 1.55,
+            default => 1.00,
+        };
+        $distMul = $rates['dist_multipliers'][$dist] ?? match ($dist) {
+            'local' => 0.35,
+            'near' => 0.70,
+            'far' => 1.00,
+            default => 1.00,
+        };
+        $hospMul = array_merge([
+            'govt' => 1.00,
+            'npo' => 1.90,
+            'priv' => 4.40,
+            'private' => 4.40,
+        ], $rates['hosp_multipliers'] ?? []);
 
         // Stage duration multiplier
         $stageDurMul = match ($stage) {
@@ -67,12 +95,12 @@ class CostEstimatorService
             '4' => 1.25,
             default => 1.0,
         };
-        $months = (int) round($base['months'] * $stageDurMul);
+        $months = (int) round(($base['months'] ?? 8) * $stageDurMul);
         $trips = ($treat['chemo'] ?? false) ? ($months * 2.2) : ($months * 1.2);
 
         // Calculate direct costs for all 3 hospital tiers
-        $directGovt = $this->calcDirectCost($base, $treat, $stageMul, $hospMul['govt']);
-        $directNpo = $this->calcDirectCost($base, $treat, $stageMul, $hospMul['npo']);
+        $directGovt = $this->calcDirectCost($base, $treat, $stageMul, $hospMul['govt'] ?? 1.0);
+        $directNpo = $this->calcDirectCost($base, $treat, $stageMul, $hospMul['npo'] ?? 1.9);
         $directPriv = $this->calcDirectCost($base, $treat, $stageMul, $hospMul['priv'] ?? $hospMul['private'] ?? 4.4);
 
         // Indirect costs helper for a given direct cost

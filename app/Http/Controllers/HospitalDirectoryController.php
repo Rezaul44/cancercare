@@ -88,37 +88,51 @@ class HospitalDirectoryController extends Controller
 
         $hospitals = $query->paginate(15)->withQueryString();
 
-        // Filter Counts
-        $allCapabilities = Capability::orderBy('sort_order')->get();
-        $capabilityCounts = [];
-        foreach ($allCapabilities as $cap) {
-            $capabilityCounts[$cap->key] = Hospital::published()
-                ->whereHas('capabilities', fn ($q) => $q->where('capability_id', $cap->id)->where('status', '!=', HospitalCapabilityStatus::NotAvailable->value))
-                ->count();
-        }
+        // Filter Counts (cached to prevent 30+ database queries on every request)
+        $allCapabilities = \Illuminate\Support\Facades\Cache::remember('all_capabilities_sorted', 3600, fn () => Capability::orderBy('sort_order')->get());
 
-        $typeCounts = [
-            'govt' => Hospital::published()->govt()->count(),
-            'private' => Hospital::published()->private()->count(),
-            'npo' => Hospital::published()->npo()->count(),
-        ];
+        $sidebarData = \Illuminate\Support\Facades\Cache::remember('hospital_sidebar_counts', 1800, function () use ($allCapabilities) {
+            $capabilityCounts = [];
+            foreach ($allCapabilities as $cap) {
+                $capabilityCounts[$cap->key] = Hospital::published()
+                    ->whereHas('capabilities', fn ($q) => $q->where('capability_id', $cap->id)->where('status', '!=', HospitalCapabilityStatus::NotAvailable->value))
+                    ->count();
+            }
 
-        $divisions = Division::all();
-        $divisionCounts = [];
-        foreach ($divisions as $div) {
-            $divisionCounts[$div->id] = Hospital::published()
-                ->whereHas('district', fn ($q) => $q->where('division_id', $div->id))
-                ->count();
-        }
+            $typeCounts = [
+                'govt' => Hospital::published()->govt()->count(),
+                'private' => Hospital::published()->private()->count(),
+                'npo' => Hospital::published()->npo()->count(),
+            ];
 
-        $facilityCounts = [
-            'emergency_24h' => Hospital::published()->where('emergency_24h', true)->count(),
-            'has_video' => Hospital::published()->has('videos')->count(),
-            'has_financial_aid' => Hospital::published()->whereHas('practicalInfos', fn ($q) => $q->where('key', 'financial_aid'))->count(),
-            'has_accommodation' => Hospital::published()->whereHas('practicalInfos', fn ($q) => $q->where('key', 'accommodation'))->count(),
-            'has_blood_bank' => $capabilityCounts['blood_bank'] ?? 0,
-            'has_female_oncologist' => $capabilityCounts['female_oncologist'] ?? 0,
-        ];
+            $divisions = Division::all();
+            $divisionCounts = [];
+            foreach ($divisions as $div) {
+                $divisionCounts[$div->id] = Hospital::published()
+                    ->whereHas('district', fn ($q) => $q->where('division_id', $div->id))
+                    ->count();
+            }
+
+            $facilityCounts = [
+                'emergency_24h' => Hospital::published()->where('emergency_24h', true)->count(),
+                'has_video' => Hospital::published()->has('videos')->count(),
+                'has_financial_aid' => Hospital::published()->whereHas('practicalInfos', fn ($q) => $q->where('key', 'financial_aid'))->count(),
+                'has_accommodation' => Hospital::published()->whereHas('practicalInfos', fn ($q) => $q->where('key', 'accommodation'))->count(),
+                'has_blood_bank' => $capabilityCounts['blood_bank'] ?? 0,
+                'has_female_oncologist' => $capabilityCounts['female_oncologist'] ?? 0,
+            ];
+
+            $totalPublishedHospitals = Hospital::published()->count();
+
+            return [
+                'capabilityCounts' => $capabilityCounts,
+                'typeCounts' => $typeCounts,
+                'divisions' => $divisions,
+                'divisionCounts' => $divisionCounts,
+                'facilityCounts' => $facilityCounts,
+                'totalPublishedHospitals' => $totalPublishedHospitals,
+            ];
+        });
 
         // Dynamic result heading text
         $resultHeading = 'মোট '.$hospitals->total().'টি হাসপাতাল পাওয়া গেছে';
@@ -134,13 +148,13 @@ class HospitalDirectoryController extends Controller
             'sort' => $sort,
             'filters' => $filters,
             'allCapabilities' => $allCapabilities,
-            'capabilityCounts' => $capabilityCounts,
-            'typeCounts' => $typeCounts,
-            'divisions' => $divisions,
-            'divisionCounts' => $divisionCounts,
-            'facilityCounts' => $facilityCounts,
+            'capabilityCounts' => $sidebarData['capabilityCounts'],
+            'typeCounts' => $sidebarData['typeCounts'],
+            'divisions' => $sidebarData['divisions'],
+            'divisionCounts' => $sidebarData['divisionCounts'],
+            'facilityCounts' => $sidebarData['facilityCounts'],
             'resultHeading' => $resultHeading,
-            'totalPublishedHospitals' => Hospital::published()->count(),
+            'totalPublishedHospitals' => $sidebarData['totalPublishedHospitals'],
         ];
 
         if ($request->ajax()) {

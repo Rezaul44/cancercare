@@ -24,10 +24,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/clear-cache', function () {
     Artisan::call('optimize:clear');
+    Artisan::call('filament:optimize');
+    Artisan::call('optimize');
 
     return response()->json([
         'status' => 'success',
-        'message' => 'All cache cleared successfully!',
+        'message' => 'All caches cleared and re-optimized successfully!',
         'output' => trim(Artisan::output()),
     ]);
 })->name('cache.clear');
@@ -77,12 +79,12 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('search.suggest');
 });
 
-Route::get('/private-document', function (\Illuminate\Http\Request $request) {
-    $path = (string) $request->query('path', '');
+Route::get('/private-document/{path}', function (\Illuminate\Http\Request $request, string $path) {
+    abort_unless($request->hasValidRelativeSignature() || $request->hasValidSignature(), 403);
     abort_unless(\Illuminate\Support\Facades\Storage::disk('s3_private')->exists($path), 404);
 
     return \Illuminate\Support\Facades\Storage::disk('s3_private')->response($path);
-})->middleware('signed')->name('storage.s3_private');
+})->where('path', '.*')->name('storage.s3_private');
 
 // ডাক্তার পোর্টাল (Phase 6.4) — একই 'web' guard, Filament /admin থেকে সম্পূর্ণ আলাদা।
 Route::prefix('doctor')->name('doctor.')->group(function () {

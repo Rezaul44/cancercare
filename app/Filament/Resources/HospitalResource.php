@@ -155,6 +155,8 @@ class HospitalResource extends Resource
                         Forms\Components\FileUpload::make('cover_photo_path')
                             ->label('হাসপাতালের কভার ফটো')
                             ->image()
+                            ->disk('public')
+                            ->visibility('public')
                             ->directory('hospitals')
                             ->columnSpanFull(),
 

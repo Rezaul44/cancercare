@@ -22,11 +22,15 @@ class DoctorRatingSubmissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
+    protected static ?string $navigationGroup = 'ডাক্তার ও কনসালটেশন';
+
     protected static ?string $navigationLabel = 'ডাক্তার রেটিং';
 
     protected static ?string $modelLabel = 'রেটিং জমা';
 
     protected static ?string $pluralModelLabel = 'রেটিং জমাসমূহ';
+
+    protected static ?int $navigationSort = 3;
 
     public static function canViewAny(): bool
     {

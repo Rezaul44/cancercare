@@ -8,11 +8,22 @@ import hospitalDirectory from './hospital-directory';
 import searchSuggest from './search-suggest';
 
 window.Alpine = Alpine;
+window.costEstimator = costEstimator;
+window.doctorDirectory = doctorDirectory;
+window.doctorMatch = doctorMatch;
+window.hospitalDirectory = hospitalDirectory;
+window.searchSuggest = searchSuggest;
 
-Alpine.data('doctorDirectory', doctorDirectory);
-Alpine.data('doctorMatch', doctorMatch);
-Alpine.data('hospitalDirectory', hospitalDirectory);
-Alpine.data('costEstimator', costEstimator);
-Alpine.data('searchSuggest', searchSuggest);
+const registerAlpineData = () => {
+    Alpine.data('doctorDirectory', doctorDirectory);
+    Alpine.data('doctorMatch', doctorMatch);
+    Alpine.data('hospitalDirectory', hospitalDirectory);
+    Alpine.data('costEstimator', costEstimator);
+    Alpine.data('searchSuggest', searchSuggest);
+};
+
+document.addEventListener('alpine:init', registerAlpineData);
+registerAlpineData();
 
 Alpine.start();
+

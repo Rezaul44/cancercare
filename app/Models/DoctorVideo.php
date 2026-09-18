@@ -38,4 +38,23 @@ class DoctorVideo extends Model
     {
         return $this->belongsTo(Doctor::class);
     }
+
+    public function getWatchUrlAttribute(): string
+    {
+        return \App\Support\YouTubeHelper::toWatchUrl($this->video_url) ?? (string) $this->video_url;
+    }
+
+    public function getEmbedUrlAttribute(): string
+    {
+        return \App\Support\YouTubeHelper::toEmbedUrl($this->video_url) ?? (string) $this->video_url;
+    }
+
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        if ($this->thumbnail_path) {
+            return \Illuminate\Support\Facades\Storage::disk('public')->url($this->thumbnail_path);
+        }
+
+        return \App\Support\YouTubeHelper::getThumbnailUrl($this->video_url);
+    }
 }

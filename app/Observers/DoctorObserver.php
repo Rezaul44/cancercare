@@ -16,6 +16,10 @@ class DoctorObserver
         if (empty($doctor->rotation_seed)) {
             $doctor->rotation_seed = random_int(0, 999);
         }
+
+        if (empty($doctor->photo_path)) {
+            $doctor->photo_path = 'doctors/default.jpg';
+        }
     }
 
     public function saving(Doctor $doctor): void

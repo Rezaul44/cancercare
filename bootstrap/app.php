@@ -27,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // ফেরত আসে (কখনো auto-submit POST ফর্ম দিয়ে), তাই আমাদের session CSRF টোকেন থাকে না।
         $middleware->validateCsrfTokens(except: [
             'second-opinion/payments/*',
+            'ajax/*',
         ]);
 
         // এই অ্যাপে কোনো routes/auth.php নেই ('login' নামের route নেই) — Filament তার নিজস্ব

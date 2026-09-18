@@ -40,4 +40,19 @@ class DoctorPatientTestimonial extends Model
     {
         return $this->belongsTo(CancerType::class);
     }
+
+    public function getWatchUrlAttribute(): string
+    {
+        return \App\Support\YouTubeHelper::toWatchUrl($this->video_url) ?? (string) $this->video_url;
+    }
+
+    public function getEmbedUrlAttribute(): string
+    {
+        return \App\Support\YouTubeHelper::toEmbedUrl($this->video_url) ?? (string) $this->video_url;
+    }
+
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        return \App\Support\YouTubeHelper::getThumbnailUrl($this->video_url);
+    }
 }

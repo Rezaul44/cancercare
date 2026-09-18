@@ -146,10 +146,10 @@
                 @if ($introVideo)
                     <div class="bg-white border border-line rounded-[18px] px-7 py-6 mb-4">
                         <div class="text-[11.5px] font-semibold text-slate-400 uppercase tracking-wide mb-[9px]">পরিচিতি</div>
-                        <a href="{{ $introVideo->video_url }}" target="_blank" rel="noopener" class="flex border border-line rounded-[14px] overflow-hidden hover:border-slate-300">
+                        <a href="{{ $introVideo->watch_url }}" target="_blank" rel="noopener" class="flex border border-line rounded-[14px] overflow-hidden hover:border-slate-300">
                             <div class="w-[230px] h-[145px] relative shrink-0 bg-slate-700 flex items-center justify-center">
-                                @if ($introVideo->thumbnail_path)
-                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($introVideo->thumbnail_path) }}" class="w-full h-full object-cover opacity-65" alt="ডা. {{ $doctor->name_bn }}-এর পরিচিতি ভিডিও">
+                                @if ($introVideo->thumbnail_url)
+                                    <img src="{{ $introVideo->thumbnail_url }}" class="w-full h-full object-cover opacity-65" alt="ডা. {{ $doctor->name_bn }}-এর পরিচিতি ভিডিও">
                                 @endif
                                 <div class="absolute w-[50px] h-[50px] rounded-full bg-white/95 flex items-center justify-center text-slate-900">
                                     <i class="ti ti-player-play-filled ml-0.5" style="font-size:21px"></i>
@@ -270,9 +270,12 @@
                         <div class="text-[11.5px] font-semibold text-slate-400 uppercase tracking-wide mb-[9px]">শিক্ষামূলক ভিডিও</div>
                         <div class="flex flex-col gap-2.5">
                             @foreach ($educationalVideos as $video)
-                                <a href="{{ $video->video_url }}" target="_blank" rel="noopener" class="border border-line rounded-[13px] overflow-hidden flex items-center hover:border-slate-300">
-                                    <div class="w-[100px] h-[72px] flex items-center justify-center shrink-0 relative bg-mist">
-                                        <div class="w-8 h-8 rounded-full bg-white/92 flex items-center justify-center">
+                                <a href="{{ $video->watch_url }}" target="_blank" rel="noopener" class="border border-line rounded-[13px] overflow-hidden flex items-center hover:border-slate-300">
+                                    <div class="w-[100px] h-[72px] flex items-center justify-center shrink-0 relative bg-mist overflow-hidden">
+                                        @if ($video->thumbnail_url)
+                                            <img src="{{ $video->thumbnail_url }}" class="w-full h-full object-cover absolute inset-0 opacity-70" alt="{{ $video->title_bn }}">
+                                        @endif
+                                        <div class="w-8 h-8 rounded-full bg-white/92 flex items-center justify-center relative z-10">
                                             <i class="ti ti-player-play-filled ml-0.5" style="font-size:14px"></i>
                                         </div>
                                     </div>
@@ -300,12 +303,15 @@
                         <div class="grid grid-cols-3 gap-3">
                             @foreach ($doctor->patientTestimonials as $testimonial)
                                 @php $tBadge = $badgeColors[$testimonial->thumbnail_color_key] ?? $badgeColors['teal']; @endphp
-                                <a href="{{ $testimonial->video_url }}" target="_blank" rel="noopener" class="border border-line rounded-[13px] overflow-hidden hover:border-slate-300">
-                                    <div class="h-[110px] flex items-center justify-center relative {{ explode(' ', $tBadge)[0] }}">
-                                        <div class="w-[38px] h-[38px] rounded-full bg-white/92 flex items-center justify-center text-slate-900">
+                                <a href="{{ $testimonial->watch_url }}" target="_blank" rel="noopener" class="border border-line rounded-[13px] overflow-hidden hover:border-slate-300">
+                                    <div class="h-[110px] flex items-center justify-center relative overflow-hidden {{ explode(' ', $tBadge)[0] }}">
+                                        @if ($testimonial->thumbnail_url)
+                                            <img src="{{ $testimonial->thumbnail_url }}" class="w-full h-full object-cover absolute inset-0 opacity-60" alt="{{ $testimonial->anonymized_label_bn }}">
+                                        @endif
+                                        <div class="w-[38px] h-[38px] rounded-full bg-white/92 flex items-center justify-center text-slate-900 relative z-10">
                                             <i class="ti ti-player-play-filled ml-0.5" style="font-size:16px"></i>
                                         </div>
-                                        <span class="absolute bottom-[7px] right-[9px] text-[10.5px] bg-black/60 text-white px-[6px] py-[1px] rounded">{{ sprintf('%d:%02d', intdiv($testimonial->duration_seconds, 60), $testimonial->duration_seconds % 60) }}</span>
+                                        <span class="absolute bottom-[7px] right-[9px] text-[10.5px] bg-black/60 text-white px-[6px] py-[1px] rounded z-10">{{ sprintf('%d:%02d', intdiv($testimonial->duration_seconds, 60), $testimonial->duration_seconds % 60) }}</span>
                                     </div>
                                     <div class="px-3.5 py-3">
                                         <span class="font-bn text-[10.5px] px-[9px] py-[3px] rounded-full font-semibold inline-block mb-1.5 bg-teal-100 text-teal-700">{{ $testimonial->outcome_bn }}</span>

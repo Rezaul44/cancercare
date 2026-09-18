@@ -134,7 +134,8 @@ class PatientCaseResource extends Resource
                                         ->label('রোগীর ছবি')
                                         ->image()
                                         ->directory('patient-cases/photos')
-                                        ->disk('s3_public'),
+                                        ->disk('s3_public')
+                                        ->visibility('public'),
 
                                     Forms\Components\Toggle::make('show_photo')
                                         ->label('ছবি ওয়েবসাইটে প্রদর্শন করুন')

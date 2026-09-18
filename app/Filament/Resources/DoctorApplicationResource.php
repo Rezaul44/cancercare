@@ -25,11 +25,15 @@ class DoctorApplicationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
 
+    protected static ?string $navigationGroup = 'ডাক্তার ও কনসালটেশন';
+
     protected static ?string $navigationLabel = 'ডাক্তার আবেদন';
 
     protected static ?string $modelLabel = 'ডাক্তার আবেদন';
 
     protected static ?string $pluralModelLabel = 'ডাক্তার আবেদনসমূহ';
+
+    protected static ?int $navigationSort = 2;
 
     private const DISK = 's3_private';
 
